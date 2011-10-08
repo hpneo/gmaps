@@ -1,7 +1,7 @@
 GMaps = function(options){
   this.div = $(options.div)[0];
   this.markers = [];
-  this.routes = [];
+  this.polylines = [];
   this.polygon = null;
   this.infoWindow = null;
   this.zoom = options.zoom || 15;
@@ -143,7 +143,7 @@ GMaps = function(options){
         if(options.click)
           options.click(e);
         if(marker.infoWindow){
-          self.hide_info_windows();
+          self.hideInfoWindows();
           marker.infoWindow.open(self.map, marker);
         }
       });
@@ -165,7 +165,8 @@ GMaps = function(options){
   this.hideInfoWindows = function(){
     for(index in this.markers){
       marker = this.markers[index];
-      marker.infoWindow.close();
+      if(marker.infoWindow)
+        marker.infoWindow.close();
     }
   };
   this.removeMarkers = function(){
@@ -178,7 +179,7 @@ GMaps = function(options){
 
   // Overlays
 
-  this.drawRoute = function(options){
+  this.drawPolyline = function(options){
     var path = [];
     points = options.path;
     for(i in points){
@@ -186,7 +187,7 @@ GMaps = function(options){
       path.push(new google.maps.LatLng(latlng[0], latlng[1]));
     }
 
-    var route = new google.maps.Polyline({
+    var polyline = new google.maps.Polyline({
       map: this.map,
       path: path,
       strokeColor: options.strokeColor,
@@ -194,7 +195,7 @@ GMaps = function(options){
       strokeWeight: options.strokeWeight
     });
 
-    this.routes.push(route);
+    this.polylines.push(polyline);
   };
 
   this.drawCircle = function(){
