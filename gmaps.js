@@ -2,6 +2,7 @@ GMaps = function(options){
   this.div = $(options.div)[0];
   this.markers = [];
   this.polylines = [];
+  this.routes = [];
   this.polygon = null;
   this.infoWindow = null;
   this.zoom = options.zoom || 15;
@@ -127,10 +128,12 @@ GMaps = function(options){
   this.addMarker = function(options){
     if(options.lat && options.lng){
       var self = this;
+      var details = options.details;
       var base_options = {
         position: new google.maps.LatLng(options.lat, options.lng),
         map: this.map
       };
+      delete options.details;
       delete options.lat;
       delete options.lng;
       var marker_options = $.extend(base_options, options);
@@ -140,6 +143,8 @@ GMaps = function(options){
         marker.infoWindow = new google.maps.InfoWindow(options.infoWindow);
 
       google.maps.event.addListener(marker, 'click', function(e){
+        e['details'] = details;
+        e['marker'] = marker;
         if(options.click)
           options.click(e);
         if(marker.infoWindow){
@@ -181,10 +186,15 @@ GMaps = function(options){
 
   this.drawPolyline = function(options){
     var path = [];
-    points = options.path;
-    for(i in points){
-      latlng = points[i];
-      path.push(new google.maps.LatLng(latlng[0], latlng[1]));
+    if(options.path[0][0]==undefined){
+      path = options.path;
+    }
+    else{
+      points = options.path;
+      for(i in points){
+        latlng = points[i];
+        path.push(new google.maps.LatLng(latlng[0], latlng[1]));
+      }
     }
 
     var polyline = new google.maps.Polyline({
@@ -208,6 +218,59 @@ GMaps = function(options){
       strokeColor: '#7ba5e4',
       fillColor: '#d8e5f7',
       strokeWeight: 2
+    });
+  };
+
+  // Services
+
+  this.getRoutes = function(options){
+    switch(options.travelMode){
+      case 'bicycling':
+        travelMode = google.maps.TravelMode.BICYCLING;
+      break;
+      case 'driving':
+        travelMode = google.maps.TravelMode.DRIVING;
+      break;
+      case 'walking':
+      default:
+        travelMode = google.maps.TravelMode.WALKING;
+      break;
+    }
+    var self = this;
+    var service = new google.maps.DirectionsService();
+    service.route({
+      origin: new google.maps.LatLng(options.origin[0], options.origin[1]),
+      destination: new google.maps.LatLng(options.destination[0], options.destination[1]),
+      travelMode: travelMode
+    }, function(result, status){
+      if(status == google.maps.DirectionsStatus.OK){
+        for(i in result.routes){
+          route = result.routes[i];
+          self.routes.push(route.overview_path);
+        }
+      }
+      if(options.callback)
+        options.callback(self.routes);
+    });
+  };
+
+  this.drawRoute = function(options){
+    var self = this;
+    this.getRoutes({
+      origin: options.origin,
+      destination: options.destination,
+      travelMode: options.travelMode,
+      callback: function(e){
+        if(e.length>0){
+          route = e[e.length-1];
+          self.drawPolyline({
+            path: route,
+            strokeColor: options.strokeColor,
+            strokeOpacity: options.strokeOpacity,
+            strokeWeight: options.strokeWeight
+          });
+        }
+      }
     });
   };
 }
