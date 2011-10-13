@@ -20,15 +20,15 @@
         destination: [-12.090814532191756, -77.02271108990476],
         travelMode: 'driving',
         step: function(e){
-          window.setTimeout(function(){
+          $('#instructions').append('<li>'+e.instructions+'</li>');
+          $('#instructions li:eq('+e.step_number+')').delay(450*e.step_number).fadeIn(200, function(){
             map.drawPolyline({
               path: e.path,
               strokeColor: '#131540',
               strokeOpacity: 0.6,
               strokeWeight: 6
-            });
-            $('#instructions').append('<li>'+e.instructions+'</li>').show();
-          }, 100);
+            });  
+          });
         }
       });
     });
@@ -44,24 +44,24 @@
       </ul>
     </div>
     <div class="span6">
-      <p>You can define a context menu (which will show on right click) with:</p>
+      <p>You can travel a route, step by step, this way:</p>
       <pre>map.travelRoute({
         origin: [-12.044012922866312, -77.02470665341184],
         destination: [-12.090814532191756, -77.02271108990476],
         travelMode: 'driving',
         step: function(e){
-          window.setTimeout(function(){
+          $('#instructions').append('&lt;li&gt;'+e.instructions+'&lt;/li&gt;');
+          $('#instructions li:eq('+e.step_number+')').delay(450*e.step_number).fadeIn(200, function(){
             map.drawPolyline({
               path: e.path,
               strokeColor: '#131540',
               strokeOpacity: 0.6,
               strokeWeight: 6
-            });
-            $('#instructions').append('<li>'+e.instructions+'</li>').show();
-          }, 100);
+            });  
+          });
         }
       });</pre>
-      <p>You must define the <strong>control</strong> that the context menu is attached (<strong>map</strong> or <strong>marker</strong>) and an array of <strong>options</strong> with <code>title</code>, <code>name</code> and <code>function</code> Inside <code>function</code> you can use <code>this</code> for the GMaps.js object (<code>map</code> in this case) and MouseEvent object <code>e</code>.</p>
+      <p>Same as <code>drawRoute</code>, you must define an <strong>origin</strong>, <strong>destination</strong> and <code>travelMode</code>. Also, you must define the function that GMaps will call every step in the route.</p>
     </div>
   </div>
 </body>

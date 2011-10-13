@@ -11,3 +11,10 @@ body{
   -webkit-box-shadow: 0px 5px 20px #ccc;
   box-shadow: 0px 5px 20px #ccc;
 }
+
+#instructions{
+  margin-top: 10px;
+}
+#instructions li{
+  display:none;
+}
