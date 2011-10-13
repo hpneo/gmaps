@@ -235,6 +235,14 @@ GMaps = function(options){
         if(options.dragend)
           options.dragend(e);
       });
+      google.maps.event.addListener(marker, 'mouseout', function(e){
+        if(options.mouseout)
+          options.mouseout(e);
+      });
+      google.maps.event.addListener(marker, 'mouseover', function(e){
+        if(options.mouseover)
+          options.mouseover(e);
+      });
       google.maps.event.addListener(marker, 'rightclick', function(e){
         e['details'] = details;
         e['marker'] = marker;
@@ -373,6 +381,7 @@ GMaps = function(options){
             if(route.legs.length>0)
               for(i in route.legs[0].steps){
                 step = route.legs[0].steps[i];
+                step['step_number'] = i;
                 options.step(step);
               }
           }
@@ -383,6 +392,7 @@ GMaps = function(options){
       if(options.route.legs.length>0){
         for(i in options.route.legs[0].steps){
           step = options.route.legs[0].steps[i];
+          step['step_number'] = i;
           options.step(step);
         }
       }
