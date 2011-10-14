@@ -21,13 +21,14 @@
         travelMode: 'driving',
         step: function(e){
           $('#instructions').append('<li>'+e.instructions+'</li>');
-          $('#instructions li:eq('+e.step_number+')').delay(450*e.step_number).fadeIn(200, function(){
+          $('#instructions li:eq('+e.step_number+')').delay(450*e.step_number).fadeIn(300, function(){
             map.drawPolyline({
               path: e.path,
               strokeColor: '#131540',
               strokeOpacity: 0.6,
               strokeWeight: 6
-            });  
+            });
+            map.setCenter(e.end_location.lat(), e.end_location.lng());
           });
         }
       });
