@@ -4,6 +4,7 @@ GMaps = function(options){
   list-style:none;padding:8px;box-shadow:2px 2px 6px #ccc';
   window.context_menu = {};
 
+  this.geocoder = new google.maps.Geocoder();
   this.div = $(options.div)[0];
   this.markers = [];
   this.polylines = [];
@@ -397,5 +398,62 @@ GMaps = function(options){
         }
       }
     }
+  };
+
+  this.drawSteppedRoute = function(options){
+    if(options.origin && options.destination){
+      this.getRoutes({
+        origin: options.origin,
+        destination: options.destination,
+        travelMode: options.travelMode,
+        callback: function(e){
+          if(e.length>0 && options.step){
+            route = e[e.length-1];
+            if(route.legs.length>0)
+              for(i in route.legs[0].steps){
+                step = route.legs[0].steps[i];
+                step['step_number'] = i;
+                self.drawPolyline({
+                  path: step.path,
+                  strokeColor: options.strokeColor,
+                  strokeOpacity: options.strokeOpacity,
+                  strokeWeight: options.strokeWeight
+                });
+                options.step(step);
+              }
+          }
+        }
+      });
+    }
+    else if(options.route){
+      if(options.route.legs.length>0){
+        for(i in options.route.legs[0].steps){
+          step = options.route.legs[0].steps[i];
+          step['step_number'] = i;
+          self.drawPolyline({
+            path: step.path,
+            strokeColor: options.strokeColor,
+            strokeOpacity: options.strokeOpacity,
+            strokeWeight: options.strokeWeight
+          });
+          options.step(step);
+        }
+      }
+    }
+  };
+
+  // Geocoding
+
+  this.geocode = function(options){
+    var callback = options.callback;
+    if(options.lat && options.lng)
+      options['latLng'] = new google.maps.latLng(options.lat, options.lng);
+    
+    delete options.lat;
+    delete options.lng;
+    delete options.callback;
+    this.geocoder.geocode(options, function(results, status){
+      callback(results, status);
+    });
   };
 };
