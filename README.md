@@ -8,6 +8,17 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.1.6
+-----------------------
+* New feature: **Geofence** (with markers)
+* New method: **drawPolygon**
+* Bug fix: Change reserved word in Context menu
+
+0.1.5
+-----------------------
+* New feature: **Geocoding**
+* New method: **drawSteppedRoute** (similar to travelRoute)
+
 0.1.4
 -----------------------
 * New events in **addMarker**
