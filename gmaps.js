@@ -10,6 +10,7 @@ GMaps = function(options){
   this.polylines = [];
   this.routes = [];
   this.polygon = null;
+  this.polygons = [];
   this.infoWindow = null;
   this.zoom = options.zoom || 15;
   this.map = new google.maps.Map(this.div, {
@@ -30,7 +31,7 @@ GMaps = function(options){
     $('#gmaps_context_menu li a').die();
     $('#gmaps_context_menu li a').live('click', function(ev){
       ev.preventDefault();
-      window.context_menu[control][$(this).attr('id').replace(control+'_', '')].function.call(self, e);
+      window.context_menu[control][$(this).attr('id').replace(control+'_', '')].action.call(self, e);
       self.hideContextMenu();
     });
 
@@ -65,7 +66,7 @@ GMaps = function(options){
     var html = '<ul id="gmaps_context_menu" style="'+context_menu_style+'"></ul>';
     for(i in options.options){
       option = options.options[i];
-      window.context_menu[options.control][option.name] = {title: option.title, function: option.function};
+      window.context_menu[options.control][option.name] = {title: option.title, action: option.action};
     }
     $('body').append(html);
     $('#gmaps_context_menu').live('mouseleave', function(){
@@ -209,16 +210,22 @@ GMaps = function(options){
     if(options.lat && options.lng){
       var self = this;
       var details = options.details;
+      var fences = options.fences;
+      var outside = options.outside;
       var base_options = {
         position: new google.maps.LatLng(options.lat, options.lng),
         map: this.map
       };
-      delete options.details;
       delete options.lat;
       delete options.lng;
+      delete options.fences;
+      delete options.outside;
       var marker_options = $.extend(base_options, options);
       
       var marker = new google.maps.Marker(marker_options);
+
+      marker['fences'] = fences;
+
       if(options.infoWindow)
         marker.infoWindow = new google.maps.InfoWindow(options.infoWindow);
 
@@ -235,6 +242,11 @@ GMaps = function(options){
       google.maps.event.addListener(marker, 'dragend', function(e){
         if(options.dragend)
           options.dragend(e);
+        
+        if(marker.fences)
+          self.checkMarkerGeofence(marker, function(m, f){
+            outside(m, f);
+          });
       });
       google.maps.event.addListener(marker, 'mouseout', function(e){
         if(options.mouseout)
@@ -244,11 +256,13 @@ GMaps = function(options){
         if(options.mouseover)
           options.mouseover(e);
       });
-      google.maps.event.addListener(marker, 'rightclick', function(e){
-        e['details'] = details;
-        e['marker'] = marker;
-        if(window.context_menu['marker'])
-          buildContextMenu('marker', e);
+      google.maps.event.addListener(marker, 'mouseover', function(e){
+        if(options.mouseover)
+          options.mouseover(e);
+      });
+      google.maps.event.addListener(marker, 'position_changed', function(e){
+        if(options.position_changed)
+          options.position_changed(e);
       });
 
       this.markers.push(marker);
@@ -313,6 +327,48 @@ GMaps = function(options){
       fillColor: '#d8e5f7',
       strokeWeight: 2
     });
+  };
+
+  this.drawPolygon = function(options){
+    options = $.extend({map: this.map}, options);
+    var polygon = new google.maps.Polygon(options);
+
+    google.maps.event.addListener(polygon, 'click', function(e){
+      if(options.click)
+        options.click(e);
+    });
+    google.maps.event.addListener(polygon, 'dblclick', function(e){
+      if(options.dblclick)
+        options.dblclick(e);
+    });
+    google.maps.event.addListener(polygon, 'mousedown', function(e){
+      if(options.mousedown)
+        options.mousedown(e);
+    });
+    google.maps.event.addListener(polygon, 'mousemove', function(e){
+      if(options.mousemove)
+        options.mousemove(e);
+    });
+    google.maps.event.addListener(polygon, 'mouseout', function(e){
+      if(options.mouseout)
+        options.mouseout(e);
+    });
+    google.maps.event.addListener(polygon, 'mouseover', function(e){
+      if(options.mouseover)
+        options.mouseover(e);
+    });
+    google.maps.event.addListener(polygon, 'mouseup', function(e){
+      if(options.mouseup)
+        options.mouseup(e);
+    });
+    google.maps.event.addListener(polygon, 'rightclick', function(e){
+      if(options.rightclick)
+        options.rightclick(e);
+    });
+
+    this.polygons.push(polygon);
+
+    return polygon;
   };
 
   // Services
@@ -456,4 +512,90 @@ GMaps = function(options){
       callback(results, status);
     });
   };
+
+  // Geofence
+
+  this.checkGeofence = function(lat, lng, fence){
+    return fence.containsLatLng(new google.maps.LatLng(lat, lng));
+  };
+
+  this.checkMarkerGeofence = function(marker, outside_callback){
+    if(marker.fences){
+      for(i in marker.fences){
+        fence = marker.fences[i];
+        if(!self.checkGeofence(marker.getPosition().lat(), marker.getPosition().lng(), fence))
+          outside_callback(marker, fence);
+      }
+    }
+  };
+};
+
+//==========================
+// Polygon containsLatLng
+// https://github.com/tparkin/Google-Maps-Point-in-Polygon
+
+// Poygon getBounds extension - google-maps-extensions
+// http://code.google.com/p/google-maps-extensions/source/browse/google.maps.Polygon.getBounds.js
+if (!google.maps.Polygon.prototype.getBounds) {
+  google.maps.Polygon.prototype.getBounds = function(latLng) {
+    var bounds = new google.maps.LatLngBounds();
+    var paths = this.getPaths();
+    var path;
+    
+    for (var p = 0; p < paths.getLength(); p++) {
+      path = paths.getAt(p);
+      for (var i = 0; i < path.getLength(); i++) {
+        bounds.extend(path.getAt(i));
+      }
+    }
+
+    return bounds;
+  }
+};
+
+// Polygon containsLatLng - method to determine if a latLng is within a polygon
+google.maps.Polygon.prototype.containsLatLng = function(latLng) {
+  // Exclude points outside of bounds as there is no way they are in the poly
+  var bounds = this.getBounds();
+
+  if(bounds != null && !bounds.contains(latLng)) {
+    return false;
+  }
+
+  // Raycast point in polygon method
+  var inPoly = false;
+
+  var numPaths = this.getPaths().getLength();
+  for(var p = 0; p < numPaths; p++) {
+    var path = this.getPaths().getAt(p);
+    var numPoints = path.getLength();
+    var j = numPoints-1;
+
+    for(var i=0; i < numPoints; i++) { 
+      var vertex1 = path.getAt(i);
+      var vertex2 = path.getAt(j);
+
+      if (vertex1.lng() < latLng.lng() && vertex2.lng() >= latLng.lng() || vertex2.lng() < latLng.lng() && vertex1.lng() >= latLng.lng())  {
+        if (vertex1.lat() + (latLng.lng() - vertex1.lng()) / (vertex2.lng() - vertex1.lng()) * (vertex2.lat() - vertex1.lat()) < latLng.lat()) {
+          inPoly = !inPoly;
+        }
+      }
+
+      j = i;
+    }
+  }
+
+  return inPoly;
+};
+
+google.maps.LatLngBounds.prototype.containsLatLng = function(latLng){
+  return this.contains(latLng);
+};
+
+google.maps.Marker.prototype.setFences = function(fences){
+  this.fences = fences;
+};
+
+google.maps.Marker.prototype.addFence = function(fence){
+  this.fences.push(fence);
 };
