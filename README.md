@@ -8,6 +8,10 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.1.7
+-----------------------
+* New class: **GMaps.Route**
+
 0.1.6
 -----------------------
 * New feature: **Geofence** (with markers)

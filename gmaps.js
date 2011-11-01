@@ -294,14 +294,16 @@ GMaps = function(options){
 
   this.drawPolyline = function(options){
     var path = [];
-    if(options.path[0][0]==undefined){
-      path = options.path;
-    }
-    else{
-      points = options.path;
-      for(i in points){
-        latlng = points[i];
-        path.push(new google.maps.LatLng(latlng[0], latlng[1]));
+    if(options.path.length){
+      if(options.path[0][0]==undefined){
+        path = options.path;
+      }
+      else{
+        points = options.path;
+        for(i in points){
+          latlng = points[i];
+          path.push(new google.maps.LatLng(latlng[0], latlng[1]));
+        }
       }
     }
 
@@ -529,6 +531,39 @@ GMaps = function(options){
     }
   };
 };
+
+GMaps.Route = function(options){
+  this.map = options.map;
+  this.route = options.route;
+  this.path = this.route.overview_path;
+  this.steps = this.path.length;
+
+  this.map.drawPolyline({
+    path: new google.maps.MVCArray(),
+    strokeColor: options.strokeColor,
+    strokeOpacity: options.strokeOpacity,
+    strokeWeight: options.strokeWeight
+  });
+
+  this.polyline = this.map.polylines[this.map.polylines.length - 1].getPath();
+  this.polyline.push(this.route.overview_path[0]);
+  this.path_length = this.polyline.getLength();
+
+  this.back = function(){
+    if(this.path_length > 0){
+      this.polyline.pop();
+      this.path_length--;
+    }
+  };
+  this.forward = function(){
+    if(this.path_length < this.steps){
+      this.polyline.push(this.path[this.path_length]);
+      this.path_length++;
+    }
+  };
+};
+
+
 
 //==========================
 // Polygon containsLatLng
