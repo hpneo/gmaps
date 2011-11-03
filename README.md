@@ -8,6 +8,11 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.1.7.1
+-----------------------
+* Bug fix: zoomIn/zoomOut can change zoom by argument
+* New method: setZoom
+
 0.1.7
 -----------------------
 * New class: **GMaps.Route**

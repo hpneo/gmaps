@@ -197,11 +197,14 @@ GMaps = function(options){
   this.getDiv = function(){
     return this.div;
   };
+  this.setZoom = function(value){
+    this.map.setZoom(value);
+  };
   this.zoomIn = function(value){
-    this.map.setZoom(this.map.getZoom()+1);
+    this.map.setZoom(this.map.getZoom()+value);
   };
   this.zoomOut = function(value){
-    this.map.setZoom(this.map.getZoom()-1);
+    this.map.setZoom(this.map.getZoom()-value);
   };
 
   // Markers
