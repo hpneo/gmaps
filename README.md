@@ -8,9 +8,14 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.1.8.1
+-----------------------
+* Fix bug in drawCircle
+
 0.1.8
 -----------------------
 * New feature: **Overlays**
+* New method: drawCircle
 
 0.1.7.1
 -----------------------
