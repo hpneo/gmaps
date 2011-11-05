@@ -9,9 +9,9 @@ GMaps = function(options){
   this.markers = [];
   this.polylines = [];
   this.routes = [];
-  this.polygon = null;
   this.polygons = [];
   this.infoWindow = null;
+  this.overlay_div = null;
   this.zoom = options.zoom || 15;
   this.map = new google.maps.Map(this.div, {
     zoom: this.zoom,
@@ -269,14 +269,20 @@ GMaps = function(options){
       });
 
       this.markers.push(marker);
+
+      return marker;
     }
     else{
       throw 'No latitude or longitude defined';
+
+      return null;
     }
   };
   this.addMarkers = function(array){
     for(marker in array)
       this.addMarker(marker);
+    
+    return this.markers;
   };
   this.hideInfoWindows = function(){
     for(index in this.markers){
@@ -294,6 +300,59 @@ GMaps = function(options){
   };
 
   // Overlays
+
+  this.drawOverlay = function(options){
+    var overlay = new google.maps.OverlayView();
+    overlay.setMap(self.map);
+    overlay.onAdd = function(){
+      var div = document.createElement('div');
+      div.style.borderStyle = "none";
+      div.style.borderWidth = "0px";
+      div.style.position = "absolute";
+      div.innerHTML = options.content;
+
+      self.overlay_div = div;
+
+      var panes = this.getPanes();
+      panes.floatPane.appendChild(div);
+    };
+    overlay.draw = function() {
+      projection = this.getProjection();
+      pixel = projection.fromLatLngToDivPixel(new google.maps.LatLng(options.lat, options.lng));
+
+      div = self.overlay_div;
+      content = div.children;
+      switch(options.verticalAlign){
+        case 'top':
+          div.style.top = (pixel.y - $(content).height())+'px';
+        break;
+        default:
+        case 'middle':
+          div.style.top = (pixel.y - ($(content).height()/2))+'px';
+        break;
+        case 'bottom':
+          div.style.top = pixel.y+'px';
+        break;
+      }
+      switch(options.horizontalAlign){
+        case 'left':
+          div.style.left = (pixel.x - $(content).width())+'px';
+        break;
+        default:
+        case 'center':
+          div.style.left = (pixel.x - ($(content).width()/2))+'px';
+        break;
+        case 'right':
+          div.style.left = pixel.x+'px';
+        break;
+      }
+    };
+    overlay.onRemove = function(){
+      self.overlay_div.parentNode.removeChild(self.overlay_div);
+      self.overlay_div = null;
+    };
+    return overlay;
+  };
 
   this.drawPolyline = function(options){
     var path = [];
@@ -319,19 +378,54 @@ GMaps = function(options){
     });
 
     this.polylines.push(polyline);
+
+    return polyline;
   };
 
   this.drawCircle = function(){
-    if(this.polygon)
-      this.polygon.setMap(null);
-    this.polygon = new google.maps.Circle({
+    options = $.extend({
       map: this.map,
-      center: this.get_center(),
-      radius: 1500,
-      strokeColor: '#7ba5e4',
-      fillColor: '#d8e5f7',
-      strokeWeight: 2
+      center: new google.maps.LatLng(options.lat, options.lng)
+    }, options);
+
+    delete options['lat'];
+    delete options['lng'];
+    var polygon = new google.maps.Circle(options);
+
+    google.maps.event.addListener(polygon, 'click', function(e){
+      if(options.click)
+        options.click(e);
     });
+    google.maps.event.addListener(polygon, 'dblclick', function(e){
+      if(options.dblclick)
+        options.dblclick(e);
+    });
+    google.maps.event.addListener(polygon, 'mousedown', function(e){
+      if(options.mousedown)
+        options.mousedown(e);
+    });
+    google.maps.event.addListener(polygon, 'mousemove', function(e){
+      if(options.mousemove)
+        options.mousemove(e);
+    });
+    google.maps.event.addListener(polygon, 'mouseout', function(e){
+      if(options.mouseout)
+        options.mouseout(e);
+    });
+    google.maps.event.addListener(polygon, 'mouseover', function(e){
+      if(options.mouseover)
+        options.mouseover(e);
+    });
+    google.maps.event.addListener(polygon, 'mouseup', function(e){
+      if(options.mouseup)
+        options.mouseup(e);
+    });
+    google.maps.event.addListener(polygon, 'rightclick', function(e){
+      if(options.rightclick)
+        options.rightclick(e);
+    });
+
+    return polygon;
   };
 
   this.drawPolygon = function(options){
