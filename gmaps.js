@@ -382,7 +382,7 @@ GMaps = function(options){
     return polyline;
   };
 
-  this.drawCircle = function(){
+  this.drawCircle = function(options){
     options = $.extend({
       map: this.map,
       center: new google.maps.LatLng(options.lat, options.lng)
