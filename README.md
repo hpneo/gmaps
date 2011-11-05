@@ -8,6 +8,10 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.1.8.2
+-----------------------
+* Change pane ('floatPane' to 'overlayLayer') in drawOverlay
+
 0.1.8.1
 -----------------------
 * Fix bug in drawCircle

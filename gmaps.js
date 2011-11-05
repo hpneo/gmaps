@@ -314,7 +314,7 @@ GMaps = function(options){
       self.overlay_div = div;
 
       var panes = this.getPanes();
-      panes.floatPane.appendChild(div);
+      panes.overlayLayer.appendChild(div);
     };
     overlay.draw = function() {
       projection = this.getProjection();
