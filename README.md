@@ -8,6 +8,11 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.1.8.3
+-----------------------
+* Add pane option ('floatPane', 'floatShadow', 'mapPane', 'overlayImage', 'overlayLayer', 'overlayMouseTarget', 'overlayShadow') in drawOverlay
+* New methods: removeOverlay and removeOverlays
+
 0.1.8.2
 -----------------------
 * Change pane ('floatPane' to 'overlayLayer') in drawOverlay

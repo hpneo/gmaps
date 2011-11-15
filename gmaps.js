@@ -6,6 +6,7 @@ GMaps = function(options){
 
   this.geocoder = new google.maps.Geocoder();
   this.div = $(options.div)[0];
+  this.overlays = [];
   this.markers = [];
   this.polylines = [];
   this.routes = [];
@@ -314,36 +315,45 @@ GMaps = function(options){
       self.overlay_div = div;
 
       var panes = this.getPanes();
-      panes.overlayLayer.appendChild(div);
+      if(!options.layer)
+        options.layer = 'overlayLayer';
+      var overlayLayer = panes[options.layer];
+      console.log(options.layer);
+      overlayLayer.appendChild(div);
     };
     overlay.draw = function() {
       projection = this.getProjection();
       pixel = projection.fromLatLngToDivPixel(new google.maps.LatLng(options.lat, options.lng));
 
+      options.horizontalOffset = options.horizontalOffset || 0;
+      options.verticalOffset = options.verticalOffset || 0;
+
       div = self.overlay_div;
       content = div.children;
+
       switch(options.verticalAlign){
         case 'top':
-          div.style.top = (pixel.y - $(content).height())+'px';
+          div.style.top = (pixel.y - $(content).height() + options.verticalOffset) +'px';
         break;
         default:
         case 'middle':
-          div.style.top = (pixel.y - ($(content).height()/2))+'px';
+          div.style.top = (pixel.y - ($(content).height()/2) + options.verticalOffset) + 'px';
         break;
         case 'bottom':
-          div.style.top = pixel.y+'px';
+          div.style.top = (pixel.y + options.verticalOffset) + 'px';
         break;
       }
+
       switch(options.horizontalAlign){
         case 'left':
-          div.style.left = (pixel.x - $(content).width())+'px';
+          div.style.left = (pixel.x - $(content).width() + options.horizontalOffset) + 'px';
         break;
         default:
         case 'center':
-          div.style.left = (pixel.x - ($(content).width()/2))+'px';
+          div.style.left = (pixel.x - ($(content).width()/2) + options.horizontalOffset) + 'px';
         break;
         case 'right':
-          div.style.left = pixel.x+'px';
+          div.style.left = (pixel.x + options.horizontalOffset) + 'px';
         break;
       }
     };
@@ -351,7 +361,20 @@ GMaps = function(options){
       self.overlay_div.parentNode.removeChild(self.overlay_div);
       self.overlay_div = null;
     };
+    self.overlays.push(overlay);
     return overlay;
+  };
+
+  this.removeOverlay = function(overlay){
+    overlay.setMap(null);
+  };
+
+  this.removeOverlays = function(){
+    for(i in self.overlays){
+      item = self.overlays[i];
+      item.setMap(null);
+    }
+    self.overlays = []
   };
 
   this.drawPolyline = function(options){
