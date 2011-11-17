@@ -14,11 +14,28 @@ GMaps = function(options){
   this.infoWindow = null;
   this.overlay_div = null;
   this.zoom = options.zoom || 15;
-  this.map = new google.maps.Map(this.div, {
+
+  //'Hybrid', 'Roadmap', 'Satellite' or 'Terrain'
+  if(options.mapType)
+    var mapType = google.maps.MapTypeId[options.mapType.toUpperCase()]
+  else
+    var mapType = google.maps.MapTypeId.ROADMAP;
+
+  var map_center = new google.maps.LatLng(options.lat, options.lng);
+
+  delete options['lat'];
+  delete options['lng'];
+  delete options['mapType'];
+
+  var map_base_options = {
     zoom: this.zoom,
-    center: new google.maps.LatLng(options.lat, options.lng),
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-  });
+    center: map_center,
+    mapTypeId: mapType
+  };
+
+  var map_options = $.extend(map_base_options, options);
+
+  this.map = new google.maps.Map(this.div, map_options);
 
   // Context menus
 
@@ -625,7 +642,7 @@ GMaps = function(options){
   this.geocode = function(options){
     var callback = options.callback;
     if(options.lat && options.lng)
-      options['latLng'] = new google.maps.latLng(options.lat, options.lng);
+      options['latLng'] = new google.maps.LatLng(options.lat, options.lng);
     
     delete options.lat;
     delete options.lng;
