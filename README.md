@@ -8,6 +8,28 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.1.8.5
+-----------------------
+* geolocation and geocode methods are static now (using them with GMaps.geolocation and GMaps.geocode)
+
+0.1.8.4
+-----------------------
+* Fix typo in geocode method
+* Allow all MapOptions in constructor (see 'MapOptions' section in Google Maps API Reference)
+
+0.1.8.3
+-----------------------
+* Add pane option ('floatPane', 'floatShadow', 'mapPane', 'overlayImage', 'overlayLayer', 'overlayMouseTarget', 'overlayShadow') in drawOverlay
+* New methods: removeOverlay and removeOverlays
+
+0.1.8.2
+-----------------------
+* Change pane ('floatPane' to 'overlayLayer') in drawOverlay
+
+0.1.8.1
+-----------------------
+* Fix bug in drawCircle
+
 0.1.8
 -----------------------
 * New feature: **Overlays**

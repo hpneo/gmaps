@@ -17,7 +17,7 @@
       });
       $('#geocoding_form').submit(function(e){
         e.preventDefault();
-        map.geocode({
+        GMaps.geocode({
           address: $('#address').val().trim(),
           callback: function(results, status){
             if(status=='OK'){
@@ -50,7 +50,7 @@
     </div>
     <div class="span6">
       <p>You can geocoding this way:</p>
-      <pre>map.geocode({
+      <pre>GMaps.geocode({
           address: $('#address').val(),
           callback: function(results, status){
             if(status=='OK'){
