@@ -3,8 +3,7 @@ GMaps = function(options){
   var context_menu_style = 'position:absolute;display:none;min-width:100px;background:white;\
   list-style:none;padding:8px;box-shadow:2px 2px 6px #ccc';
   window.context_menu = {};
-
-  this.geocoder = new google.maps.Geocoder();
+  
   this.div = $(options.div)[0];
   this.overlays = [];
   this.markers = [];
@@ -180,27 +179,6 @@ GMaps = function(options){
       options.zoom_changed(e);
     self.hideContextMenu();
   });
-  
-  // Geolocation (Modern browsers only)
-
-  this.geolocate = function(options){
-    if(navigator.geolocation){
-      navigator.geolocation.getCurrentPosition(function(position){
-        options.success(position);
-        if(options.always)
-          options.always();
-      }, function(error){
-        options.error(error);
-        if(options.always)
-          options.always();
-      }, options.options);
-    }
-    else{
-      options.not_supported();
-      if(options.always)
-        options.always();
-    }
-  };
 
   // Map methods
 
@@ -637,21 +615,6 @@ GMaps = function(options){
     }
   };
 
-  // Geocoding
-
-  this.geocode = function(options){
-    var callback = options.callback;
-    if(options.lat && options.lng)
-      options['latLng'] = new google.maps.LatLng(options.lat, options.lng);
-    
-    delete options.lat;
-    delete options.lng;
-    delete options.callback;
-    this.geocoder.geocode(options, function(results, status){
-      callback(results, status);
-    });
-  };
-
   // Geofence
 
   this.checkGeofence = function(lat, lng, fence){
@@ -699,7 +662,43 @@ GMaps.Route = function(options){
     }
   };
 };
+  
+// Geolocation (Modern browsers only)
 
+GMaps.geolocate = function(options){
+  if(navigator.geolocation){
+    navigator.geolocation.getCurrentPosition(function(position){
+      options.success(position);
+      if(options.always)
+        options.always();
+    }, function(error){
+      options.error(error);
+      if(options.always)
+        options.always();
+    }, options.options);
+  }
+  else{
+    options.not_supported();
+    if(options.always)
+      options.always();
+  }
+};
+
+// Geocoding
+
+GMaps.geocode = function(options){
+  this.geocoder = new google.maps.Geocoder();
+  var callback = options.callback;
+  if(options.lat && options.lng)
+    options['latLng'] = new google.maps.LatLng(options.lat, options.lng);
+  
+  delete options.lat;
+  delete options.lng;
+  delete options.callback;
+  this.geocoder.geocode(options, function(results, status){
+    callback(results, status);
+  });
+};
 
 
 //==========================

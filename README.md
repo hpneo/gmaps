@@ -8,6 +8,10 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.1.8.5
+-----------------------
+* geolocation and geocode methods are static now (using them with GMaps.geolocation and GMaps.geocode)
+
 0.1.8.4
 -----------------------
 * Fix typo in geocode method

@@ -16,7 +16,7 @@
         lng: -77.028333
       });
 
-      map.geolocate({
+      GMaps.geolocate({
         success: function(position){
           map.setCenter(position.coords.latitude, position.coords.longitude);
         },
@@ -41,7 +41,7 @@
     </div>
     <div class="span6">
       <p>GMaps.js supports HTML5 Geolocation:</p>
-      <pre>map.geolocate({
+      <pre>GMaps.geolocate({
         success: function(position){
           map.setCenter(position.coords.latitude, position.coords.longitude);
         },
@@ -55,7 +55,7 @@
           alert("Done!");
         }
       });</pre>
-      <p><code>map.geolocate</code> supports 4 functions:
+      <p><code>GMaps.geolocate</code> supports 4 functions:
       <ul>
         <li><code>success</code> (required): fires when geolocation has been successful</li>
         <li><code>error</code> (required): fires when geolocation has not been done</li>
