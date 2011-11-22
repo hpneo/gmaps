@@ -2,15 +2,9 @@ body{
   font-family: 'Droid Sans', 'Helvetica', Arial, sans-serif;
   margin:5px;
 }
-#map{
-  display: block;
-  width: 95%;
-  height: 350px;
-  margin: 0 auto;
-  margin-bottom:5px;
-  -moz-box-shadow: 0px 5px 20px #ccc;
-  -webkit-box-shadow: 0px 5px 20px #ccc;
-  box-shadow: 0px 5px 20px #ccc;
+
+#body{
+  width:1000px;
 }
 
 #instructions{
@@ -54,3 +48,40 @@ body{
   border-right:16px solid transparent;
   border-bottom:16px solid #336699;
 }
+
+.row{
+  font-size:14px;
+}
+
+pre{
+  font-family:'Ubuntu Mono';
+  font-size: 14px;
+}
+
+.row{zoom:1;margin-left:-20px;}.row:before,.row:after{display:table;content:"";zoom:1;}
+.row:after{clear:both;}
+.row>[class*="span"]{display:inline;float:left;margin-left:20px;}
+.span1{width:40px;}
+.span2{width:100px;}
+.span3{width:160px;}
+.span4{width:220px;}
+.span5{width:280px;}
+.span6{width:340px;}
+.span7{width:400px;}
+.span8{width:460px;}
+.span9{width:520px;}
+.span10{width:580px;}
+.span11{width:640px;}
+.span12{width:700px;}
+.span13{width:760px;}
+.span14{width:820px;}
+.span15{width:880px;}
+.span16{width:940px;}
+.span17{width:1000px;}
+.span18{width:1060px;}
+.span19{width:1120px;}
+.span20{width:1180px;}
+.span21{width:1240px;}
+.span22{width:1300px;}
+.span23{width:1360px;}
+.span24{width:1420px;}

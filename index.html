@@ -1,27 +1,36 @@
-<!DOCTYPE html>
+<!DOCTYPE>
 <html>
 <head>
-  <title>GMaps.js &mdash; A Javascript library that simplifies your life</title>
-  <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.3.0/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="examples/examples.css">
+  <title>gmaps.js &mdash; the easiest way to use Google Maps</title>
+  <link href='http://fonts.googleapis.com/css?family=Convergence|Bitter|Droid+Sans' rel='stylesheet' type='text/css' />
+  <link href='styles.css' rel='stylesheet' type='text/css' />
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+  <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+  <script type="text/javascript" src="https://raw.github.com/HPNeo/gmaps/master/gmaps.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      map = new GMaps({
+        div: '#map',
+        lat: -12.043333,
+        lng: -77.028333
+      });
+    });
+  </script>
 </head>
 <body>
-  <h1>GMaps.js &mdash; A Javascript library that simplifies your life</h1>
-  <h2>Examples:</h2>
-  <ul>
-    <li><a href="examples/basic.html">Basic</a></li>
-    <li><a href="examples/map_events.html">Map events</a></li>
-    <li><a href="examples/markers.html">Markers</a></li>
-    <li><a href="examples/geolocation.html">Geolocation</a></li>
-    <li><a href="examples/geocoding.html">Geocoding</a></li>
-    <li><a href="examples/polylines.html">Polylines</a></li>
-    <li><a href="examples/routes.html">Routes</a></li>
-    <li><a href="examples/routes_advanced.html">Routes (advanced)</a></li>
-    <li><a href="examples/context_menu.html">Context menu</a></li>
-    <li><a href="examples/geofences.html">Geofences</a></li>
-    <li><a href="examples/overlays.html">Overlays</a></li>
-  </ul>
-  <h2>Download:</h2>
-  <a href="https://raw.github.com/HPNeo/gmaps/master/gmaps.js" target="_blank" class="btn large primary">Download here</a> or <a href="https://github.com/hpneo/gmaps" target="_blank">watch the GitHub repo.</a>
+  <div id="header">
+    <h1>gmaps.js</h1>
+    <h2>Google Maps API with less pain and more fun</h2>
+  </div>
+  <div id="body">
+    <p class="big centered">gmaps.js allows you to use the potential of Google Maps in a simple way.<br/>No more extensive documentation or large amount of code.</p>
+    <div class="popin">
+      <div id="map"></div>
+    </div>
+    <div class="row">
+      <a href="examples.html" class="btn">See the examples</a> or
+      <a href="https://raw.github.com/HPNeo/gmaps/master/gmaps.js" class="btn">Download</a> <small>or <a href="https://github.com/hpneo/gmaps">watch the GitHub repo</a></small>
+    </div>
+  </div>
 </body>
 </html>
