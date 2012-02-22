@@ -85,3 +85,17 @@ pre{
 .span22{width:1300px;}
 .span23{width:1360px;}
 .span24{width:1420px;}
+
+pre.prettyprint{
+  background:#fff;
+  border-color:#c1c1c1;
+  -webkit-border-radius:2px;
+  -moz-border-radius:2px;
+  border-radius:2px;
+  -webkit-box-shadow:0 0 10px #999;
+  -moz-box-shadow:0 0 10px #999;
+  box-shadow:0 0 10px #999;
+  padding:5px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}

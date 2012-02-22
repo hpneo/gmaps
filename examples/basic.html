@@ -5,12 +5,15 @@
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
   <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
   <script type="text/javascript" src="https://raw.github.com/HPNeo/gmaps/master/gmaps.js"></script>
+  <script type="text/javascript" src="../prettify/prettify.js"></script>
   <link href='http://fonts.googleapis.com/css?family=Convergence|Bitter|Droid+Sans|Ubuntu+Mono' rel='stylesheet' type='text/css' />
   <link href='../styles.css' rel='stylesheet' type='text/css' />
+  <link href='../prettify/prettify.css' rel='stylesheet' type='text/css' />
   <link rel="stylesheet" type="text/css" href="examples.css" />
   <script type="text/javascript">
     var map;
     $(document).ready(function(){
+      prettyPrint();
       map = new GMaps({
         div: '#map',
         lat: -12.043333,
@@ -36,7 +39,7 @@
       </div>
       <div class="span6">
         <p>Using GMaps.js is as easy as:</p>
-        <pre>new GMaps({
+        <pre class="prettyprint">new GMaps({
           div: '#map',
           lat: -12.043333,
           lng: -77.028333
