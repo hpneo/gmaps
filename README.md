@@ -8,6 +8,11 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.1.8.6
+-----------------------
+* Add avoidHighways, avoidTolls, optimizeWaypoints, unitSystem and waypoints options in getRoutes
+* New method: createMarker
+
 0.1.8.5
 -----------------------
 * geolocation and geocode methods are static now (using them with GMaps.geolocation and GMaps.geocode)

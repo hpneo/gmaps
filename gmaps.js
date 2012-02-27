@@ -205,7 +205,7 @@ GMaps = function(options){
 
   // Markers
 
-  this.addMarker = function(options){
+  this.createMarker = function(options){
     if(options.lat && options.lng){
       var self = this;
       var details = options.details;
@@ -213,12 +213,13 @@ GMaps = function(options){
       var outside = options.outside;
       var base_options = {
         position: new google.maps.LatLng(options.lat, options.lng),
-        map: this.map
+        map: null
       };
       delete options.lat;
       delete options.lng;
       delete options.fences;
       delete options.outside;
+
       var marker_options = $.extend(base_options, options);
       
       var marker = new google.maps.Marker(marker_options);
@@ -228,41 +229,63 @@ GMaps = function(options){
       if(options.infoWindow)
         marker.infoWindow = new google.maps.InfoWindow(options.infoWindow);
 
-      google.maps.event.addListener(marker, 'click', function(e){
-        e['details'] = details;
-        e['marker'] = marker;
+      google.maps.event.addListener(marker, 'click', function(){
+        this['details'] = details;
+        
         if(options.click)
-          options.click(e);
+          options.click.apply(this, [this]);
+
         if(marker.infoWindow){
           self.hideInfoWindows();
           marker.infoWindow.open(self.map, marker);
         }
       });
-      google.maps.event.addListener(marker, 'dragend', function(e){
-        if(options.dragend)
-          options.dragend(e);
-        
-        if(marker.fences)
-          self.checkMarkerGeofence(marker, function(m, f){
-            outside(m, f);
-          });
-      });
-      google.maps.event.addListener(marker, 'mouseout', function(e){
-        if(options.mouseout)
-          options.mouseout(e);
-      });
-      google.maps.event.addListener(marker, 'mouseover', function(e){
-        if(options.mouseover)
-          options.mouseover(e);
-      });
-      google.maps.event.addListener(marker, 'mouseover', function(e){
-        if(options.mouseover)
-          options.mouseover(e);
-      });
-      google.maps.event.addListener(marker, 'position_changed', function(e){
-        if(options.position_changed)
-          options.position_changed(e);
-      });
+
+      if(options.dragend){
+        google.maps.event.addListener(marker, 'dragend', function(){
+          options.dragend(this);
+          
+          if(marker.fences)
+            self.checkMarkerGeofence(marker, function(m, f){
+              outside(m, f);
+            });
+        });
+      }
+      if(options.mouseout){
+        google.maps.event.addListener(marker, 'mouseout', function(){
+          options.mouseout(this);
+        });
+      }
+      if(options.mouseover){
+        google.maps.event.addListener(marker, 'mouseover', function(){
+          options.mouseover(this);
+        });
+      }
+      if(options.mouseup){
+        google.maps.event.addListener(marker, 'mouseup', function(){
+          options.mouseup(this);
+        });
+      }
+      if(options.position_changed){
+        google.maps.event.addListener(marker, 'position_changed', function(){
+          options.position_changed(this);
+        });
+      }
+
+      return marker;
+    }
+    else{
+      throw 'No latitude or longitude defined';
+
+      return null;
+    }
+  };
+
+  this.addMarker = function(options){
+    if(options.lat && options.lng){
+      marker = this.createMarker(options);
+
+      marker.setMap(this.map);
 
       this.markers.push(marker);
 
@@ -274,6 +297,7 @@ GMaps = function(options){
       return null;
     }
   };
+
   this.addMarkers = function(array){
     for(marker in array)
       this.addMarker(marker);
@@ -503,13 +527,35 @@ GMaps = function(options){
         travelMode = google.maps.TravelMode.WALKING;
       break;
     }
+
+    switch(options.unitSystem){
+      case 'imperial':
+        unitSystem = google.maps.UnitSystem.IMPERIAL;
+      break;
+      case 'metric':
+      default:
+        unitSystem = google.maps.UnitSystem.METRIC;
+      break;
+    }
+
+    base_options = {
+      avoidHighways: true,
+      avoidTolls: true,
+      optimizeWaypoints: true,
+      waypoints: []
+    };
+    request_options = $.extend(base_options, options);
+    request_options.origin = new google.maps.LatLng(options.origin[0], options.origin[1]);
+    request_options.destination = new google.maps.LatLng(options.destination[0], options.destination[1]);
+    request_options.travelMode = travelMode;
+    request_options.unitSystem = unitSystem;
+
+    delete request_options.callback
+
     var self = this;
     var service = new google.maps.DirectionsService();
-    service.route({
-      origin: new google.maps.LatLng(options.origin[0], options.origin[1]),
-      destination: new google.maps.LatLng(options.destination[0], options.destination[1]),
-      travelMode: travelMode
-    }, function(result, status){
+    
+    service.route(request_options, function(result, status){
       if(status == google.maps.DirectionsStatus.OK){
         for(i in result.routes){
           route = result.routes[i];
@@ -638,14 +684,13 @@ GMaps.Route = function(options){
   this.path = this.route.overview_path;
   this.steps = this.path.length;
 
-  this.map.drawPolyline({
+  this.polyline = this.map.drawPolyline({
     path: new google.maps.MVCArray(),
     strokeColor: options.strokeColor,
     strokeOpacity: options.strokeOpacity,
     strokeWeight: options.strokeWeight
-  });
+  }).getPath();
 
-  this.polyline = this.map.polylines[this.map.polylines.length - 1].getPath();
   this.polyline.push(this.route.overview_path[0]);
   this.path_length = this.polyline.getLength();
 
