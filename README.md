@@ -8,6 +8,10 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.1.8.8
+-----------------------
+* Add Polyline events
+
 0.1.8.7
 -----------------------
 * Add drag and dragstart events to Marker

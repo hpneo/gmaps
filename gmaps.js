@@ -429,6 +429,47 @@ GMaps = function(options){
       strokeWeight: options.strokeWeight
     });
 
+    if(options.click){
+      google.maps.event.addListener(polyline, 'click', function(){
+        options.click(this);
+      });
+    }
+    if(options.dblclick){
+      google.maps.event.addListener(polyline, 'dblclick', function(){
+        options.dblclick(this);
+      });
+    }
+    if(options.mousedown){
+      google.maps.event.addListener(polyline, 'mousedown', function(){
+        options.mousedown(this);
+      });
+    }
+    if(options.mousemove){
+      google.maps.event.addListener(polyline, 'mousemove', function(){
+        options.mousemove(this);
+      });
+    }
+    if(options.mouseout){
+      google.maps.event.addListener(polyline, 'mouseout', function(){
+        options.mouseout(this);
+      });
+    }
+    if(options.mouseover){
+      google.maps.event.addListener(marker, 'mouseover', function(){
+        options.mouseover(this);
+      });
+    }
+    if(options.mouseup){
+      google.maps.event.addListener(marker, 'mouseup', function(){
+        options.mouseup(this);
+      });
+    }
+    if(options.rightclick){
+        google.maps.event.addListener(marker, 'rightclick', function(){
+          options.rightclick(this);
+        });
+    }
+
     this.polylines.push(polyline);
 
     return polyline;
