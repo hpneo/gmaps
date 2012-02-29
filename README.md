@@ -8,6 +8,10 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.1.8.7
+-----------------------
+* Add drag and dragstart events to Marker
+
 0.1.8.6
 -----------------------
 * Add avoidHighways, avoidTolls, optimizeWaypoints, unitSystem and waypoints options in getRoutes

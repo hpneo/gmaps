@@ -241,6 +241,11 @@ GMaps = function(options){
         }
       });
 
+      if(options.drag){
+        google.maps.event.addListener(marker, 'drag', function(){
+          options.drag(this);
+        });
+      }
       if(options.dragend){
         google.maps.event.addListener(marker, 'dragend', function(){
           options.dragend(this);
@@ -249,6 +254,11 @@ GMaps = function(options){
             self.checkMarkerGeofence(marker, function(m, f){
               outside(m, f);
             });
+        });
+      }
+      if(options.dragstart){
+        google.maps.event.addListener(marker, 'dragstart', function(){
+          options.dragstart(this);
         });
       }
       if(options.mouseout){
