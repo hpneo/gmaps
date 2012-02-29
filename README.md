@@ -8,6 +8,11 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.1.8.9
+-----------------------
+* Fix typo in Polyline events
+* Add InfoWindow events
+
 0.1.8.8
 -----------------------
 * Add Polyline events

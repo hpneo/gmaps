@@ -226,8 +226,35 @@ GMaps = function(options){
 
       marker['fences'] = fences;
 
-      if(options.infoWindow)
+      if(options.infoWindow){
         marker.infoWindow = new google.maps.InfoWindow(options.infoWindow);
+
+        if(options.infoWindow.closeclick){
+          google.maps.event.addListener(marker.infoWindow, 'closeclick', function(){
+            options.infoWindow.closeclick();
+          });
+        }
+        if(options.infoWindow.content_changed){
+          google.maps.event.addListener(marker.infoWindow, 'content_changed', function(){
+            options.infoWindow.content_changed();
+          });
+        }
+        if(options.infoWindow.domready){
+          google.maps.event.addListener(marker.infoWindow, 'domready', function(){
+            options.infoWindow.domready();
+          });
+        }
+        if(options.infoWindow.position_changed){
+          google.maps.event.addListener(marker.infoWindow, 'position_changed', function(){
+            options.infoWindow.position_changed();
+          });
+        }
+        if(options.infoWindow.zindex_changed){
+          google.maps.event.addListener(marker.infoWindow, 'zindex_changed', function(){
+            options.infoWindow.zindex_changed();
+          });
+        }
+      }
 
       google.maps.event.addListener(marker, 'click', function(){
         this['details'] = details;
@@ -430,43 +457,43 @@ GMaps = function(options){
     });
 
     if(options.click){
-      google.maps.event.addListener(polyline, 'click', function(){
-        options.click(this);
+      google.maps.event.addListener(polyline, 'click', function(e){
+        options.click(e);
       });
     }
     if(options.dblclick){
-      google.maps.event.addListener(polyline, 'dblclick', function(){
-        options.dblclick(this);
+      google.maps.event.addListener(polyline, 'dblclick', function(e){
+        options.dblclick(e);
       });
     }
     if(options.mousedown){
-      google.maps.event.addListener(polyline, 'mousedown', function(){
-        options.mousedown(this);
+      google.maps.event.addListener(polyline, 'mousedown', function(e){
+        options.mousedown(e);
       });
     }
     if(options.mousemove){
-      google.maps.event.addListener(polyline, 'mousemove', function(){
-        options.mousemove(this);
+      google.maps.event.addListener(polyline, 'mousemove', function(e){
+        options.mousemove(e);
       });
     }
     if(options.mouseout){
-      google.maps.event.addListener(polyline, 'mouseout', function(){
-        options.mouseout(this);
+      google.maps.event.addListener(polyline, 'mouseout', function(e){
+        options.mouseout(e);
       });
     }
     if(options.mouseover){
-      google.maps.event.addListener(marker, 'mouseover', function(){
-        options.mouseover(this);
+      google.maps.event.addListener(marker, 'mouseover', function(e){
+        options.mouseover(e);
       });
     }
     if(options.mouseup){
-      google.maps.event.addListener(marker, 'mouseup', function(){
-        options.mouseup(this);
+      google.maps.event.addListener(marker, 'mouseup', function(e){
+        options.mouseup(e);
       });
     }
     if(options.rightclick){
-        google.maps.event.addListener(marker, 'rightclick', function(){
-          options.rightclick(this);
+        google.maps.event.addListener(marker, 'rightclick', function(e){
+          options.rightclick(e);
         });
     }
 
