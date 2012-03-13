@@ -1,3 +1,5 @@
+var GMaps = (function($){
+
 GMaps = function(options){
   var self = this;
   var context_menu_style = 'position:absolute;display:none;min-width:100px;background:white;\
@@ -15,10 +17,13 @@ GMaps = function(options){
   this.zoom = options.zoom || 15;
 
   //'Hybrid', 'Roadmap', 'Satellite' or 'Terrain'
-  if(options.mapType)
-    var mapType = google.maps.MapTypeId[options.mapType.toUpperCase()]
-  else
-    var mapType = google.maps.MapTypeId.ROADMAP;
+  var mapType;
+
+  if (options.mapType){
+     mapType = google.maps.MapTypeId[options.mapType.toUpperCase()];
+  } else {
+    mapType = google.maps.MapTypeId.ROADMAP;
+  }
 
   var map_center = new google.maps.LatLng(options.lat, options.lng);
 
@@ -40,13 +45,14 @@ GMaps = function(options){
 
   var buildContextMenuHTML = function(control, e){
     var html = '';
-    for(i in window.context_menu[control]){
+    for (i in window.context_menu[control]){
       option = window.context_menu[control][i];
       html += '<li><a id="'+control+'_'+i+'" href="#">'+option.title+'</a></li>';
     }
-    $('#gmaps_context_menu').html(html);
-    $('#gmaps_context_menu li a').die();
-    $('#gmaps_context_menu li a').live('click', function(ev){
+    var $context_menu = $('#gmaps_context_menu');
+    $context_menu.html(html);
+    $context_menu.undelegate();
+    $context_menu.delegate('li a', 'click', function(ev){
       ev.preventDefault();
       window.context_menu[control][$(this).attr('id').replace(control+'_', '')].action.call(self, e);
       self.hideContextMenu();
@@ -54,26 +60,25 @@ GMaps = function(options){
 
     var left = $(self.div).offset().left + e.pixel.x - 15;
     var top = $(self.div).offset().top + e.pixel.y - 15;
-    $('#gmaps_context_menu').css({
+    $context_menu.css({
       left: left,
       top: top
     }).fadeIn(200);
   };
 
   var buildContextMenu = function(control, e){
-    if(control=='marker'){
+    if (control=='marker'){
       e.pixel = {};
       overlay = new google.maps.OverlayView();
       overlay.setMap(self.map);
-      overlay.draw = function() {
+      overlay.draw = function(){
         projection = overlay.getProjection();
         position = e.marker.getPosition();
         e.pixel = projection.fromLatLngToContainerPixel(position);
 
         buildContextMenuHTML(control, e);
       };
-    }
-    else{
+    } else {
       buildContextMenuHTML(control, e);
     }
   };
@@ -81,12 +86,12 @@ GMaps = function(options){
   this.setContextMenu = function(options){
     window.context_menu[options.control] = {};
     var html = '<ul id="gmaps_context_menu" style="'+context_menu_style+'"></ul>';
-    for(i in options.options){
+    for (i in options.options){
       option = options.options[i];
       window.context_menu[options.control][option.name] = {title: option.title, action: option.action};
     }
     $('body').append(html);
-    $('#gmaps_context_menu').live('mouseleave', function(){
+    $('#gmaps_context_menu').mouseleave(function(){
       $(this).delay(100).fadeOut(200);
     });
   };
@@ -97,86 +102,103 @@ GMaps = function(options){
 
   //Events
   google.maps.event.addListener(this.map, 'bounds_changed', function(e){
-    if(options.bounds_changed)
+    if (options.bounds_changed){
       options.bounds_changed(e);
+    }
     self.hideContextMenu();
   });
   google.maps.event.addListener(this.map, 'center_changed', function(e){
-    if(options.center_changed)
+    if (options.center_changed){
       options.center_changed(e);
+    }
     self.hideContextMenu();
   });
   google.maps.event.addListener(this.map, 'click', function(e){
-    if(options.click)
+    if (options.click){
       options.click(e);
+    }
     self.hideContextMenu();
   });
   google.maps.event.addListener(this.map, 'dblclick', function(e){
-    if(options.dblclick)
+    if (options.dblclick){
       options.dblclick(e);
+    }
     self.hideContextMenu();
   });
   google.maps.event.addListener(this.map, 'drag', function(e){
-    if(options.drag)
+    if (options.drag){
       options.drag(e);
+    }
     self.hideContextMenu();
   });
   google.maps.event.addListener(this.map, 'dragend', function(e){
-    if(options.dragend)
+    if (options.dragend){
       options.dragend(e);
+    }
     self.hideContextMenu();
   });
   google.maps.event.addListener(this.map, 'dragstart', function(e){
-    if(options.dragstart)
+    if (options.dragstart){
       options.dragstart(e);
+    }
     self.hideContextMenu();
   });
   google.maps.event.addListener(this.map, 'idle', function(e){
-    if(options.idle)
+    if (options.idle){
       options.idle(e);
+    }
     self.hideContextMenu();
   });
   google.maps.event.addListener(this.map, 'maptypeid_changed', function(e){
-    if(options.maptypeid_changed)
+    if (options.maptypeid_changed){
       options.maptypeid_changed(e);
+    }
     self.hideContextMenu();
   });
   google.maps.event.addListener(this.map, 'mousemove', function(e){
-    if(options.mousemove)
+    if (options.mousemove){
       options.mousemove(e);
+    }
   });
   google.maps.event.addListener(this.map, 'mouseout', function(e){
-    if(options.mouseout)
+    if (options.mouseout){
       options.mouseout(e);
+    }
   });
   google.maps.event.addListener(this.map, 'mouseover', function(e){
-    if(options.mouseover)
+    if (options.mouseover){
       options.mouseover(e);
+    }
   });
   google.maps.event.addListener(this.map, 'projection_changed', function(e){
-    if(options.projection_changed)
+    if (options.projection_changed){
       options.projection_changed(e);
+    }
     self.hideContextMenu();
   });
   google.maps.event.addListener(this.map, 'resize', function(e){
-    if(options.resize)
+    if (options.resize){
       options.resize(e);
+    }
     self.hideContextMenu();
   });
   google.maps.event.addListener(this.map, 'rightclick', function(e){
-    if(options.rightclick)
+    if (options.rightclick){
       options.rightclick(e);
+    }
     
     buildContextMenu('map', e);
   });
   google.maps.event.addListener(this.map, 'tilesloaded', function(e){
-    if(options.tilesloaded)
+    if (options.tilesloaded){
       options.tilesloaded(e);
+    }
     self.hideContextMenu();
   });
   google.maps.event.addListener(this.map, 'zoom_changed', function(e){
-    if(options.zoom_changed)
+    if (options.zoom_changed){
       options.zoom_changed(e);
+    }
     self.hideContextMenu();
   });
 
@@ -184,8 +206,9 @@ GMaps = function(options){
 
   this.setCenter = function(lat, lng, callback){
     this.map.panTo(new google.maps.LatLng(lat, lng));
-    if(callback)
+    if (callback){
       callback();
+    }
   };
   this.getCenter = function(){
     return this.map.getCenter();
@@ -206,7 +229,7 @@ GMaps = function(options){
   // Markers
 
   this.createMarker = function(options){
-    if(options.lat && options.lng){
+    if (options.lat && options.lng){
       var self = this;
       var details = options.details;
       var fences = options.fences;
@@ -226,30 +249,30 @@ GMaps = function(options){
 
       marker['fences'] = fences;
 
-      if(options.infoWindow){
+      if (options.infoWindow){
         marker.infoWindow = new google.maps.InfoWindow(options.infoWindow);
 
-        if(options.infoWindow.closeclick){
+        if (options.infoWindow.closeclick){
           google.maps.event.addListener(marker.infoWindow, 'closeclick', function(){
             options.infoWindow.closeclick();
           });
         }
-        if(options.infoWindow.content_changed){
+        if (options.infoWindow.content_changed){
           google.maps.event.addListener(marker.infoWindow, 'content_changed', function(){
             options.infoWindow.content_changed();
           });
         }
-        if(options.infoWindow.domready){
+        if (options.infoWindow.domready){
           google.maps.event.addListener(marker.infoWindow, 'domready', function(){
             options.infoWindow.domready();
           });
         }
-        if(options.infoWindow.position_changed){
+        if (options.infoWindow.position_changed){
           google.maps.event.addListener(marker.infoWindow, 'position_changed', function(){
             options.infoWindow.position_changed();
           });
         }
-        if(options.infoWindow.zindex_changed){
+        if (options.infoWindow.zindex_changed){
           google.maps.event.addListener(marker.infoWindow, 'zindex_changed', function(){
             options.infoWindow.zindex_changed();
           });
@@ -259,53 +282,54 @@ GMaps = function(options){
       google.maps.event.addListener(marker, 'click', function(){
         this['details'] = details;
         
-        if(options.click)
+        if (options.click){
           options.click.apply(this, [this]);
+        }
 
-        if(marker.infoWindow){
+        if (marker.infoWindow){
           self.hideInfoWindows();
           marker.infoWindow.open(self.map, marker);
         }
       });
 
-      if(options.drag){
+      if (options.drag){
         google.maps.event.addListener(marker, 'drag', function(){
           options.drag(this);
         });
       }
-      if(options.dragend || marker.fences){
+      if (options.dragend || marker.fences){
         google.maps.event.addListener(marker, 'dragend', function(){
           if (options.dragend){
             options.dragend(this);
           }
-          if(marker.fences){
+          if (marker.fences){
             self.checkMarkerGeofence(marker, function(m, f){
               outside(m, f);
             });
           }
         });
       }
-      if(options.dragstart){
+      if (options.dragstart){
         google.maps.event.addListener(marker, 'dragstart', function(){
           options.dragstart(this);
         });
       }
-      if(options.mouseout){
+      if (options.mouseout){
         google.maps.event.addListener(marker, 'mouseout', function(){
           options.mouseout(this);
         });
       }
-      if(options.mouseover){
+      if (options.mouseover){
         google.maps.event.addListener(marker, 'mouseover', function(){
           options.mouseover(this);
         });
       }
-      if(options.mouseup){
+      if (options.mouseup){
         google.maps.event.addListener(marker, 'mouseup', function(){
           options.mouseup(this);
         });
       }
-      if(options.position_changed){
+      if (options.position_changed){
         google.maps.event.addListener(marker, 'position_changed', function(){
           options.position_changed(this);
         });
@@ -313,7 +337,7 @@ GMaps = function(options){
 
       return marker;
     }
-    else{
+    else {
       throw 'No latitude or longitude defined';
 
       return null;
@@ -321,7 +345,7 @@ GMaps = function(options){
   };
 
   this.addMarker = function(options){
-    if(options.lat && options.lng){
+    if (options.lat && options.lng){
       marker = this.createMarker(options);
 
       marker.setMap(this.map);
@@ -330,7 +354,7 @@ GMaps = function(options){
 
       return marker;
     }
-    else{
+    else {
       throw 'No latitude or longitude defined';
 
       return null;
@@ -338,20 +362,22 @@ GMaps = function(options){
   };
 
   this.addMarkers = function(array){
-    for(marker in array)
+    for (marker in array){
       this.addMarker(marker);
+    }
     
     return this.markers;
   };
   this.hideInfoWindows = function(){
-    for(index in this.markers){
+    for (index in this.markers){
       marker = this.markers[index];
-      if(marker.infoWindow)
+      if (marker.infoWindow){
         marker.infoWindow.close();
+      }
     }
   };
   this.removeMarkers = function(){
-    for(index in this.markers){
+    for (index in this.markers){
       marker = this.markers[index];
       marker.setMap(null);
     }
@@ -373,13 +399,14 @@ GMaps = function(options){
       self.overlay_div = div;
 
       var panes = this.getPanes();
-      if(!options.layer)
+      if (!options.layer){
         options.layer = 'overlayLayer';
+      }
       var overlayLayer = panes[options.layer];
       console.log(options.layer);
       overlayLayer.appendChild(div);
     };
-    overlay.draw = function() {
+    overlay.draw = function(){
       projection = this.getProjection();
       pixel = projection.fromLatLngToDivPixel(new google.maps.LatLng(options.lat, options.lng));
 
@@ -428,7 +455,7 @@ GMaps = function(options){
   };
 
   this.removeOverlays = function(){
-    for(i in self.overlays){
+    for (i in self.overlays){
       item = self.overlays[i];
       item.setMap(null);
     }
@@ -437,13 +464,13 @@ GMaps = function(options){
 
   this.drawPolyline = function(options){
     var path = [];
-    if(options.path.length){
-      if(options.path[0][0]==undefined){
+    if (options.path.length){
+      if (options.path[0][0]==undefined){
         path = options.path;
       }
-      else{
+      else {
         points = options.path;
-        for(i in points){
+        for (i in points){
           latlng = points[i];
           path.push(new google.maps.LatLng(latlng[0], latlng[1]));
         }
@@ -458,45 +485,45 @@ GMaps = function(options){
       strokeWeight: options.strokeWeight
     });
 
-    if(options.click){
+    if (options.click){
       google.maps.event.addListener(polyline, 'click', function(e){
         options.click(e);
       });
     }
-    if(options.dblclick){
+    if (options.dblclick){
       google.maps.event.addListener(polyline, 'dblclick', function(e){
         options.dblclick(e);
       });
     }
-    if(options.mousedown){
+    if (options.mousedown){
       google.maps.event.addListener(polyline, 'mousedown', function(e){
         options.mousedown(e);
       });
     }
-    if(options.mousemove){
+    if (options.mousemove){
       google.maps.event.addListener(polyline, 'mousemove', function(e){
         options.mousemove(e);
       });
     }
-    if(options.mouseout){
+    if (options.mouseout){
       google.maps.event.addListener(polyline, 'mouseout', function(e){
         options.mouseout(e);
       });
     }
-    if(options.mouseover){
+    if (options.mouseover){
       google.maps.event.addListener(marker, 'mouseover', function(e){
         options.mouseover(e);
       });
     }
-    if(options.mouseup){
+    if (options.mouseup){
       google.maps.event.addListener(marker, 'mouseup', function(e){
         options.mouseup(e);
       });
     }
-    if(options.rightclick){
-        google.maps.event.addListener(marker, 'rightclick', function(e){
-          options.rightclick(e);
-        });
+    if (options.rightclick){
+      google.maps.event.addListener(marker, 'rightclick', function(e){
+        options.rightclick(e);
+      });
     }
 
     this.polylines.push(polyline);
@@ -515,36 +542,44 @@ GMaps = function(options){
     var polygon = new google.maps.Circle(options);
 
     google.maps.event.addListener(polygon, 'click', function(e){
-      if(options.click)
+      if (options.click){
         options.click(e);
+      }
     });
     google.maps.event.addListener(polygon, 'dblclick', function(e){
-      if(options.dblclick)
+      if (options.dblclick){
         options.dblclick(e);
+      }
     });
     google.maps.event.addListener(polygon, 'mousedown', function(e){
-      if(options.mousedown)
+      if (options.mousedown){
         options.mousedown(e);
+      }
     });
     google.maps.event.addListener(polygon, 'mousemove', function(e){
-      if(options.mousemove)
+      if (options.mousemove){
         options.mousemove(e);
+      }
     });
     google.maps.event.addListener(polygon, 'mouseout', function(e){
-      if(options.mouseout)
+      if (options.mouseout){
         options.mouseout(e);
+      }
     });
     google.maps.event.addListener(polygon, 'mouseover', function(e){
-      if(options.mouseover)
+      if (options.mouseover){
         options.mouseover(e);
+      }
     });
     google.maps.event.addListener(polygon, 'mouseup', function(e){
-      if(options.mouseup)
+      if (options.mouseup){
         options.mouseup(e);
+      }
     });
     google.maps.event.addListener(polygon, 'rightclick', function(e){
-      if(options.rightclick)
+      if (options.rightclick){
         options.rightclick(e);
+      }
     });
 
     return polygon;
@@ -555,36 +590,44 @@ GMaps = function(options){
     var polygon = new google.maps.Polygon(options);
 
     google.maps.event.addListener(polygon, 'click', function(e){
-      if(options.click)
+      if (options.click){
         options.click(e);
+      }
     });
     google.maps.event.addListener(polygon, 'dblclick', function(e){
-      if(options.dblclick)
+      if (options.dblclick){
         options.dblclick(e);
+      }
     });
     google.maps.event.addListener(polygon, 'mousedown', function(e){
-      if(options.mousedown)
+      if (options.mousedown){
         options.mousedown(e);
+      }
     });
     google.maps.event.addListener(polygon, 'mousemove', function(e){
-      if(options.mousemove)
+      if (options.mousemove){
         options.mousemove(e);
+      }
     });
     google.maps.event.addListener(polygon, 'mouseout', function(e){
-      if(options.mouseout)
+      if (options.mouseout){
         options.mouseout(e);
+      }
     });
     google.maps.event.addListener(polygon, 'mouseover', function(e){
-      if(options.mouseover)
+      if (options.mouseover){
         options.mouseover(e);
+      }
     });
     google.maps.event.addListener(polygon, 'mouseup', function(e){
-      if(options.mouseup)
+      if (options.mouseup){
         options.mouseup(e);
+      }
     });
     google.maps.event.addListener(polygon, 'rightclick', function(e){
-      if(options.rightclick)
+      if (options.rightclick){
         options.rightclick(e);
+      }
     });
 
     this.polygons.push(polygon);
@@ -636,13 +679,13 @@ GMaps = function(options){
     var service = new google.maps.DirectionsService();
     
     service.route(request_options, function(result, status){
-      if(status == google.maps.DirectionsStatus.OK){
-        for(i in result.routes){
+      if (status == google.maps.DirectionsStatus.OK){
+        for (i in result.routes){
           route = result.routes[i];
           self.routes.push(route);
         }
       }
-      if(options.callback)
+      if (options.callback)
         options.callback(self.routes);
     });
   };
@@ -654,7 +697,7 @@ GMaps = function(options){
       destination: options.destination,
       travelMode: options.travelMode,
       callback: function(e){
-        if(e.length>0){
+        if (e.length>0){
           path = e[e.length-1].overview_path;
           self.drawPolyline({
             path: path,
@@ -662,35 +705,37 @@ GMaps = function(options){
             strokeOpacity: options.strokeOpacity,
             strokeWeight: options.strokeWeight
           });
-          if(options.callback)
+          if (options.callback){
             options.callback(e[e.length-1]);
+          }
         }
       }
     });
   };
 
   this.travelRoute = function(options){
-    if(options.origin && options.destination){
+    if (options.origin && options.destination){
       this.getRoutes({
         origin: options.origin,
         destination: options.destination,
         travelMode: options.travelMode,
         callback: function(e){
-          if(e.length>0 && options.step){
+          if (e.length>0 && options.step){
             route = e[e.length-1];
-            if(route.legs.length>0)
-              for(i in route.legs[0].steps){
+            if (route.legs.length>0){
+              for (i in route.legs[0].steps){
                 step = route.legs[0].steps[i];
                 step['step_number'] = i;
                 options.step(step);
               }
+            }
           }
         }
       });
     }
-    else if(options.route){
-      if(options.route.legs.length>0){
-        for(i in options.route.legs[0].steps){
+    else if (options.route){
+      if (options.route.legs.length>0){
+        for (i in options.route.legs[0].steps){
           step = options.route.legs[0].steps[i];
           step['step_number'] = i;
           options.step(step);
@@ -700,16 +745,16 @@ GMaps = function(options){
   };
 
   this.drawSteppedRoute = function(options){
-    if(options.origin && options.destination){
+    if (options.origin && options.destination){
       this.getRoutes({
         origin: options.origin,
         destination: options.destination,
         travelMode: options.travelMode,
         callback: function(e){
-          if(e.length>0 && options.step){
+          if (e.length>0 && options.step){
             route = e[e.length-1];
-            if(route.legs.length>0)
-              for(i in route.legs[0].steps){
+            if (route.legs.length>0)
+              for (i in route.legs[0].steps){
                 step = route.legs[0].steps[i];
                 step['step_number'] = i;
                 self.drawPolyline({
@@ -724,9 +769,9 @@ GMaps = function(options){
         }
       });
     }
-    else if(options.route){
-      if(options.route.legs.length>0){
-        for(i in options.route.legs[0].steps){
+    else if (options.route){
+      if (options.route.legs.length>0){
+        for (i in options.route.legs[0].steps){
           step = options.route.legs[0].steps[i];
           step['step_number'] = i;
           self.drawPolyline({
@@ -748,10 +793,10 @@ GMaps = function(options){
   };
 
   this.checkMarkerGeofence = function(marker, outside_callback){
-    if(marker.fences){
-      for(i in marker.fences){
+    if (marker.fences){
+      for (i in marker.fences){
         fence = marker.fences[i];
-        if(!self.checkGeofence(marker.getPosition().lat(), marker.getPosition().lng(), fence))
+        if (!self.checkGeofence(marker.getPosition().lat(), marker.getPosition().lng(), fence))
           outside_callback(marker, fence);
       }
     }
@@ -775,13 +820,13 @@ GMaps.Route = function(options){
   this.path_length = this.polyline.getLength();
 
   this.back = function(){
-    if(this.path_length > 0){
+    if (this.path_length > 0){
       this.polyline.pop();
       this.path_length--;
     }
   };
   this.forward = function(){
-    if(this.path_length < this.steps){
+    if (this.path_length < this.steps){
       this.polyline.push(this.path[this.path_length]);
       this.path_length++;
     }
@@ -791,21 +836,24 @@ GMaps.Route = function(options){
 // Geolocation (Modern browsers only)
 
 GMaps.geolocate = function(options){
-  if(navigator.geolocation){
+  if (navigator.geolocation){
     navigator.geolocation.getCurrentPosition(function(position){
       options.success(position);
-      if(options.always)
+      if (options.always){
         options.always();
+      }
     }, function(error){
       options.error(error);
-      if(options.always)
+      if (options.always){
         options.always();
+      }
     }, options.options);
   }
-  else{
+  else {
     options.not_supported();
-    if(options.always)
+    if (options.always){
       options.always();
+    }
   }
 };
 
@@ -814,8 +862,9 @@ GMaps.geolocate = function(options){
 GMaps.geocode = function(options){
   this.geocoder = new google.maps.Geocoder();
   var callback = options.callback;
-  if(options.lat && options.lng)
+  if (options.lat && options.lng){
     options['latLng'] = new google.maps.LatLng(options.lat, options.lng);
+  }
   
   delete options.lat;
   delete options.lng;
@@ -832,15 +881,15 @@ GMaps.geocode = function(options){
 
 // Poygon getBounds extension - google-maps-extensions
 // http://code.google.com/p/google-maps-extensions/source/browse/google.maps.Polygon.getBounds.js
-if (!google.maps.Polygon.prototype.getBounds) {
-  google.maps.Polygon.prototype.getBounds = function(latLng) {
+if (!google.maps.Polygon.prototype.getBounds){
+  google.maps.Polygon.prototype.getBounds = function(latLng){
     var bounds = new google.maps.LatLngBounds();
     var paths = this.getPaths();
     var path;
     
-    for (var p = 0; p < paths.getLength(); p++) {
+    for (var p = 0; p < paths.getLength(); p++){
       path = paths.getAt(p);
-      for (var i = 0; i < path.getLength(); i++) {
+      for (var i = 0; i < path.getLength(); i++){
         bounds.extend(path.getAt(i));
       }
     }
@@ -850,11 +899,11 @@ if (!google.maps.Polygon.prototype.getBounds) {
 };
 
 // Polygon containsLatLng - method to determine if a latLng is within a polygon
-google.maps.Polygon.prototype.containsLatLng = function(latLng) {
+google.maps.Polygon.prototype.containsLatLng = function(latLng){
   // Exclude points outside of bounds as there is no way they are in the poly
   var bounds = this.getBounds();
 
-  if(bounds != null && !bounds.contains(latLng)) {
+  if (bounds != null && !bounds.contains(latLng)){
     return false;
   }
 
@@ -862,17 +911,17 @@ google.maps.Polygon.prototype.containsLatLng = function(latLng) {
   var inPoly = false;
 
   var numPaths = this.getPaths().getLength();
-  for(var p = 0; p < numPaths; p++) {
+  for (var p = 0; p < numPaths; p++){
     var path = this.getPaths().getAt(p);
     var numPoints = path.getLength();
     var j = numPoints-1;
 
-    for(var i=0; i < numPoints; i++) { 
+    for (var i=0; i < numPoints; i++){ 
       var vertex1 = path.getAt(i);
       var vertex2 = path.getAt(j);
 
       if (vertex1.lng() < latLng.lng() && vertex2.lng() >= latLng.lng() || vertex2.lng() < latLng.lng() && vertex1.lng() >= latLng.lng())  {
-        if (vertex1.lat() + (latLng.lng() - vertex1.lng()) / (vertex2.lng() - vertex1.lng()) * (vertex2.lat() - vertex1.lat()) < latLng.lat()) {
+        if (vertex1.lat() + (latLng.lng() - vertex1.lng()) / (vertex2.lng() - vertex1.lng()) * (vertex2.lat() - vertex1.lat()) < latLng.lat()){
           inPoly = !inPoly;
         }
       }
@@ -895,3 +944,6 @@ google.maps.Marker.prototype.setFences = function(fences){
 google.maps.Marker.prototype.addFence = function(fence){
   this.fences.push(fence);
 };
+
+return GMaps;
+}(jQuery));
