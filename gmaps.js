@@ -273,14 +273,16 @@ GMaps = function(options){
           options.drag(this);
         });
       }
-      if(options.dragend){
+      if(options.dragend || marker.fences){
         google.maps.event.addListener(marker, 'dragend', function(){
-          options.dragend(this);
-          
-          if(marker.fences)
+          if (options.dragend){
+            options.dragend(this);
+          }
+          if(marker.fences){
             self.checkMarkerGeofence(marker, function(m, f){
               outside(m, f);
             });
+          }
         });
       }
       if(options.dragstart){
