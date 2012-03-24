@@ -11,6 +11,9 @@ body{
   -webkit-box-shadow: 0px 5px 20px #ccc;
   box-shadow: 0px 5px 20px #ccc;
 }
+#map.large{
+  height:500px;
+}
 
 .overlay{
   display:block;
