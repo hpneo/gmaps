@@ -19,9 +19,14 @@
       $('#back').attr('disabled', 'disabled');
       $('#get_route').click(function(e){
         e.preventDefault();
+
+        origin = map.markers[0].getPosition();
+        destination = map.markers[map.markers.length-1].getPosition();
+
         map.getRoutes({
-          origin: [map.markers[0].getPosition().lat(), map.markers[0].getPosition().lng()],
-          destination: [map.markers[map.markers.length-1].getPosition().lat(), map.markers[map.markers.length-1].getPosition().lng()],
+          origin: [origin.lat(), origin.lng()],
+          destination: [destination.lat(), destination.lng()],
+          travelMode: 'driving',
           callback: function(e){
             route = new GMaps.Route({
               map: map,
@@ -37,10 +42,16 @@
         $('#forward').click(function(e){
           e.preventDefault();
           route.forward();
+
+          if(route.step_count < route.steps_length)
+            $('#steps').append('<li>'+route.steps[route.step_count].instructions+'</li>');
         });
         $('#back').click(function(e){
           e.preventDefault();
           route.back();
+
+          if(route.step_count >= 0)
+            $('#steps').find('li').last().remove();
         });
       });
       map = new GMaps({
@@ -78,6 +89,9 @@
       <a href="#" class="btn" id="get_route">Get route</a>
       <a href="#" class="btn" id="back">&laquo; Back</a>
       <a href="#" class="btn" id="forward">Forward &raquo;</a>
+    </div>
+    <div class="row">
+      <ul id="steps"></ul>
     </div>
   </div>
 </body>

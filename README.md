@@ -8,6 +8,28 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.1.8.10
+-----------------------
+* Better GMaps.Route methods
+
+0.1.8.9
+-----------------------
+* Fix typo in Polyline events
+* Add InfoWindow events
+
+0.1.8.8
+-----------------------
+* Add Polyline events
+
+0.1.8.7
+-----------------------
+* Add drag and dragstart events to Marker
+
+0.1.8.6
+-----------------------
+* Add avoidHighways, avoidTolls, optimizeWaypoints, unitSystem and waypoints options in getRoutes
+* New method: createMarker
+
 0.1.8.5
 -----------------------
 * geolocation and geocode methods are static now (using them with GMaps.geolocation and GMaps.geocode)
@@ -33,6 +55,7 @@ Changelog
 0.1.8
 -----------------------
 * New feature: **Overlays**
+* New method: drawCircle
 
 0.1.7.1
 -----------------------
