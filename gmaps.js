@@ -874,6 +874,158 @@ GMaps.geocode = function(options){
   });
 };
 
+// Static maps
+
+GMaps.static = function(options){
+  var static_map_root = 'http://maps.googleapis.com/maps/api/staticmap?';
+  var parameters = [];
+
+  var markers = options.markers;
+  delete options.markers;
+  if (!markers && options.marker){
+    markers = [options.marker];
+    delete options.marker;
+  }
+
+  var polyline = options.polyline;
+  delete options.polyline;
+
+  /** Map options **/
+
+  if (options.center){
+    parameters.push('center=' + center);
+    delete options.center;
+  }
+  else if (options.address){
+    parameters.push('center=' + options.address);
+    delete options.address;
+  } 
+  else if (options.lat){
+    parameters.push(['center=', options.lat, ',', options.lng].join(''));
+    delete options.lat;
+    delete options.lng;
+  }
+  else if (options.visible){
+    var visible = encodeURI(options.visible.join('|'));
+    parameters.push('visible=' + visible);
+  }
+
+  if (options.size){
+    var size = options.size;
+    if (size.join){
+      size = size.join('x');
+    }
+    parameters.push('size=' + size);
+    delete options.size;
+  }
+
+  var sensor = options.hasOwnProperty('sensor') ? !!options.sensor : true;
+  delete options.sensor;
+  parameters.push('sensor=' + sensor);
+
+  for (var param in options){
+    if (options.hasOwnProperty(param)){
+      parameters.push(param + '=' + options[param]);
+    }
+  }
+
+  /** Markers **/
+
+  if (markers){
+    var marker, loc;
+
+    for (var i=0, data; data=markers[i]; i++){
+      marker = [];
+
+      if (data.size && data.size != 'normal'){
+        marker.push('size:' + data.size);
+      }
+      else if (data.icon){
+        marker.push('icon:' + encodeURI(data.icon));
+      }
+
+      if (data.color){
+        marker.push('color:' + data.color.replace('#', '0x'));
+      }
+
+      if (data.label){
+        marker.push('label:' + data.label[0].toUpperCase());
+      }
+
+      loc = (data.address ? data.address : data.lat + ',' + data.lng);
+
+      if (marker.length || i == 0){
+        marker.push(loc);
+        marker = marker.join('|');
+        parameters.push('markers=' + encodeURI(marker));
+      }
+      // New marker without styles
+      else {
+        marker = parameters.pop() + encodeURI('|' + loc);
+        parameters.push(marker);
+      }
+    }
+  }
+
+  /** Polylines **/
+
+  function parseColor(color, opacity){
+    if (color[0] == '#'){
+      color = color.replace('#', '0x');
+
+      if (opacity){
+        opacity = parseFloat(opacity);
+        opacity = Math.min(1, Math.max(opacity, 0));
+        if (opacity == 0){
+          return '0x00000000';
+        }
+        opacity = (opacity * 255).toString(16);
+        if (opacity.length == 1){
+          opacity += opacity;
+        }
+
+        color = color.slice(0,8) + opacity;
+      }  
+    }
+    return color;
+  }
+
+  if (polyline){
+    var data = polyline;
+    polyline = [];
+    
+    if (data.strokeWeight){
+      polyline.push('weight:' + parseInt(data.strokeWeight));
+    }
+
+    if (data.strokeColor){
+      var color = parseColor(data.strokeColor, data.strokeOpacity);
+      polyline.push('color:' + color);
+    }
+
+    if (data.fillColor){
+      var fillcolor = parseColor(data.fillColor, data.fillOpacity);
+      polyline.push('fillcolor:' + fillcolor);
+    }
+    
+    var path = data.path;
+    if (path.join){
+      for (var i=0, pos; pos=path[i]; i++){
+        polyline.push(pos.join(','));
+      }
+    }
+    else {
+      polyline.push('enc:' + path); 
+    }
+
+    polyline = polyline.join('|');
+    parameters.push('path=' + encodeURI(polyline));
+  }
+
+  parameters = parameters.join('&');
+  return static_map_root + parameters;
+};
+
 
 //==========================
 // Polygon containsLatLng
