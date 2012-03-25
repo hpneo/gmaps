@@ -8,6 +8,10 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.1.8.10
+-----------------------
+* Better GMaps.Route methods
+
 0.1.8.9
 -----------------------
 * Fix typo in Polyline events

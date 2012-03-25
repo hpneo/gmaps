@@ -806,8 +806,9 @@ GMaps = function(options){
 GMaps.Route = function(options){
   this.map = options.map;
   this.route = options.route;
-  this.path = this.route.overview_path;
-  this.steps = this.path.length;
+  this.step_count = 0;
+  this.steps = this.route.legs[0].steps;
+  this.steps_length = this.steps.length;
 
   this.polyline = this.map.drawPolyline({
     path: new google.maps.MVCArray(),
@@ -816,19 +817,20 @@ GMaps.Route = function(options){
     strokeWeight: options.strokeWeight
   }).getPath();
 
-  this.polyline.push(this.route.overview_path[0]);
-  this.path_length = this.polyline.getLength();
-
   this.back = function(){
-    if (this.path_length > 0){
-      this.polyline.pop();
-      this.path_length--;
+    if (this.step_count > 0){
+      this.step_count--;
+      for(p in this.route.legs[0].steps[this.step_count].path)
+        this.polyline.pop();
     }
   };
+
   this.forward = function(){
-    if (this.path_length < this.steps){
-      this.polyline.push(this.path[this.path_length]);
-      this.path_length++;
+    if (this.step_count < this.steps_length){
+      for(p in this.route.legs[0].steps[this.step_count].path)
+        this.polyline.push(this.route.legs[0].steps[this.step_count].path[p])
+
+      this.step_count++;
     }
   };
 };
