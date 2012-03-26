@@ -339,8 +339,6 @@ GMaps = function(options){
     }
     else {
       throw 'No latitude or longitude defined';
-
-      return null;
     }
   };
 
@@ -356,8 +354,6 @@ GMaps = function(options){
     }
     else {
       throw 'No latitude or longitude defined';
-
-      return null;
     }
   };
 
@@ -459,7 +455,7 @@ GMaps = function(options){
       item = self.overlays[i];
       item.setMap(null);
     }
-    self.overlays = []
+    self.overlays = [];
   };
 
   this.drawPolyline = function(options){
@@ -673,7 +669,7 @@ GMaps = function(options){
     request_options.travelMode = travelMode;
     request_options.unitSystem = unitSystem;
 
-    delete request_options.callback
+    delete request_options.callback;
 
     var self = this;
     var service = new google.maps.DirectionsService();
@@ -828,7 +824,7 @@ GMaps.Route = function(options){
   this.forward = function(){
     if (this.step_count < this.steps_length){
       for(p in this.route.legs[0].steps[this.step_count].path)
-        this.polyline.push(this.route.legs[0].steps[this.step_count].path[p])
+        this.polyline.push(this.route.legs[0].steps[this.step_count].path[p]);
 
       this.step_count++;
     }
@@ -897,8 +893,8 @@ if (!google.maps.Polygon.prototype.getBounds){
     }
 
     return bounds;
-  }
-};
+  };
+}
 
 // Polygon containsLatLng - method to determine if a latLng is within a polygon
 google.maps.Polygon.prototype.containsLatLng = function(latLng){
