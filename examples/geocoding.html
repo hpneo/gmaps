@@ -50,18 +50,18 @@
     <div class="span6">
       <p>You can geocoding this way:</p>
       <pre>GMaps.geocode({
-          address: $('#address').val(),
-          callback: function(results, status){
-            if(status=='OK'){
-              var latlng = results[0].geometry.location;
-              map.setCenter(latlng.lat(), latlng.lng());
-              map.addMarker({
-                lat: latlng.lat(),
-                lng: latlng.lng()
-              });
-            }
-          }
-        });</pre>
+  address: $('#address').val(),
+  callback: function(results, status){
+    if(status=='OK'){
+      var latlng = results[0].geometry.location;
+      map.setCenter(latlng.lat(), latlng.lng());
+      map.addMarker({
+        lat: latlng.lat(),
+        lng: latlng.lng()
+      });
+    }
+  }
+});</pre>
       <p>You can define either <code>address</code> or <code>lat</code> and <code>lng</code>. Also, you must define <code>callback</code>, which will use <code>results</code> of geocoding and <code>status</code>.</p>
     </div>
   </div>

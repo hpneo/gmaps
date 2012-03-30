@@ -45,21 +45,21 @@
     <div class="span6">
       <p>You can travel a route, step by step, this way:</p>
       <pre>map.travelRoute({
-        origin: [-12.044012922866312, -77.02470665341184],
-        destination: [-12.090814532191756, -77.02271108990476],
-        travelMode: 'driving',
-        step: function(e){
-          $('#instructions').append('&lt;li&gt;'+e.instructions+'&lt;/li&gt;');
-          $('#instructions li:eq('+e.step_number+')').delay(450*e.step_number).fadeIn(200, function(){
-            map.drawPolyline({
-              path: e.path,
-              strokeColor: '#131540',
-              strokeOpacity: 0.6,
-              strokeWeight: 6
-            });  
-          });
-        }
-      });</pre>
+  origin: [-12.044012922866312, -77.02470665341184],
+  destination: [-12.090814532191756, -77.02271108990476],
+  travelMode: 'driving',
+  step: function(e){
+    $('#instructions').append('&lt;li&gt;'+e.instructions+'&lt;/li&gt;');
+    $('#instructions li:eq('+e.step_number+')').delay(450*e.step_number).fadeIn(200, function(){
+      map.drawPolyline({
+        path: e.path,
+        strokeColor: '#131540',
+        strokeOpacity: 0.6,
+        strokeWeight: 6
+      });  
+    });
+  }
+});</pre>
       <p>Same as <code>drawRoute</code>, you must define an <strong>origin</strong>, <strong>destination</strong> and <code>travelMode</code>. Also, you must define the function that GMaps will call every step in the route.</p>
     </div>
   </div>
