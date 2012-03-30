@@ -55,19 +55,19 @@
       <div class="span6">
         <p>GMaps.js supports HTML5 Geolocation:</p>
         <pre class="prettyprint">GMaps.geolocate({
-          success: function(position){
-            map.setCenter(position.coords.latitude, position.coords.longitude);
-          },
-          error: function(error){
-            alert('Geolocation failed: '+error.message);
-          },
-          not_supported: function(){
-            alert("Your browser does not support geolocation");
-          },
-          always: function(){
-            alert("Done!");
-          }
-        });</pre>
+  success: function(position){
+    map.setCenter(position.coords.latitude, position.coords.longitude);
+  },
+  error: function(error){
+    alert('Geolocation failed: '+error.message);
+  },
+  not_supported: function(){
+    alert("Your browser does not support geolocation");
+  },
+  always: function(){
+    alert("Done!");
+  }
+});</pre>
         <p><code>GMaps.geolocate</code> supports 4 functions:
         <ul>
           <li><code>success</code> (required): fires when geolocation has been successful</li>
