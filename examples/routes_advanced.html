@@ -68,9 +68,9 @@
   origin: [-12.044012922866312, -77.02470665341184],
   destination: [-12.090814532191756, -77.02271108990476],
   travelMode: 'driving',
-  step: function(e){
+  step: function(e) {
     $('#instructions').append('&lt;li&gt;'+e.instructions+'&lt;/li&gt;');
-    $('#instructions li:eq('+e.step_number+')').delay(450*e.step_number).fadeIn(200, function(){
+    $('#instructions li:eq(' + e.step_number + ')').delay(450 * e.step_number).fadeIn(200, function() {
       map.drawPolyline({
         path: e.path,
         strokeColor: '#131540',

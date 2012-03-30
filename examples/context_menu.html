@@ -65,7 +65,7 @@
   options: [{
     title: 'Add marker',
     name: 'add_marker',
-    action: function(e){
+    action: function(e) {
       this.addMarker({
         lat: e.latLng.lat(),
         lng: e.latLng.lng(),
@@ -75,7 +75,7 @@
   }, {
     title: 'Center here',
     name: 'center_here',
-    action: function(e){
+    action: function(e) {
       this.setCenter(e.latLng.lat(), e.latLng.lng());
     }
   }]
