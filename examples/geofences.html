@@ -63,22 +63,22 @@
       <div class="span6">
         <p>You can attach a geofence (which can be a polygon or a bounds) to a marker with:</p>
         <pre class="prettyprint">polygon = map.drawPolygon({
-          paths: path,
-          strokeColor: '#BBD8E9',
-          strokeOpacity: 1,
-          strokeWeight: 3,
-          fillColor: '#BBD8E9',
-          fillOpacity: 0.6
-        });
-        map.addMarker({
-          lat: -12.043333,
-          lng: -77.028333,
-          draggable: true,
-          fences: [polygon],
-          outside: function(marker, fence){
-            alert('This marker has been moved outside of its fence');
-          }
-        });</pre>
+  paths: path,
+  strokeColor: '#BBD8E9',
+  strokeOpacity: 1,
+  strokeWeight: 3,
+  fillColor: '#BBD8E9',
+  fillOpacity: 0.6
+});
+map.addMarker({
+  lat: -12.043333,
+  lng: -77.028333,
+  draggable: true,
+  fences: [polygon],
+  outside: function(marker, fence) {
+    alert('This marker has been moved outside of its fence');
+  }
+});</pre>
         <p>You must define an <strong>outside</strong> callback, which will use this <code>marker</code> and its <code>fence</code>.</p>
         <p><span class="label notice">Note</span>You also can use <code>checkMarkerGeofence</code> or <code>checkGeofence</code> methods.</p>
       </div>
