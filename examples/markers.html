@@ -49,13 +49,13 @@
     <div class="span6">
       <p>With GMaps.js you can add markers this way:</p>
       <pre>map.addMarker({
-        lat: -12.043333,
-        lng: -77.028333,
-        title: 'Lima',
-        click: function(e){
-          alert('You clicked in this marker');
-        }
-      });</pre>
+  lat: -12.043333,
+  lng: -77.028333,
+  title: 'Lima',
+  click: function(e){
+    alert('You clicked in this marker');
+  }
+});</pre>
       <p><strong>latitude</strong> and <strong>longitude</strong> are required. You can also attach additional information with <code>details</code>, which will be passed to Event object (<code>e</code>) in the events previously defined.</p>
       <p><span class="label notice">Note</span>If you want to show an Info Window, you must add:</p>
       <pre>infoWindow: {
