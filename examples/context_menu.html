@@ -48,25 +48,25 @@
     <div class="span6">
       <p>You can define a context menu (which will show on right click) with:</p>
       <pre>map.setContextMenu({
-        control: 'map',
-        options: [{
-          title: 'Add marker',
-          name: 'add_marker',
-          action: function(e){
-            this.addMarker({
-              lat: e.latLng.lat(),
-              lng: e.latLng.lng(),
-              title: 'New marker'
-            });
-          }
-        }, {
-          title: 'Center here',
-          name: 'center_here',
-          action: function(e){
-            this.setCenter(e.latLng.lat(), e.latLng.lng());
-          }
-        }]
-      });</pre>
+  control: 'map',
+  options: [{
+    title: 'Add marker',
+    name: 'add_marker',
+    action: function(e){
+      this.addMarker({
+        lat: e.latLng.lat(),
+        lng: e.latLng.lng(),
+        title: 'New marker'
+      });
+    }
+  }, {
+    title: 'Center here',
+    name: 'center_here',
+    action: function(e){
+      this.setCenter(e.latLng.lat(), e.latLng.lng());
+    }
+  }]
+});</pre>
       <p>You must define the <strong>control</strong> that the context menu is attached (<strong>map</strong> or <strong>marker</strong>) and an array of <strong>options</strong> with <code>title</code>, <code>name</code> and <code>action</code> Inside <code>action</code> you can use <code>this</code> for the GMaps.js object (<code>map</code> in this case) and MouseEvent object <code>e</code>.</p>
     </div>
   </div>
