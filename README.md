@@ -8,6 +8,10 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.1.9
+-----------------------
+* New feature: **Static maps**
+
 0.1.8.10
 -----------------------
 * Better GMaps.Route methods
