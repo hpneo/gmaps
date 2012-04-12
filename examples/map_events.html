@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="utf-8">
   <title>GMaps.js &mdash; Map events</title>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
   <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
@@ -34,17 +35,17 @@
     <div class="span6">
       <p>GMaps.js allows to define map events very easily:</p>
       <pre>map = new GMaps({
-        div: '#map',
-        zoom: 16,
-        lat: -12.043333,
-        lng: -77.028333,
-        click: function(e){
-          alert('click');
-        },
-        dragend: function(e){
-          alert('dragend');
-        }
-      });</pre>
+  div: '#map',
+  zoom: 16,
+  lat: -12.043333,
+  lng: -77.028333,
+  click: function(e){
+    alert('click');
+  },
+  dragend: function(e){
+    alert('dragend');
+  }
+});</pre>
       <p><span class="label notice">Note</span>You can check the list of map events <a href="http://code.google.com/intl/en/apis/maps/documentation/javascript/reference.html#Map">here</a>.</p>
     </div>
   </div>

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="utf-8">
   <title>GMaps.js &mdash; Geocoding</title>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
   <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
@@ -50,18 +51,18 @@
     <div class="span6">
       <p>You can geocoding this way:</p>
       <pre>GMaps.geocode({
-          address: $('#address').val(),
-          callback: function(results, status){
-            if(status=='OK'){
-              var latlng = results[0].geometry.location;
-              map.setCenter(latlng.lat(), latlng.lng());
-              map.addMarker({
-                lat: latlng.lat(),
-                lng: latlng.lng()
-              });
-            }
-          }
-        });</pre>
+  address: $('#address').val(),
+  callback: function(results, status){
+    if(status=='OK'){
+      var latlng = results[0].geometry.location;
+      map.setCenter(latlng.lat(), latlng.lng());
+      map.addMarker({
+        lat: latlng.lat(),
+        lng: latlng.lng()
+      });
+    }
+  }
+});</pre>
       <p>You can define either <code>address</code> or <code>lat</code> and <code>lng</code>. Also, you must define <code>callback</code>, which will use <code>results</code> of geocoding and <code>status</code>.</p>
     </div>
   </div>
