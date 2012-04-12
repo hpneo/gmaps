@@ -20,7 +20,7 @@
         [-12.040248585302038,-77.03993927003302],
         [-12.050047116528843,-77.02448169303511],
         [-12.044804866577001,-77.02154422636042],
-        [-12.040397656836609,-77.03373871559225]
+        [-12.040397656836609,-77.03373871559225],
       ];
 
       var url = GMaps.staticMapURL({
@@ -32,6 +32,7 @@
           strokeColor: '#131540',
           strokeOpacity: 0.6,
           strokeWeight: 6
+          // ,fillColor: '#ffaf2ecc'
         }
       });
       $('<img/>').attr('src', url).appendTo('#map');
@@ -65,11 +66,12 @@
     strokeColor: '#131540',
     strokeOpacity: 0.6,
     strokeWeight: 6
+    // fillColor: '#ffaf2ecc'
   }
 });
 
-$('&lt;img/&gt;').attr('src', url)
-  .appendTo('#map');</pre>
+$('&lt;img/&gt;').attr('src', url).appendTo('#map');</pre>
+        <p>The optional <strong>fillColor</strong> indicates both that the path marks off a polygonal area and specifies the fill color to use. The first and last points will be automatically join.</p>
       </div>
     </div>
   </div>
