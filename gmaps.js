@@ -891,9 +891,15 @@ var GMaps = (function($) {
 
   // Static maps
   GMaps.staticMap = function(options){
-    var static_map_root = 'http://maps.googleapis.com/maps/api/staticmap?';
     var parameters = [];
     var data;
+
+    var static_root = 'http://maps.googleapis.com/maps/api/staticmap';
+    if (options.url){
+      static_root = options.url;
+      delete options.url;
+    }
+    static_root += '?';
 
     var markers = options.markers;
     delete options.markers;
@@ -906,7 +912,6 @@ var GMaps = (function($) {
     delete options.polyline;
 
     /** Map options **/
-
     if (options.center){
       parameters.push('center=' + options.center);
       delete options.center;
@@ -1043,7 +1048,7 @@ var GMaps = (function($) {
     }
 
     parameters = parameters.join('&');
-    return static_map_root + parameters;
+    return static_root + parameters;
   };
 
   //==========================
