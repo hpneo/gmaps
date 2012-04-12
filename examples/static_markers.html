@@ -15,7 +15,7 @@
   <script>
     $(document).ready(function(){
       prettyPrint();
-      var url = GMaps.staticMap({
+      var url = GMaps.staticMapURL({
         size: [610, 300],
         lat: -12.043333,
         lng: -77.028333,
@@ -46,7 +46,7 @@
       </div>
       <div class="span6">
         <p>With GMaps.js, a static map with markers is made this way:</p>
-        <pre class="prettyprint">url = GMaps.staticMap({
+        <pre class="prettyprint">url = GMaps.staticMapURL({
   size: [610, 300],
   lat: -12.043333,
   lng: -77.028333,
