@@ -10,7 +10,7 @@
   <link href="examples.css" />
   <script>
     $(document).ready(function(){
-      var url = GMaps.staticMap({
+      var url = GMaps.staticMapURL({
         size: [610, 350],
         lat: -12.043333,
         lng: -77.028333,
@@ -32,16 +32,14 @@
     </div>
     <div class="span6">
       <p>With GMaps.js, a static map with markers is made this way:</p>
-      <pre>url = GMaps.staticMap({
+      <pre>url = GMaps.staticMapURL({
   size: [610, 350],
   lat: -12.043333,
   lng: -77.028333,
   markers: [
     {lat: -12.043333, lng: -77.028333},
-    {lat: -12.045333, lng: -77.034,
-      size: 'small'},
-    {lat: -12.045633, lng: -77.022,
-      color: 'blue'}
+    {lat: -12.045333, lng: -77.034, size: 'small'},
+    {lat: -12.045633, lng: -77.022, color: 'blue'}
   ]
 });
 

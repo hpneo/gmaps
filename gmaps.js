@@ -890,7 +890,7 @@ var GMaps = (function($) {
   };
 
   // Static maps
-  GMaps.staticMap = function(options){
+  GMaps.staticMapURL = function(options){
     var parameters = [];
     var data;
 
