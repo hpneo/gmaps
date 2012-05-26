@@ -8,6 +8,7 @@ var GMaps = (function($) {
     window.context_menu = {};
 
     this.div = $(options.div)[0];
+    this.controls = [];
     this.overlays = [];
     this.markers = [];
     this.polylines = [];
@@ -239,6 +240,41 @@ var GMaps = (function($) {
 
     this.zoomOut = function(value) {
       this.map.setZoom(this.map.getZoom() - value);
+    };
+
+    this.createControl = function(options) {
+      options.style.cursor = 'pointer';
+      options.style.fontFamily = 'Arial, sans-serif';
+      options.style.fontSize = '13px';
+      options.style.boxShadow = 'rgba(0, 0, 0, 0.398438) 0px 2px 4px';
+
+      var controlDiv = $('<div></div>');
+      controlDiv.css(options.style);
+      controlDiv.text(options.text);
+
+      var control = controlDiv[0];
+
+      for(var e in options.events) {
+        google.maps.event.addDomListener(control, e, function() {
+          options.events[e].apply(this, [this]);
+        });
+      }
+
+      control.index = 1;
+
+      return control;
+    };
+
+    this.addControl = function(options) {
+      var position = google.maps.ControlPosition[options.position.toUpperCase()];
+
+      delete options.position;
+
+      var control = this.createControl(options);
+      this.controls.push(control);
+      this.map.controls[position].push(control);
+
+      return control;
     };
 
     // Markers
