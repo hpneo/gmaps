@@ -10,6 +10,7 @@ var GMaps = (function($) {
     this.div = $(options.div)[0];
     this.controls = [];
     this.overlays = [];
+    this.layers = [];
     this.markers = [];
     this.polylines = [];
     this.routes = [];
@@ -678,6 +679,29 @@ var GMaps = (function($) {
       this.polygons.push(polygon);
 
       return polygon;
+    };
+
+    this.getFromFusionTables = function(options) {
+      var fusion_tables_options = {
+        query: options.query,
+        styles: options.styles,
+        suppressInfoWindows: true
+      };
+
+      var layer = new google.maps.FusionTablesLayer(fusion_tables_options);
+
+      layer.setMap(this.map);
+
+      for (var e in options.events) {
+        google.maps.event.addListener(layer, 'click', function(ev){
+          options.events[e].apply(this, [ev]);
+          return false;
+        });
+      }
+
+      this.layers.push(layer);
+
+      return layer;
     };
 
     // Services
