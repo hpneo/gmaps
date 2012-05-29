@@ -121,3 +121,7 @@ Changelog
 * Marker infoWindows
 * Draw routes and circles
 * Initial examples
+
+License
+---------
+MIT License. Copyright 2012 Gustavo Leon. http://github.com/hpneo
