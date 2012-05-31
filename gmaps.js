@@ -1,3 +1,11 @@
+/*!
+ * GMaps.js
+ * http://hpneo.github.com/gmaps/
+ *
+ * Copyright 2012, Gustavo Leon
+ * Released under the MIT License.
+ */
+
 var GMaps = (function($) {
   "use strict";
 
