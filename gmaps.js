@@ -682,20 +682,41 @@ var GMaps = (function($) {
     };
 
     this.getFromFusionTables = function(options) {
-      var fusion_tables_options = {
-        query: options.query,
-        styles: options.styles,
-        suppressInfoWindows: true
-      };
+      var events = options.events;
+
+      delete options.events;
+
+      var fusion_tables_options = options;
+      fusion_tables_options.map = this.map;
 
       var layer = new google.maps.FusionTablesLayer(fusion_tables_options);
 
-      layer.setMap(this.map);
+      for (var e in events) {
+        google.maps.event.addListener(layer, e, function(ev){
+          events[e].apply(this, [ev]);
+        });
+      }
 
-      for (var e in options.events) {
-        google.maps.event.addListener(layer, 'click', function(ev){
-          options.events[e].apply(this, [ev]);
-          return false;
+      this.layers.push(layer);
+
+      return layer;
+    };
+
+    this.getFromKML = function(options) {
+      var url = options.url;
+      var events = options.events;
+
+      delete options.url;
+      delete options.events;
+      
+      var kml_options = options;
+      kml_options.map = this.map;
+
+      var layer = new google.maps.KmlLayer(url, kml_options);
+
+      for (var e in events) {
+        google.maps.event.addListener(layer, e, function(ev){
+          events[e].apply(this, [ev]);
         });
       }
 
