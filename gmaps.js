@@ -687,7 +687,6 @@ var GMaps = (function($) {
       delete options.events;
 
       var fusion_tables_options = options;
-      fusion_tables_options.map = this.map;
 
       var layer = new google.maps.FusionTablesLayer(fusion_tables_options);
 
@@ -702,6 +701,13 @@ var GMaps = (function($) {
       return layer;
     };
 
+    this.loadFromFusionTables = function(options) {
+      var layer = this.getFromFusionTables(options);
+      layer.setMap(this.map);
+
+      return layer;
+    };
+
     this.getFromKML = function(options) {
       var url = options.url;
       var events = options.events;
@@ -710,7 +716,6 @@ var GMaps = (function($) {
       delete options.events;
       
       var kml_options = options;
-      kml_options.map = this.map;
 
       var layer = new google.maps.KmlLayer(url, kml_options);
 
@@ -721,6 +726,13 @@ var GMaps = (function($) {
       }
 
       this.layers.push(layer);
+
+      return layer;
+    };
+
+    this.loadFromKML = function(options) {
+      var layer = this.getFromKML(options);
+      layer.setMap(this.map);
 
       return layer;
     };

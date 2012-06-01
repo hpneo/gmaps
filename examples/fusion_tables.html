@@ -18,7 +18,7 @@
         lat: 41.850033,
         lng: -87.6500523
       });
-      map.getFromFusionTables({
+      map.loadFromFusionTables({
         query: {
           select: '\'Geocodable address\'',
           from: '1mZ53Z70NsChnBMm-qEYmSDOvLXgrreLTkQUvvg'
@@ -44,7 +44,7 @@
     <div class="span6">
       <p>GMaps.js allows to add Fusion Table layers:</p>
       <pre>infoWindow = new google.maps.InfoWindow({});
-map.getFromFusionTables({
+map.loadFromFusionTables({
   query: {
     select: '\'Geocodable address\'',
     from: '1mZ53Z70NsChnBMm-qEYmSDOvLXgrreLTkQUvvg'

@@ -8,6 +8,10 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.1.12.1
+-----------------------
+* New methods: loadFromFusionTables and loadFromKML
+
 0.1.12
 -----------------------
 * New feature: **KML and GeoRSS**
