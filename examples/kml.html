@@ -22,7 +22,7 @@
         lat: 40.65,
         lng: -73.95
       });
-      map.getFromKML({
+      map.loadFromKML({
         url: 'http://api.flickr.com/services/feeds/geo/?g=322338@N20&lang=en-us&format=feed-georss',
         suppressInfoWindows: true,
         events: {
@@ -54,7 +54,7 @@
       <div class="span6">
         <p>GMaps.js allows to add KML and GeoRSS layers:</p>
       <pre class="prettyprint">infoWindow = new google.maps.InfoWindow({});
-map.getFromKML({
+map.loadFromKML({
   url: 'http://www.searcharoo.net/SearchKml/newyork.kml',
   suppressInfoWindows: true,
   events: {
