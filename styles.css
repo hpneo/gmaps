@@ -132,3 +132,13 @@ ul.gallery li h5{
   height:300px;
   background:#6699cc;
 }
+
+#sponsors {
+  font-size: 12px;
+  text-align: right;
+  padding: 4px 6px;
+}
+
+#sponsors img {
+  height: 40px;
+}
