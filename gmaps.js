@@ -774,9 +774,9 @@ var GMaps = (function($) {
       }
 
       var base_options = {
-        avoidHighways: true,
-        avoidTolls: true,
-        optimizeWaypoints: true,
+        avoidHighways: false,
+        avoidTolls: false,
+        optimizeWaypoints: false,
         waypoints: []
       };
       var request_options = $.extend(base_options, options);
