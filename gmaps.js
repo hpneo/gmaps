@@ -159,6 +159,10 @@ var GMaps = (function($) {
       buildContextMenu('map', e);
     });
 
+    this.refresh = function() {
+      google.maps.event.trigger(this.map, 'resize');
+    };
+
     // Map methods
     this.setCenter = function(lat, lng, callback) {
       this.map.panTo(new google.maps.LatLng(lat, lng));
