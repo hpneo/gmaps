@@ -489,6 +489,13 @@ var GMaps = (function($) {
       options = $.extend({
         map: this.map
       }, options);
+      
+      if($.isArray(options.paths)) {
+          if($.isArray(options.paths[0])) {
+             options.paths = $.map(options.paths, arrayToLatLng); 
+          }
+      }
+      
       var polygon = new google.maps.Polygon(options);
 
       var polygon_events = ['click', 'dblclick', 'mousedown', 'mousemove', 'mouseout', 'mouseover', 'mouseup', 'rightclick'];
@@ -505,6 +512,10 @@ var GMaps = (function($) {
       this.polygons.push(polygon);
 
       return polygon;
+      
+      function arrayToLatLng(coords) {
+          return new google.maps.LatLng(coords[0], coords[1]);
+      }
     };
 
     this.getFromFusionTables = function(options) {
