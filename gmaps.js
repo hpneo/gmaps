@@ -16,6 +16,9 @@ var GMaps = (function($) {
     window.context_menu = {};
 
     this.div = $(options.div)[0];
+    this.div.style.width = this.div.clientWidth || options.width;
+    this.div.style.height = this.div.clientHeight || options.height;
+
     this.controls = [];
     this.overlays = [];
     this.layers = [];
@@ -42,6 +45,8 @@ var GMaps = (function($) {
     delete options.lat;
     delete options.lng;
     delete options.mapType;
+    delete options.width;
+    delete options.height;
 
     var map_base_options = {
       zoom: this.zoom,
