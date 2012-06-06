@@ -8,6 +8,10 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.1.12.4
+-----------------------
+* New methods: fitZoom and fitBounds
+
 0.1.12.3
 -----------------------
 * New method: refresh

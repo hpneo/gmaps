@@ -163,6 +163,28 @@ var GMaps = (function($) {
       google.maps.event.trigger(this.map, 'resize');
     };
 
+    this.fitZoom = function() {
+      var latLngs = [];
+      var markers_length = this.markers.length;
+
+      for(var i=0; i < markers_length; i++) {
+        latLngs.push(this.markers[i].getPosition());
+      }
+
+      this.fitBounds(latLngs);
+    };
+
+    this.fitBounds = function(latLngs) {
+      var total = latLngs.length;
+      var bounds = new google.maps.LatLngBounds();
+
+      for(var i=0; i < total; i++) {
+        bounds.extend(latLngs[i]);
+      }
+
+      this.map.fitBounds(bounds);
+    };
+
     // Map methods
     this.setCenter = function(lat, lng, callback) {
       this.map.panTo(new google.maps.LatLng(lat, lng));
