@@ -6,16 +6,14 @@
  * Released under the MIT License.
  */
 
-var GMaps = (function($) {
+var GMaps = (function() {
   "use strict";
 
   var GMaps = function(options) {
     var self = this;
-    var context_menu_style = 'position:absolute;display:none;min-width:100px;' +
-      'background:white;list-style:none;padding:8px;box-shadow:2px 2px 6px #ccc';
     window.context_menu = {};
 
-    this.div = $(options.div)[0];
+    this.div = document.getElementById(options.div.replace('#', ''));
     this.div.style.width = this.div.clientWidth || options.width;
     this.div.style.height = this.div.clientHeight || options.height;
 
@@ -42,6 +40,7 @@ var GMaps = (function($) {
 
     var map_center = new google.maps.LatLng(options.lat, options.lng);
 
+    delete options.div;
     delete options.lat;
     delete options.lng;
     delete options.mapType;
@@ -54,7 +53,7 @@ var GMaps = (function($) {
       mapTypeId: mapType
     };
 
-    var map_options = $.extend(map_base_options, options);
+    var map_options = extend_object(map_base_options, options);
 
     this.map = new google.maps.Map(this.div, map_options);
 
@@ -69,21 +68,35 @@ var GMaps = (function($) {
               option.title + '</a></li>';
           }
         }
-        var $context_menu = $('#gmaps_context_menu');
-        $context_menu.html(html);
-        $context_menu.undelegate();
-        $context_menu.delegate('li a', 'click', function(ev) {
-          ev.preventDefault();
-          options[$(this).attr('id').replace(control + '_', '')].action.call(self, e);
-          self.hideContextMenu();
-        });
+        if(!document.getElementById('gmaps_context_menu')) return;
+        var context_menu_element = document.getElementById('gmaps_context_menu');
+        context_menu_element.innerHTML = html;
 
-        var left = $(self.div).offset().left + e.pixel.x - 15;
-        var top = $(self.div).offset().top + e.pixel.y - 15;
-        $context_menu.css({
-          left: left,
-          top: top
-        }).fadeIn(200);
+        var context_menu_items = context_menu_element.getElementsByTagName('a');
+
+        var context_menu_items_count = context_menu_items.length;
+
+        for(var i=0;i<context_menu_items_count;i++){
+          var context_menu_item = context_menu_items[i];
+
+          var assign_menu_item_action = function(ev){
+            ev.preventDefault();
+
+            options[this.id.replace(control + '_', '')].action.call(self, e);
+            self.hideContextMenu();
+          };
+
+          google.maps.event.clearListeners(context_menu_item, 'click');
+          google.maps.event.addDomListenerOnce(context_menu_item, 'click', assign_menu_item_action, false);
+        }
+
+        var left = self.div.offsetLeft + e.pixel.x - 15;
+        var top = self.div.offsetTop + e.pixel.y - 15;
+
+        context_menu_element.style.left = left + "px";
+        context_menu_element.style.top = top + "px";
+
+        context_menu_element.style.display = 'block';
       };
 
     var buildContextMenu = function(control, e) {
@@ -106,7 +119,6 @@ var GMaps = (function($) {
 
     this.setContextMenu = function(options) {
       window.context_menu[options.control] = {};
-      var html = '<ul id="gmaps_context_menu" style="' + context_menu_style + '"></ul>';
       for (var i in options.options){
         if (options.options.hasOwnProperty(i)){
           var option = options.options[i];
@@ -116,14 +128,33 @@ var GMaps = (function($) {
           };
         }
       }
-      $('body').append(html);
-      $('#gmaps_context_menu').mouseleave(function() {
-        $(this).delay(100).fadeOut(200);
-      });
+      var ul = document.createElement('ul');
+      ul.id = 'gmaps_context_menu';
+      ul.style.display = 'none';
+      ul.style.position = 'absolute';
+      ul.style.minWidth = '100px';
+      ul.style.background = 'white';
+      ul.style.listStyle = 'none';
+      ul.style.padding = '8px';
+      ul.style.boxShadow = '2px 2px 6px #ccc';
+
+      document.body.appendChild(ul);
+
+      var context_menu_element = document.getElementById('gmaps_context_menu');
+
+      google.maps.event.addDomListener(context_menu_element, 'mouseout', function(ev) {
+        if(!ev.relatedTarget || !this.contains(ev.relatedTarget)){
+          window.setTimeout(function(){
+            context_menu_element.style.display = 'none';
+          }, 400);
+        }
+      }, false);
     };
 
     this.hideContextMenu = function() {
-      $('#gmaps_context_menu').fadeOut(200);
+      var context_menu_element = document.getElementById('gmaps_context_menu');
+      if(context_menu_element)
+        context_menu_element.style.display = 'none';
     };
 
     //Events
@@ -214,16 +245,18 @@ var GMaps = (function($) {
     };
 
     this.createControl = function(options) {
-      options.style.cursor = 'pointer';
-      options.style.fontFamily = 'Arial, sans-serif';
-      options.style.fontSize = '13px';
-      options.style.boxShadow = 'rgba(0, 0, 0, 0.398438) 0px 2px 4px';
+      var control = document.createElement('div');
 
-      var controlDiv = $('<div></div>');
-      controlDiv.css(options.style);
-      controlDiv.text(options.text);
+      control.style.cursor = 'pointer';
+      control.style.fontFamily = 'Arial, sans-serif';
+      control.style.fontSize = '13px';
+      control.style.boxShadow = 'rgba(0, 0, 0, 0.398438) 0px 2px 4px';
 
-      var control = controlDiv[0];
+      for(var option in options.style){
+        control.style[option] = options.style[option];
+      }
+      
+      control.textContent = options.text;
 
       for (var ev in options.events) {
         (function(object, name) {
@@ -257,16 +290,18 @@ var GMaps = (function($) {
         var details = options.details;
         var fences = options.fences;
         var outside = options.outside;
+
         var base_options = {
           position: new google.maps.LatLng(options.lat, options.lng),
           map: null
         };
+        
         delete options.lat;
         delete options.lng;
         delete options.fences;
         delete options.outside;
 
-        var marker_options = $.extend(base_options, options);
+        var marker_options = extend_object(base_options, options);
 
         var marker = new google.maps.Marker(marker_options);
 
@@ -376,6 +411,7 @@ var GMaps = (function($) {
         div.style.borderStyle = "none";
         div.style.borderWidth = "0px";
         div.style.position = "absolute";
+        div.style.zIndex = 100;
         div.innerHTML = options.content;
 
         self.overlay_div = div;
@@ -396,32 +432,35 @@ var GMaps = (function($) {
         options.verticalOffset = options.verticalOffset || 0;
 
         var div = self.overlay_div;
-        var content = div.children;
+        var content = div.children[0];
+
+        var content_height = content.clientHeight;
+        var content_width = content.clientWidth;
 
         switch (options.verticalAlign) {
-        case 'top':
-          div.style.top = (pixel.y - $(content).height() + options.verticalOffset) + 'px';
-          break;
-        default:
-        case 'middle':
-          div.style.top = (pixel.y - ($(content).height() / 2) + options.verticalOffset) + 'px';
-          break;
-        case 'bottom':
-          div.style.top = (pixel.y + options.verticalOffset) + 'px';
-          break;
+          case 'top':
+            div.style.top = (pixel.y - content_height + options.verticalOffset) + 'px';
+            break;
+          default:
+          case 'middle':
+            div.style.top = (pixel.y - (content_height / 2) + options.verticalOffset) + 'px';
+            break;
+          case 'bottom':
+            div.style.top = (pixel.y + options.verticalOffset) + 'px';
+            break;
         }
 
         switch (options.horizontalAlign) {
-        case 'left':
-          div.style.left = (pixel.x - $(content).width() + options.horizontalOffset) + 'px';
-          break;
-        default:
-        case 'center':
-          div.style.left = (pixel.x - ($(content).width() / 2) + options.horizontalOffset) + 'px';
-          break;
-        case 'right':
-          div.style.left = (pixel.x + options.horizontalOffset) + 'px';
-          break;
+          case 'left':
+            div.style.left = (pixel.x - content_width + options.horizontalOffset) + 'px';
+            break;
+          default:
+          case 'center':
+            div.style.left = (pixel.x - (content_width / 2) + options.horizontalOffset) + 'px';
+            break;
+          case 'right':
+            div.style.left = (pixel.x + options.horizontalOffset) + 'px';
+            break;
         }
       };
 
@@ -484,7 +523,7 @@ var GMaps = (function($) {
     };
 
     this.drawCircle = function(options) {
-      options = $.extend({
+      options =  extend_object({
         map: this.map,
         center: new google.maps.LatLng(options.lat, options.lng)
       }, options);
@@ -508,13 +547,13 @@ var GMaps = (function($) {
     };
 
     this.drawPolygon = function(options) {
-      options = $.extend({
+      options = extend_object({
         map: this.map
       }, options);
       
-      if($.isArray(options.paths)) {
-          if($.isArray(options.paths[0])) {
-             options.paths = $.map(options.paths, arrayToLatLng); 
+      if(options.paths.length > 0) {
+          if(options.paths[0].length > 0) {
+             options.paths = array_map(options.paths, arrayToLatLng);
           }
       }
       
@@ -629,7 +668,9 @@ var GMaps = (function($) {
         optimizeWaypoints: false,
         waypoints: []
       };
-      var request_options = $.extend(base_options, options);
+      
+      var request_options =  extend_object(base_options, options);
+
       request_options.origin = new google.maps.LatLng(options.origin[0], options.origin[1]);
       request_options.destination = new google.maps.LatLng(options.destination[0], options.destination[1]);
       request_options.travelMode = travelMode;
@@ -1077,4 +1118,26 @@ var GMaps = (function($) {
   };
 
   return GMaps;
-}(jQuery || $));
+}());
+
+var extend_object = function(obj, new_obj) {
+  if(obj === new_obj) return obj;
+
+  for(var name in new_obj){
+    obj[name] = new_obj[name];
+  }
+
+  return obj;
+};
+
+var array_map = function(array, callback) {
+  var array_return = [];
+
+  var array_length = array.length;
+
+  for(var i = 0; i < array_length; i++) {
+    array_return.push(callback(array[i]));
+  }
+
+  return array_return;
+}
