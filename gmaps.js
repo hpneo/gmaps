@@ -1134,13 +1134,17 @@ var extend_object = function(obj, new_obj) {
 };
 
 var array_map = function(array, callback) {
-  var array_return = [];
+  if (Array.prototype.map && array.map === Array.prototype.map) {
+    return array.map(callback);
+  } else {
+    var array_return = [];
 
-  var array_length = array.length;
+    var array_length = array.length;
 
-  for(var i = 0; i < array_length; i++) {
-    array_return.push(callback(array[i]));
+    for(var i = 0; i < array_length; i++) {
+      array_return.push(callback(array[i]));
+    }
+
+    return array_return;
   }
-
-  return array_return;
 }
