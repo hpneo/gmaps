@@ -9,11 +9,14 @@
 var GMaps = (function() {
   "use strict";
 
+  var doc = document;
+  var getElementById = function(id) { return doc.getElementById(id) };
+
   var GMaps = function(options) {
     var self = this;
     window.context_menu = {};
 
-    this.div = document.getElementById(options.div.replace('#', ''));
+    this.div = getElementById(options.div.replace('#', ''));
     this.div.style.width = this.div.clientWidth || options.width;
     this.div.style.height = this.div.clientHeight || options.height;
 
@@ -68,8 +71,8 @@ var GMaps = (function() {
               option.title + '</a></li>';
           }
         }
-        if(!document.getElementById('gmaps_context_menu')) return;
-        var context_menu_element = document.getElementById('gmaps_context_menu');
+        if(!getElementById('gmaps_context_menu')) return;
+        var context_menu_element = getElementById('gmaps_context_menu');
         context_menu_element.innerHTML = html;
 
         var context_menu_items = context_menu_element.getElementsByTagName('a');
@@ -128,7 +131,7 @@ var GMaps = (function() {
           };
         }
       }
-      var ul = document.createElement('ul');
+      var ul = doc.createElement('ul');
       ul.id = 'gmaps_context_menu';
       ul.style.display = 'none';
       ul.style.position = 'absolute';
@@ -138,9 +141,9 @@ var GMaps = (function() {
       ul.style.padding = '8px';
       ul.style.boxShadow = '2px 2px 6px #ccc';
 
-      document.body.appendChild(ul);
+      doc.body.appendChild(ul);
 
-      var context_menu_element = document.getElementById('gmaps_context_menu');
+      var context_menu_element = getElementById('gmaps_context_menu');
 
       google.maps.event.addDomListener(context_menu_element, 'mouseout', function(ev) {
         if(!ev.relatedTarget || !this.contains(ev.relatedTarget)){
@@ -152,7 +155,7 @@ var GMaps = (function() {
     };
 
     this.hideContextMenu = function() {
-      var context_menu_element = document.getElementById('gmaps_context_menu');
+      var context_menu_element = getElementById('gmaps_context_menu');
       if(context_menu_element)
         context_menu_element.style.display = 'none';
     };
@@ -245,7 +248,7 @@ var GMaps = (function() {
     };
 
     this.createControl = function(options) {
-      var control = document.createElement('div');
+      var control = doc.createElement('div');
 
       control.style.cursor = 'pointer';
       control.style.fontFamily = 'Arial, sans-serif';
@@ -407,7 +410,7 @@ var GMaps = (function() {
       overlay.setMap(self.map);
 
       overlay.onAdd = function() {
-        var div = document.createElement('div');
+        var div = doc.createElement('div');
         div.style.borderStyle = "none";
         div.style.borderWidth = "0px";
         div.style.position = "absolute";
