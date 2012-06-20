@@ -654,6 +654,17 @@ var GMaps = (function($) {
       });
     };
 
+    this.removePolylines = function(){
+      var index;
+      for(index in this.polylines){
+        this.polylines[index].setMap(null);
+      }
+      this.polylines = [];
+    }
+
+    // Alias for the method "drawRoute"
+    this.cleanRoute = this.removePolylines;
+
     this.drawRoute = function(options) {
       var self = this;
       this.getRoutes({
