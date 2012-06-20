@@ -8,6 +8,10 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.1.12.5
+-----------------------
+* New method "removePolylines" and alias "cleanRoute"
+
 0.1.12.4
 -----------------------
 * New methods: fitZoom and fitBounds
