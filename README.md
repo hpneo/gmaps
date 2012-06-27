@@ -8,6 +8,10 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.2
+-----------------------
+Remove jQuery dependency.
+
 0.1.12.5
 -----------------------
 * New method "removePolylines" and alias "cleanRoute"
