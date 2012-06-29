@@ -50,10 +50,31 @@ var GMaps = (function() {
     delete options.width;
     delete options.height;
 
+    var zoomControl = options.zoomControl || true,
+        zoomControlStyle = options.zoomControlOpt.style || 'DEFAULT',
+        zoomControlPosition = options.zoomControlOpt.position || 'LEFT_TOP',
+        panControl = options.panControl || true,
+        mapTypeControl = options.mapTypeControl || true,
+        scaleControl = options.scaleControl || true,
+        streetViewControl = options.streetViewControl || true,
+        overviewMapControl = overviewMapControl || true;
+
+
+
     var map_base_options = {
       zoom: this.zoom,
       center: map_center,
-      mapTypeId: mapType
+      mapTypeId: mapType,
+      panControl: panControl,
+      zoomControl: zoomControl,
+      zoomControlOptions: {
+        style: google.maps.ZoomControlStyle[zoomControlStyle], // DEFAULT LARGE SMALL
+        position: google.maps.ControlPosition[zoomControlPosition]
+      },
+      mapTypeControl: mapTypeControl,
+      scaleControl: scaleControl,
+      streetViewControl: streetViewControl,
+      overviewMapControl: overviewMapControl,
     };
 
     var map_options = extend_object(map_base_options, options);
