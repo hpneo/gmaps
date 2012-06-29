@@ -314,7 +314,8 @@ var GMaps = (function() {
         var details = options.details;
         var fences = options.fences;
         var outside = options.outside;
-
+        var markerImage = new google.maps.MarkerImage(options.markerImage);
+        
         var base_options = {
           position: new google.maps.LatLng(options.lat, options.lng),
           map: null
