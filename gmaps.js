@@ -315,14 +315,22 @@ var GMaps = (function() {
     // Markers
     this.createMarker = function(options) {
       if (options.lat && options.lng) {
-        var self = this;
-        var details = options.details;
-        var fences = options.fences;
-        var outside = options.outside;
+        var self = this,
+            details = options.details,
+            fences = options.fences,
+            outside = options.outside,
+            markerImage = options.markerImage || null;
+            
+        if (markerImage != null) {
+          var icon = new google.maps.MarkerImage(markerImage);
+        } else {
+          var icon = null;
+        }
 
         var base_options = {
           position: new google.maps.LatLng(options.lat, options.lng),
-          map: null
+          map: null,
+          icon: icon
         };
         
         delete options.lat;
