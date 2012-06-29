@@ -74,7 +74,7 @@ var GMaps = (function() {
       mapTypeControl: mapTypeControl,
       scaleControl: scaleControl,
       streetViewControl: streetViewControl,
-      overviewMapControl: overviewMapControl,
+      overviewMapControl: overviewMapControl
     };
 
     var map_options = extend_object(map_base_options, options);

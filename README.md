@@ -8,6 +8,10 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.2.1
+-----------------------
+* More default values in GMaps constructor.
+
 0.2
 -----------------------
 Remove jQuery dependency.
