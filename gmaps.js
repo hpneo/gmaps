@@ -50,9 +50,14 @@ var GMaps = (function() {
     delete options.width;
     delete options.height;
 
+    var zoomControlOpt = options.zoomControlOpt || {
+      style: 'DEFAULT',
+      position: 'LEFT_TOP'
+    };
+
     var zoomControl = options.zoomControl || true,
-        zoomControlStyle = options.zoomControlOpt.style || 'DEFAULT',
-        zoomControlPosition = options.zoomControlOpt.position || 'LEFT_TOP',
+        zoomControlStyle = zoomControlOpt.style || 'DEFAULT',
+        zoomControlPosition = zoomControlOpt.position || 'LEFT_TOP',
         panControl = options.panControl || true,
         mapTypeControl = options.mapTypeControl || true,
         scaleControl = options.scaleControl || true,
