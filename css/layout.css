@@ -2,10 +2,119 @@ body{
   background:#f3f3f3;
   margin:0;
   padding:0;
-  font-family: 'Helvetica', 'Arial', sans-serif;
+  font-family: Helvetica Neue, Helvetica, Arial;
+  font-size: 14px;
 }
 
-h1{
+h1 {
+  margin: 0;
+}
+
+#header {
+  display: block;
+  background: #111;
+  background-image: linear-gradient(bottom, #005199 20%, #0069aa 80%);
+  background-image: -o-linear-gradient(bottom, #005199 20%, #0069aa 80%);
+  background-image: -moz-linear-gradient(bottom, #005199 20%, #0069aa 80%);
+  background-image: -webkit-linear-gradient(bottom, #005199 20%, #0069aa 80%);
+  background-image: -ms-linear-gradient(bottom, #005199 20%, #0069aa 80%);
+
+  background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0.2, #005199),
+    color-stop(0.8, #0069aa)
+  );
+
+  padding: 6px 0;
+  color: #fafafa;
+  border-bottom: solid 1px #004893;
+  box-shadow: 0 0 20px 0px #034282;
+  position: fixed;
+  width: 100%;
+  top: 0;
+}
+
+#header h1,
+#header ul {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#header a {
+  font-family: 'Ubuntu', 'Bitter';
+  font-weight: bold;
+  color: #fefefe;
+  text-decoration: none;
+}
+
+#header h1 {
+  color: #fff;
+  margin: 0 10px;
+  font-family: 'Convergence';
+  text-shadow: 0 1px 1px #00264a;
+}
+
+#header ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#header li {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+#body {
+  position: absolute;
+  width: 100%;
+  z-index: -1;
+}
+
+#content {
+  margin: 50px 20px 20px 280px;
+}
+
+#sidebar {
+  background: #e0e1eb;
+  position: fixed;
+  top: 46px;
+  bottom: 0;
+  left: 0;
+  width: 240px;
+  padding: 10px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+#sidebar h3 {
+  margin: 0;
+  font-family: 'Ubuntu';
+}
+
+#sidebar h4 {
+  margin: 4px 8px;
+  font-family: 'Ubuntu';
+}
+
+#sidebar ul {
+  margin: 0 16px;
+  padding: 0 16px;
+  font-size: 15px;
+}
+
+#sidebar a {
+  text-decoration: none;
+  color: #111;
+}
+
+#sidebar a:hover {
+  text-decoration: underline;
+}
+
+#content h1{
   font-family: 'Convergence';
   font-size: 95px;
   text-align: center;
@@ -13,7 +122,16 @@ h1{
   margin: 8px 0;
   text-shadow: 0 0 1px #000;
 }
-h2{
+
+#content h3 {
+  font-size: 24px;
+}
+
+#content h4 {
+  font-size: 22px;
+}
+
+#content h2{
   font-family:'Bitter';
   font-size:20px;
   font-weight:normal;
@@ -23,6 +141,27 @@ h2{
   margin: 6px 0;
   text-transform:lowercase;
 }
+
+#content p.big{
+  font-family:'Ubuntu';
+  font-size:24px;
+  color:#333;
+}
+
+#content .map {
+  height: 320px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  background: #6699cc;
+  box-shadow: 0 0 10px #666;
+}
+
+#content p.license img {
+  vertical-align: middle;
+}
+
+/*
 
 h3{
   margin:8px 0;
@@ -143,3 +282,5 @@ ul.gallery li h5{
   height: 40px;
   margin: 4px;
 }
+
+*/

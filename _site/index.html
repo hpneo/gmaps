@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>gmaps.js — Google Maps API with less pain and more fun</title>
+  <meta charset="utf-8">
+  <link href='http://fonts.googleapis.com/css?family=Convergence|Bitter|Ubuntu' rel='stylesheet' type='text/css' />
+  <link rel="stylesheet" href="css/layout.css" type="text/css" />
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true&language=es"></script>
+  <script type="text/javascript" src="https://raw.github.com/HPNeo/gmaps/master/gmaps.js"></script>
+  <script type="text/javascript">
+  var map = null;
+  $(document).ready(function(){
+    map = new GMaps({
+      div: '#map',
+      lat: -12.043333,
+      lng: -77.028333
+    });
+  });
+</script>
+</head>
+<body>
+  <div id="header">
+    <h1>gmaps.js</h1>
+    <ul>
+      <li><a href="#">Documentation</a></li>
+      <li><a href="#">Examples</a></li>
+      <li><a href="#">Download</a></li>
+      <li><a href="http://jsfiddle.net/HPNeo/xUUxn/">Try!</a></li>
+      <li><a href="https://github.com/hpneo/gmaps">Watch the repo</a></li>
+    </ul>
+  </div>
+  <div id="body">
+    <div id="sidebar">
+      <h3>Documentation</h3>
+      <h4>GMaps</h4>
+      <ul>
+        <li><a href="#GMaps-div">div</a></li>
+        <li><a href="#GMaps-controls">controls</a></li>
+        <li><a href="#GMaps-overlays">overlays</a></li>
+        <li><a href="#GMaps-layers">layers</a></li>
+        <li><a href="#GMaps-markers">markers</a></li>
+        <li><a href="#GMaps-polylines">polylines</a></li>
+        <li><a href="#GMaps-routes">routes</a></li>
+        <li><a href="#GMaps-polygons">polygons</a></li>
+        <li><a href="#GMaps-infoWindow">infoWindow</a></li>
+        <li><a href="#GMaps-overlay_div">overlay_div</a></li>
+        <li><a href="#GMaps-zoom">zoom</a></li>
+        <li><a href="#GMaps-map">map</a></li>
+        <li><a href="#GMaps-setContextMenu">setContextMenu</a></li>
+        <li><a href="#GMaps-hideContextMenu">hideContextMenu</a></li>
+        <li><a href="#GMaps-refresh">refresh</a></li>
+        <li><a href="#GMaps-fitZoom">fitZoom</a></li>
+        <li><a href="#GMaps-fitBounds">fitBounds</a></li>
+        <li><a href="#GMaps-setCenter">setCenter</a></li>
+        <li><a href="#GMaps-getCenter">getCenter</a></li>
+        <li><a href="#GMaps-getDiv">getDiv</a></li>
+        <li><a href="#GMaps-setZoom">setZoom</a></li>
+        <li><a href="#GMaps-zoomIn">zoomIn</a></li>
+        <li><a href="#GMaps-zoomOut">zoomOut</a></li>
+        <li><a href="#GMaps-createControl">createControl</a></li>
+        <li><a href="#GMaps-addControl">addControl</a></li>
+        <li><a href="#GMaps-createMarker">createMarker</a></li>
+        <li><a href="#GMaps-addMarker">addMarker</a></li>
+        <li><a href="#GMaps-addMarkers">addMarkers</a></li>
+        <li><a href="#GMaps-hideInfoWindows">hideInfoWindows</a></li>
+        <li><a href="#GMaps-removeMarkers">removeMarkers</a></li>
+        <li><a href="#GMaps-drawOverlay">drawOverlay</a></li>
+        <li><a href="#GMaps-removeOverlay">removeOverlay</a></li>
+        <li><a href="#GMaps-removeOverlays">removeOverlays</a></li>
+        <li><a href="#GMaps-drawPolyline">drawPolyline</a></li>
+        <li><a href="#GMaps-drawCircle">drawCircle</a></li>
+        <li><a href="#GMaps-drawPolygon">drawPolygon</a></li>
+        <li><a href="#GMaps-getFromFusionTables">getFromFusionTables</a></li>
+        <li><a href="#GMaps-loadFromFusionTables">loadFromFusionTables</a></li>
+        <li><a href="#GMaps-getFromKML">getFromKML</a></li>
+        <li><a href="#GMaps-loadFromKML">loadFromKML</a></li>
+        <li><a href="#GMaps-getRoutes">getRoutes</a></li>
+        <li><a href="#GMaps-removePolylines">removePolylines</a></li>
+        <li><a href="#GMaps-cleanRoute">cleanRoute</a></li>
+        <li><a href="#GMaps-drawRoute">drawRoute</a></li>
+        <li><a href="#GMaps-travelRoute">travelRoute</a></li>
+        <li><a href="#GMaps-drawSteppedRoute">drawSteppedRoute</a></li>
+        <li><a href="#GMaps-checkGeofence">checkGeofence</a></li>
+        <li><a href="#GMaps-checkMarkerGeofence">checkMarkerGeofence</a></li>
+      </ul>
+      <h4>GMaps.geocode</h4>
+      <h4>GMaps.geolocate</h4>
+      <h4>GMaps.Route</h4>
+      <h4>GMaps.staticMapURL</h4>
+      <h3>Examples</h3>
+      <h4>Maps</h4>
+      <ul>
+        <li><a href="#examples-basic">Basic</a></li>
+        <li><a href="#examples-map-events">Map events</a></li>
+        <li><a href="#examples-markers">Markers</a></li>
+      </ul>
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#examples-geolocation">Geolocation</a></li>
+        <li><a href="#examples-geocoding">Geocoding</a></li>
+      </ul>
+      <h4>Overlays</h4>
+      <ul>
+        <li><a href="#examples-polylines">Polylines</a></li>
+        <li><a href="#examples-overlays">Overlays</a></li>
+        <li><a href="#examples-polygon">Polygon</a></li>
+      </ul>
+      <h4>Routes</h4>
+      <ul>
+        <li><a href="#examples-routes">Routes</a></li>
+        <li><a href="#examples-routes-advanced">Routes (advanced)</a></li>
+        <li><a href="#examples-gmaps-route">GMaps.Route</a></li>
+      </ul>
+      <h4>Static maps</h4>
+      <ul>
+        <li><a href="#examples-static-maps">Static maps </a></li>
+        <li><a href="#examples-static-markers">With markers</a></li>
+        <li><a href="#examples-static-polylines">With polylines</a></li>
+      </ul>
+      <h4>Utils</h4>
+      <ul>
+        <li><a href="#examples-context-menu">Context menu</a></li>
+        <li><a href="#examples-geofences">Geofences</a></li>
+        <li><a href="#examples-custom-controls">Custom controls</a></li>
+        <li><a href="#examples-fusion-tables">Fusion Tables layers</a></li>
+        <li><a href="#examples-kml">KML and GeoRSS layers</a></li>
+      </ul>
+      <h3>Change log</h3>
+      <h3>Try!</h3>
+    </div>
+    <div id="content">
+      <h1>gmaps.js</h1>
+<h2>Google Maps API with less pain and more fun</h2>
+<p class="big centered">gmaps.js allows you to use the potential of Google Maps in a simple way.<br/>No more extensive documentation or large amount of code.</p>
+<div class="map" id="map"></div>
+<p class="license">
+  MIT License. Copyright 2012 Gustavo Leon. With the kind support of <a href="http://xenda.pe" target="blank"><img src="xenda-black.png"  width="80" /></a>
+</p>
+
+<h3>Documentation</h3>
+<h3>Examples</h3>
+<h3>Try!</h3>
+    </div>
+  </div>
+</body>
+</html>
