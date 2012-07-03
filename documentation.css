@@ -25,6 +25,11 @@ h5 {
   font-family: 'Ubuntu';
 }
 
+code,
+pre {
+  font-family: 'Monaco', 'Consolas';
+}
+
 label,
 input {
   display: inline-block;
@@ -39,6 +44,36 @@ input {
   padding: 2px;
 
   border: solid 1px #69C;
+}
+
+table {
+  max-width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  background-color: transparent;
+}
+table {
+  width: 90%;
+  margin:0 auto;
+  font-size: 15px;
+}
+table thead,
+table tbody tr{
+  border-bottom: solid 1px #eee;
+}
+table th,
+table td {
+  padding: 8px;
+  line-height: 18px;
+  text-align: left;
+  vertical-align: middle;
+}
+table th {
+  font-weight: bold;
+  color: #383838;
+}
+table thead th {
+  vertical-align: bottom;
 }
 
 #header {

@@ -31,8 +31,6 @@
         <li><a href="#GMaps-polylines">polylines</a></li>
         <li><a href="#GMaps-routes">routes</a></li>
         <li><a href="#GMaps-polygons">polygons</a></li>
-        <li><a href="#GMaps-infoWindow">infoWindow</a></li>
-        <li><a href="#GMaps-overlay_div">overlay_div</a></li>
         <li><a href="#GMaps-zoom">zoom</a></li>
         <li><a href="#GMaps-map">map</a></li>
         <li><a href="#GMaps-setContextMenu">setContextMenu</a></li>
@@ -46,7 +44,6 @@
         <li><a href="#GMaps-setZoom">setZoom</a></li>
         <li><a href="#GMaps-zoomIn">zoomIn</a></li>
         <li><a href="#GMaps-zoomOut">zoomOut</a></li>
-        <li><a href="#GMaps-createControl">createControl</a></li>
         <li><a href="#GMaps-addControl">addControl</a></li>
         <li><a href="#GMaps-createMarker">createMarker</a></li>
         <li><a href="#GMaps-addMarker">addMarker</a></li>
@@ -81,48 +78,286 @@
       <h3>Documentation</h3>
       <h4 id="GMaps-div">div — HTMLDivElement</h4>
       <p>HTML Element that represents the Map in the DOM tree.</p>
+      
       <h4 id="GMaps-controls">controls — Array</h4>
       <p>Collection of custom controls in the Map.</p>
+      
       <h4 id="GMaps-overlays">overlays — Array</h4>
       <p>Collection of HTML overlays drawn in the Map.</p>
+      
       <h4 id="GMaps-layers">layers — Array</h4>
       <p>Collection of layers created in the Map.</p>
+      
       <h4 id="GMaps-markers">markers — Array</h4>
       <p>Collection of markers added in the Map.</p>
+      
       <h4 id="GMaps-polylines">polylines — Array</h4>
       <p>Collection of polylines drawn in the Map.</p>
+      
       <h4 id="GMaps-routes">routes — Array</h4>
       <p>Collection of the routes used in the Map.</p>
+      
       <h4 id="GMaps-polygons">polygons — Array</h4>
       <p>Collection of polygons drawn in the Map.</p>
+      
       <h4 id="GMaps-zoom">zoom — Integer</h4>
       <p>Current zoom level in the Map.</p>
+      
       <h4 id="GMaps-map">map — google.maps.Map</h4>
       <p>Native google.maps.Map object.</p>
+      
       <h4 id="GMaps-setContextMenu">setContextMenu</h4>
       <p>Set a context menu for the entire Map or a marker.</p>
+      <p><code>setContextMenu</code> accepts a hash of options.</p>
+      <h5>Options:</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>control</td>
+            <td>string</td>
+            <td>Control that the context menu is attached. Can be <code>map</code> or <code>marker</code>.</td>
+          </tr>
+          <tr>
+            <td>options</td>
+            <td>array</td>
+            <td>Collection of context menu items. Each item in this collection has three options.</td>
+          </tr>
+        </tbody>
+      </table>
+      <h5>Context menu item options:</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>title</td>
+            <td>string</td>
+            <td>Text displayed in the menu item.</td>
+          </tr>
+          <tr>
+            <td>name</td>
+            <td>string</td>
+            <td>Unique name used by GMaps to build the menu item.</td>
+          </tr>
+          <tr>
+            <td>action</td>
+            <td>function</td>
+            <td>Action performed when user selects a context menu item. It takes 1 parameter, which contains the coordinate in the map where the context menu is displayed.</td>
+          </tr>
+        </tbody>
+      </table>
+      
       <h4 id="GMaps-hideContextMenu">hideContextMenu</h4>
       <p>Hide current context menu displayed.</p>
+
       <h4 id="GMaps-refresh">refresh</h4>
       <p>Trigger the <code>resize</code> event of a Map. Useful when the Map is created in a dynamic container</p>
+      
       <h4 id="GMaps-fitZoom">fitZoom</h4>
       <p>Fit zoom level to show all markers in the viewport.</p>
+      
       <h4 id="GMaps-fitBounds">fitBounds</h4>
       <p>Fit zoom level to show a bound of coordinates.</p>
+      <p><code>fitBounds</code> accepts 1 parameter.</p>
+      <h5>Parameters:</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>latLngs</td>
+            <td>array</td>
+            <td>Array of google.maps.LatLng objects.</td>
+          </tr>
+        </tbody>
+      </table>
+      
       <h4 id="GMaps-setCenter">setCenter</h4>
       <p>Set center in the Map.</p>
+      <p><code>setCenter</code> accepts 3 parameters.</p>
+      <h5>Parameters:</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>lat</td>
+            <td>float</td>
+            <td>Latitude of the coordinate.</td>
+          </tr>
+          <tr>
+            <td>lng</td>
+            <td>float</td>
+            <td>Longitude of the coordinate.</td>
+          </tr>
+          <tr>
+            <td>callback</td>
+            <td>function</td>
+            <td>Function that triggers after the map is centered.</td>
+          </tr>
+        </tbody>
+      </table>
+
       <h4 id="GMaps-getCenter">getCenter</h4>
       <p>Get current coordinates of the center.</p>
+
       <h4 id="GMaps-getDiv">getDiv</h4>
       <p>Get div object described above.</p>
+
       <h4 id="GMaps-setZoom">setZoom</h4>
       <p>Set zoom level.</p>
+      <p><code>setZoom</code> accepts 1 parameter.</p>
+      <h5>Parameters:</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>value</td>
+            <td>integer</td>
+            <td>New zoom value.</td>
+          </tr>
+        </tbody>
+      </table>
+
       <h4 id="GMaps-zoomIn">zoomIn</h4>
       <p>Increase zoom level.</p>
+      <p><code>zoomIn</code> accepts 1 parameter.</p>
+      <h5>Parameters:</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>value</td>
+            <td>integer</td>
+            <td>Number of zoom level that the zoom is increased.</td>
+          </tr>
+        </tbody>
+      </table>
+
       <h4 id="GMaps-zoomOut">zoomOut</h4>
       <p>Decrease zoom level.</p>
+      <p><code>zoomOut</code> accepts 1 parameter.</p>
+      <h5>Parameters:</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>value</td>
+            <td>integer</td>
+            <td>Number of zoom level that the zoom is decreased.</td>
+          </tr>
+        </tbody>
+      </table>
+
       <h4 id="GMaps-addControl">addControl</h4>
       <p>Add a control in the Map UI.</p>
+      <p><code>addControl</code> accepts a hash of options.</p>
+      <h5>Options:</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>position</td>
+            <td>string</td>
+            <td>
+              Position in the Map UI where the control is placed:
+              <ul>
+                <li>TOP_CENTER</li>
+                <li>TOP_LEFT</li>
+                <li>TOP_RIGHT</li>
+                <li>LEFT_TOP</li>
+                <li>RIGHT_TOP</li>
+                <li>LEFT_CENTER</li>
+                <li>RIGHT_CENTER</li>
+                <li>LEFT_BOTTOM</li>
+                <li>RIGHT_BOTTOM</li>
+                <li>BOTTOM_CENTER</li>
+                <li>BOTTOM_LEFT</li>
+                <li>BOTTOM_RIGHT</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>style</td>
+            <td>object</td>
+            <td>Hash of CSS styles applied to the control.</td>
+          </tr>
+          <tr>
+            <td>events</td>
+            <td>object</td>
+            <td>Hash of events bound to the control.</td>
+          </tr>
+        </tbody>
+      </table>
+      <h5>Control event options:</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>name</td>
+            <td>string</td>
+            <td>Name of the event.</td>
+          </tr>
+          <tr>
+            <td>event</td>
+            <td>function</td>
+            <td>Function attached to the event.</td>
+          </tr>
+        </tbody>
+      </table>
+
       <h4 id="GMaps-createMarker">createMarker</h4>
       <p>Create a marker and return it.</p>
       <h4 id="GMaps-addMarker">addMarker</h4>
