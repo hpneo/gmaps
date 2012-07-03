@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>{{ page.title }}</title>
+  <title>gmaps.js &mdash; Google Maps API with less pain and more fun</title>
   <meta charset="utf-8">
-  <link href='http://fonts.googleapis.com/css?family=Convergence|Bitter|Ubuntu' rel='stylesheet' type='text/css' />
-  <link rel="stylesheet" href="css/layout.css" type="text/css" />
+  <link href='http://fonts.googleapis.com/css?family=Convergence|Ubuntu|Open+Sans' rel='stylesheet' type='text/css' />
+  <link rel="stylesheet" href="documentation.css" type="text/css" />
 </head>
 <body>
   <div id="header">
     <h1>gmaps.js</h1>
     <ul>
-      <li><a href="#Documentation">Documentation</a></li>
-      <li><a href="#Examples">Examples</a></li>
+      <li><a href="/gmaps/documentation.html">Documentation</a></li>
+      <li><a href="/gmaps/examples.html">Examples</a></li>
       <li><a href="#Download">Download</a></li>
       <li><a href="#Change-log">Change log</a></li>
-      <li><a href="#Try">Try!</a></li>
+      <li><a href="/gmaps/try.html">Try!</a></li>
       <li><a href="https://github.com/hpneo/gmaps">Watch the repo</a></li>
     </ul>
   </div>
@@ -76,96 +76,99 @@
       <h4>GMaps.geolocate</h4>
       <h4>GMaps.Route</h4>
       <h4>GMaps.staticMapURL</h4>
-      <h3 id="Examples">Examples</h3>
-      <h4>Maps</h4>
-      <ul class="examples">
-        <li><a href="#examples-basic" id="show-examples-basic">Basic</a></li>
-        <li><a href="#examples-map-events" id="show-examples-map-events">Map events</a></li>
-        <li><a href="#examples-markers" id="show-examples-markers">Markers</a></li>
-      </ul>
-      <h4>Services</h4>
-      <ul class="examples">
-        <li><a href="#examples-geolocation" id="show-examples-geolocation">Geolocation</a></li>
-        <li><a href="#examples-geocoding" id="show-examples-geocoding">Geocoding</a></li>
-      </ul>
-      <h4>Overlays</h4>
-      <ul class="examples">
-        <li><a href="#examples-polylines">Polylines</a></li>
-        <li><a href="#examples-overlays">Overlays</a></li>
-        <li><a href="#examples-polygon">Polygon</a></li>
-      </ul>
-      <h4>Routes</h4>
-      <ul class="examples">
-        <li><a href="#examples-routes">Routes</a></li>
-        <li><a href="#examples-routes-advanced">Routes (advanced)</a></li>
-        <li><a href="#examples-gmaps-route">GMaps.Route</a></li>
-      </ul>
-      <h4>Static maps</h4>
-      <ul class="examples">
-        <li><a href="#examples-static-maps">Static maps </a></li>
-        <li><a href="#examples-static-markers">With markers</a></li>
-        <li><a href="#examples-static-polylines">With polylines</a></li>
-      </ul>
-      <h4>Utils</h4>
-      <ul class="examples">
-        <li><a href="#examples-context-menu">Context menu</a></li>
-        <li><a href="#examples-geofences">Geofences</a></li>
-        <li><a href="#examples-custom-controls">Custom controls</a></li>
-        <li><a href="#examples-fusion-tables">Fusion Tables layers</a></li>
-        <li><a href="#examples-kml">KML and GeoRSS layers</a></li>
-      </ul>
-      <h3 id="Change-log">Change log</h3>
     </div>
     <div id="content">
       <h3>Documentation</h3>
-      <h4 id="GMaps-div">div</h4>
-      <h4 id="GMaps-controls">controls</h4>
-      <h4 id="GMaps-overlays">overlays</h4>
-      <h4 id="GMaps-layers">layers</h4>
-      <h4 id="GMaps-markers">markers</h4>
-      <h4 id="GMaps-polylines">polylines</h4>
-      <h4 id="GMaps-routes">routes</h4>
-      <h4 id="GMaps-polygons">polygons</h4>
-      <h4 id="GMaps-infoWindow">infoWindow</h4>
-      <h4 id="GMaps-overlay_div">overlay_div</h4>
-      <h4 id="GMaps-zoom">zoom</h4>
-      <h4 id="GMaps-map">map</h4>
+      <h4 id="GMaps-div">div — HTMLDivElement</h4>
+      <p>HTML Element that represents the Map in the DOM tree.</p>
+      <h4 id="GMaps-controls">controls — Array</h4>
+      <p>Collection of custom controls in the Map.</p>
+      <h4 id="GMaps-overlays">overlays — Array</h4>
+      <p>Collection of HTML overlays drawn in the Map.</p>
+      <h4 id="GMaps-layers">layers — Array</h4>
+      <p>Collection of layers created in the Map.</p>
+      <h4 id="GMaps-markers">markers — Array</h4>
+      <p>Collection of markers added in the Map.</p>
+      <h4 id="GMaps-polylines">polylines — Array</h4>
+      <p>Collection of polylines drawn in the Map.</p>
+      <h4 id="GMaps-routes">routes — Array</h4>
+      <p>Collection of the routes used in the Map.</p>
+      <h4 id="GMaps-polygons">polygons — Array</h4>
+      <p>Collection of polygons drawn in the Map.</p>
+      <h4 id="GMaps-zoom">zoom — Integer</h4>
+      <p>Current zoom level in the Map.</p>
+      <h4 id="GMaps-map">map — google.maps.Map</h4>
+      <p>Native google.maps.Map object.</p>
       <h4 id="GMaps-setContextMenu">setContextMenu</h4>
+      <p>Set a context menu for the entire Map or a marker.</p>
       <h4 id="GMaps-hideContextMenu">hideContextMenu</h4>
+      <p>Hide current context menu displayed.</p>
       <h4 id="GMaps-refresh">refresh</h4>
+      <p>Trigger the <code>resize</code> event of a Map. Useful when the Map is created in a dynamic container</p>
       <h4 id="GMaps-fitZoom">fitZoom</h4>
+      <p>Fit zoom level to show all markers in the viewport.</p>
       <h4 id="GMaps-fitBounds">fitBounds</h4>
+      <p>Fit zoom level to show a bound of coordinates.</p>
       <h4 id="GMaps-setCenter">setCenter</h4>
+      <p>Set center in the Map.</p>
       <h4 id="GMaps-getCenter">getCenter</h4>
+      <p>Get current coordinates of the center.</p>
       <h4 id="GMaps-getDiv">getDiv</h4>
+      <p>Get div object described above.</p>
       <h4 id="GMaps-setZoom">setZoom</h4>
+      <p>Set zoom level.</p>
       <h4 id="GMaps-zoomIn">zoomIn</h4>
+      <p>Increase zoom level.</p>
       <h4 id="GMaps-zoomOut">zoomOut</h4>
-      <h4 id="GMaps-createControl">createControl</h4>
+      <p>Decrease zoom level.</p>
       <h4 id="GMaps-addControl">addControl</h4>
+      <p>Add a control in the Map UI.</p>
       <h4 id="GMaps-createMarker">createMarker</h4>
+      <p>Create a marker and return it.</p>
       <h4 id="GMaps-addMarker">addMarker</h4>
+      <p>Create a marker and add it in the Map and the markers collection.</p>
       <h4 id="GMaps-addMarkers">addMarkers</h4>
+      <p>Add a collection of markers.</p>
       <h4 id="GMaps-hideInfoWindows">hideInfoWindows</h4>
+      <p>Hide all infoWindows shown in the Map.</p>
       <h4 id="GMaps-removeMarkers">removeMarkers</h4>
+      <p>Delete all markers and clear the markers collection.</p>
       <h4 id="GMaps-drawOverlay">drawOverlay</h4>
+      <p>Draw a HTML overlay and add it in the Map.</p>
       <h4 id="GMaps-removeOverlay">removeOverlay</h4>
+      <p>Delete a overlay.</p>
       <h4 id="GMaps-removeOverlays">removeOverlays</h4>
+      <p>Delete all overlays.</p>
       <h4 id="GMaps-drawPolyline">drawPolyline</h4>
+      <p>Draw a polyline and add it in the Map and the polylines collection.</p>
       <h4 id="GMaps-drawCircle">drawCircle</h4>
+      <p>Draw a circle and add it in the Map.</p>
       <h4 id="GMaps-drawPolygon">drawPolygon</h4>
+      <p>Draw a polygon and add it in the Map and the polygons collection.</p>
       <h4 id="GMaps-getFromFusionTables">getFromFusionTables</h4>
+      <p>Get data from a Fusion Tables table.</p>
       <h4 id="GMaps-loadFromFusionTables">loadFromFusionTables</h4>
+      <p>Get data from a Fusion Tables table and create the layer in the Map.</p>
       <h4 id="GMaps-getFromKML">getFromKML</h4>
+      <p>Get data from a KML file or a GeoRSS file.</p>
       <h4 id="GMaps-loadFromKML">loadFromKML</h4>
+      <p>Get data from a KML file or a GeoRSS file and create the layer in the Map.</p>
       <h4 id="GMaps-getRoutes">getRoutes</h4>
+      <p>Get routes between two coordinates.</p>
       <h4 id="GMaps-removePolylines">removePolylines</h4>
-      <h4 id="GMaps-cleanRoute">cleanRoute</h4>
+      <p>Delete all polylines.</p>
       <h4 id="GMaps-drawRoute">drawRoute</h4>
+      <p>Draw a route using polylines.</p>
+      <h4 id="GMaps-cleanRoute">cleanRoute</h4>
+      <p>Alias for <code>removePolylines</code>.</p>
       <h4 id="GMaps-travelRoute">travelRoute</h4>
+      <p>Travel a route automatically.</p>
       <h4 id="GMaps-drawSteppedRoute">drawSteppedRoute</h4>
+      <p>Draw and travel a route step by step.</p>
       <h4 id="GMaps-checkGeofence">checkGeofence</h4>
+      <p>Check if a coordinate is inside or outside of a geofence.</p>
       <h4 id="GMaps-checkMarkerGeofence">checkMarkerGeofence</h4>
+      <p>Trigger a callback when a marker is outside its geofences.</p>
     </div>
   </div>
 </body>
