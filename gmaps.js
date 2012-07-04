@@ -314,13 +314,7 @@ var GMaps = (function() {
             details = options.details,
             fences = options.fences,
             outside = options.outside,
-            markerImage = options.markerImage || null;
-            
-        if (markerImage != null) {
-          var icon = new google.maps.MarkerImage(markerImage);
-        } else {
-          var icon = null;
-        }
+            animation = options.animation;
 
         var base_options = {
           position: new google.maps.LatLng(options.lat, options.lng),
@@ -332,6 +326,7 @@ var GMaps = (function() {
         delete options.lng;
         delete options.fences;
         delete options.outside;
+        delete options.animation;
 
         var marker_options = extend_object(base_options, options);
 
@@ -377,6 +372,23 @@ var GMaps = (function() {
             marker.infoWindow.open(self.map, marker);
           }
         });
+        
+        if (animation) {
+          google.maps.event.addListener(marker, animation.event, function() {
+            var toggle = animation.toggle,
+                animationStyle = animation.style;
+              if (toggle) {
+                if (marker.getAnimation() != null) {
+                  marker.setAnimation(null);
+                } else {
+                  marker.setAnimation( google.maps.Animation[animationStyle] );
+                }
+              }else{
+                marker.setAnimation( google.maps.Animation[animationStyle] );
+              }
+            
+          });
+        }
 
         if (options.dragend || marker.fences) {
           google.maps.event.addListener(marker, 'dragend', function() {
