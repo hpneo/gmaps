@@ -360,20 +360,152 @@
 
       <h4 id="GMaps-createMarker">createMarker</h4>
       <p>Create a marker and return it.</p>
+      <p><code>createMarker</code> accepts a hash of options.</p>
+      <h5>Options</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>lat</td>
+            <td>float</td>
+            <td>Latitude of the coordinate.</td>
+          </tr>
+          <tr>
+            <td>lng</td>
+            <td>float</td>
+            <td>Longitude of the coordinate.</td>
+          </tr>
+          <tr>
+            <td>details</td>
+            <td>object</td>
+            <td>Custom object with extra data.</td>
+          </tr>
+          <tr>
+            <td>fences</td>
+            <td>array</td>
+            <td>Collection of google.maps.Polygon objects.</td>
+          </tr>
+          <tr>
+            <td>outside</td>
+            <td>function</td>
+            <td>Callback fired when the marker is oustide any of its fences.</td>
+          </tr>
+          <tr>
+            <td>infoWindow</td>
+            <td>object</td>
+            <td>Object with all options defined in <a href="https://developers.google.com/maps/documentation/javascript/reference#InfoWindowOptions">google.maps.InfoWindowOptions</a>.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Also, <code>createMarker</code> accepts any option defined in <a href="https://developers.google.com/maps/documentation/javascript/reference#MarkerOptions">google.maps.MarkerOptions</a> and any marker event defined in <a href="https://developers.google.com/maps/documentation/javascript/reference#Marker">google.maps.Marker ('Events' section)</a>.</p>
+
       <h4 id="GMaps-addMarker">addMarker</h4>
       <p>Create a marker and add it in the Map and the markers collection.</p>
+      <p><code>addMarker</code> accepts the same options of <code>createMarker</code>.</p>
+
       <h4 id="GMaps-addMarkers">addMarkers</h4>
       <p>Add a collection of markers.</p>
+      <p><code>addMarkers</code> accept one parameter, which is an array of the same options used in <code>addMarker</code>.</p>
+
       <h4 id="GMaps-hideInfoWindows">hideInfoWindows</h4>
       <p>Hide all infoWindows shown in the Map.</p>
+
       <h4 id="GMaps-removeMarkers">removeMarkers</h4>
       <p>Delete all markers and clear the markers collection.</p>
+
       <h4 id="GMaps-drawOverlay">drawOverlay</h4>
       <p>Draw a HTML overlay and add it in the Map.</p>
+      <h5><code>drawOverlay</code> accepts a hash of options.</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>lat</td>
+            <td>float</td>
+            <td>Latitude of the coordinate where the overlay is placed.</td>
+          </tr>
+          <tr>
+            <td>lng</td>
+            <td>float</td>
+            <td>Longitude of the coordinate where the overlay is placed.</td>
+          </tr>
+          <tr>
+            <td>content</td>
+            <td>string</td>
+            <td>HTML that will be drawn in the overlay.</td>
+          </tr>
+          <tr>
+            <td>layer</td>
+            <td>string</td>
+            <td>
+              Id of any of the layers defined in <a href="https://developers.google.com/maps/documentation/javascript/reference#MapPanes">google.maps.MapPanes</a>:
+              <ul>
+                <li>floatPane</li>
+                <li>floatShadow</li>
+                <li>mapPane</li>
+                <li>overlayImage</li>
+                <li>overlayLayer</li>
+                <li>overlayMouseTarget</li>
+                <li>overlayShadow</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>verticalAlign</td>
+            <td>string</td>
+            <td>
+              Vertical align of the overlay (where the center is the coordinate <code>lat</code>, <code>lng</code>):
+              <ul>
+                <li>top</li>
+                <li>middle</li>
+                <li>bottom</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>horizontalAlign</td>
+            <td>string</td>
+            <td>
+              Horizontal align of the overlay (where the center is the coordinate <code>lat</code>, <code>lng</code>):
+              <ul>
+                <li>left</li>
+                <li>center</li>
+                <li>right</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>horizontalOffset</td>
+            <td>integer</td>
+            <td>Horizontal offset in pixels of the overlay.</td>
+          </tr>
+          <tr>
+            <td>verticalOffset</td>
+            <td>integer</td>
+            <td>Vertical offset in pixels of the overlay.</td>
+          </tr>
+        </tbody>
+      </table>
+
       <h4 id="GMaps-removeOverlay">removeOverlay</h4>
       <p>Delete a overlay.</p>
+      <p><code>removeOverlay</code> accepts 1 parameter, which is a google.maps.OverlayView object.</p>
+
       <h4 id="GMaps-removeOverlays">removeOverlays</h4>
       <p>Delete all overlays.</p>
+      
       <h4 id="GMaps-drawPolyline">drawPolyline</h4>
       <p>Draw a polyline and add it in the Map and the polylines collection.</p>
       <h4 id="GMaps-drawCircle">drawCircle</h4>
