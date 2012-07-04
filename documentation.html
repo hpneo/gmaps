@@ -421,7 +421,8 @@
 
       <h4 id="GMaps-drawOverlay">drawOverlay</h4>
       <p>Draw a HTML overlay and add it in the Map.</p>
-      <h5><code>drawOverlay</code> accepts a hash of options.</h5>
+      <code>drawOverlay</code> accepts a hash of options.
+      <h5>Options</h5>
       <table>
         <thead>
           <tr>
@@ -505,9 +506,49 @@
 
       <h4 id="GMaps-removeOverlays">removeOverlays</h4>
       <p>Delete all overlays.</p>
-      
+
       <h4 id="GMaps-drawPolyline">drawPolyline</h4>
       <p>Draw a polyline and add it in the Map and the polylines collection.</p>
+      <p><code>drawPolyline</code> accepts a hash of options.</p>
+      <h5>Options</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>path</td>
+            <td>array</td>
+            <td>Collection of coordinates (which can be either an array [lat, lng] or a <a href="https://developers.google.com/maps/documentation/javascript/reference#LatLng">google.maps.LatLng object</a>).</td>
+          </tr>
+          <tr>
+            <td>strokeColor</td>
+            <td>string</td>
+            <td>Color in HEX</td>
+          </tr>
+          <tr>
+            <td>strokeColor</td>
+            <td>string</td>
+            <td>Color of the polyline. Can be hexadecimal or CSS name.</td>
+          </tr>
+          <tr>
+            <td>strokeOpacity</td>
+            <td>float</td>
+            <td>Opacity of the polyline from 0.0 to 1.0</td>
+          </tr>
+          <tr>
+            <td>strokeWeight</td>
+            <td>integer</td>
+            <td>Polyline width in pixels.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Also, <code>drawPolyline</code> accepts any event defined in <a href="https://developers.google.com/maps/documentation/javascript/reference#Polyline">google.maps.Polyline ('Events' section)</a>.</p>
+
       <h4 id="GMaps-drawCircle">drawCircle</h4>
       <p>Draw a circle and add it in the Map.</p>
       <h4 id="GMaps-drawPolygon">drawPolygon</h4>
