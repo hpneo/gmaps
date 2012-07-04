@@ -319,12 +319,17 @@ var GMaps = (function() {
             details = options.details,
             fences = options.fences,
             outside = options.outside,
-            animation = options.animation;
+            animation = options.animation,
+            dropAnimation = options.dropAnimation || null;
 
+        if (dropAnimation != null) {
+          dropAnimation = google.maps.Animation[dropAnimation];
+        }
+            
         var base_options = {
           position: new google.maps.LatLng(options.lat, options.lng),
           map: null,
-          icon: icon
+          animation: dropAnimation
         };
         
         delete options.lat;
@@ -332,6 +337,7 @@ var GMaps = (function() {
         delete options.fences;
         delete options.outside;
         delete options.animation;
+        delete options.dropAnimation;
 
         var marker_options = extend_object(base_options, options);
 
