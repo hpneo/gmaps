@@ -315,20 +315,29 @@ var GMaps = (function() {
     // Markers
     this.createMarker = function(options) {
       if (options.lat && options.lng) {
-        var self = this;
-        var details = options.details;
-        var fences = options.fences;
-        var outside = options.outside;
+        var self = this,
+            details = options.details,
+            fences = options.fences,
+            outside = options.outside,
+            animation = options.animation,
+            dropAnimation = options.dropAnimation || null;
 
+        if (dropAnimation != null) {
+          dropAnimation = google.maps.Animation[dropAnimation];
+        }
+            
         var base_options = {
           position: new google.maps.LatLng(options.lat, options.lng),
-          map: null
+          map: null,
+          animation: dropAnimation
         };
         
         delete options.lat;
         delete options.lng;
         delete options.fences;
         delete options.outside;
+        delete options.animation;
+        delete options.dropAnimation;
 
         var marker_options = extend_object(base_options, options);
 
@@ -374,6 +383,23 @@ var GMaps = (function() {
             marker.infoWindow.open(self.map, marker);
           }
         });
+        
+        if (animation) {
+          google.maps.event.addListener(marker, animation.event, function() {
+            var toggle = animation.toggle,
+                animationStyle = animation.style;
+              if (toggle) {
+                if (marker.getAnimation() != null) {
+                  marker.setAnimation(null);
+                } else {
+                  marker.setAnimation( google.maps.Animation[animationStyle] );
+                }
+              }else{
+                marker.setAnimation( google.maps.Animation[animationStyle] );
+              }
+            
+          });
+        }
 
         if (options.dragend || marker.fences) {
           google.maps.event.addListener(marker, 'dragend', function() {
