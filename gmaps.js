@@ -62,12 +62,12 @@ var GMaps = (function() {
 
     var zoomControlOpt = options.zoomControlOpt || {
       style: 'DEFAULT',
-      position: 'LEFT_TOP'
+      position: 'TOP_LEFT'
     };
 
     var zoomControl = options.zoomControl || true,
         zoomControlStyle = zoomControlOpt.style || 'DEFAULT',
-        zoomControlPosition = zoomControlOpt.position || 'LEFT_TOP',
+        zoomControlPosition = zoomControlOpt.position || 'TOP_LEFT',
         panControl = options.panControl || true,
         mapTypeControl = options.mapTypeControl || true,
         scaleControl = options.scaleControl || true,

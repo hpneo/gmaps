@@ -8,6 +8,11 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.2.2
+-----------------------
+* Minor improvements to support Backbone.js
+* Fix controls position
+
 0.2.1
 -----------------------
 * More default values in GMaps constructor.
