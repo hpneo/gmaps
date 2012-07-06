@@ -10,13 +10,23 @@ var GMaps = (function() {
   "use strict";
 
   var doc = document;
-  var getElementById = function(id) { return doc.getElementById(id) };
+  var getElementById = function(id, context) {
+    var ele
+    if(jQuery && context){
+      ele = $("#"+id.replace('#', ''), context)[0]
+    }else{
+      ele = doc.getElementById(id.replace('#', ''));
+    };
+    return ele;
+  };
 
   var GMaps = function(options) {
     var self = this;
     window.context_menu = {};
 
-    this.div = getElementById(options.div.replace('#', ''));
+    if(typeof(options.div)=='string'){
+      this.div = getElementById(options.div, options.context);
+    }else{this.div = options.div;};
     this.div.style.width = this.div.clientWidth || options.width;
     this.div.style.height = this.div.clientHeight || options.height;
 
@@ -93,7 +103,7 @@ var GMaps = (function() {
         for (var i in options){
           if (options.hasOwnProperty(i)){
             var option = options[i];
-            html += '<li><a id="' + control + '_' + i + '" href="#">' + 
+            html += '<li><a id="' + control + '_' + i + '" href="#">' +
               option.title + '</a></li>';
           }
         }
@@ -284,7 +294,7 @@ var GMaps = (function() {
       for(var option in options.style){
         control.style[option] = options.style[option];
       }
-      
+
       control.textContent = options.text;
 
       for (var ev in options.events) {
@@ -294,7 +304,7 @@ var GMaps = (function() {
           });
         })(control, ev);
       }
-      
+
       control.index = 1;
 
       return control;
@@ -324,7 +334,7 @@ var GMaps = (function() {
           position: new google.maps.LatLng(options.lat, options.lng),
           map: null
         };
-        
+
         delete options.lat;
         delete options.lng;
         delete options.fences;
@@ -414,7 +424,7 @@ var GMaps = (function() {
       }
       return this.markers;
     };
-    
+
     this.hideInfoWindows = function() {
       for (var i=0, marker; marker=this.markers[i]; i++){
         if (marker.infoWindow){
@@ -422,7 +432,7 @@ var GMaps = (function() {
         }
       }
     };
-    
+
     this.removeMarkers = function() {
       for (var i=0, marker; marker=this.markers[i]; i++){
         marker.setMap(null);
@@ -579,13 +589,13 @@ var GMaps = (function() {
       options = extend_object({
         map: this.map
       }, options);
-      
+
       if(options.paths.length > 0) {
           if(options.paths[0].length > 0) {
              options.paths = array_map(options.paths, arrayToLatLng);
           }
       }
-      
+
       var polygon = new google.maps.Polygon(options);
 
       var polygon_events = ['click', 'dblclick', 'mousedown', 'mousemove', 'mouseout', 'mouseover', 'mouseup', 'rightclick'];
@@ -602,7 +612,7 @@ var GMaps = (function() {
       this.polygons.push(polygon);
 
       return polygon;
-      
+
       function arrayToLatLng(coords) {
           return new google.maps.LatLng(coords[0], coords[1]);
       }
@@ -643,7 +653,7 @@ var GMaps = (function() {
 
       delete options.url;
       delete options.events;
-      
+
       var kml_options = options;
 
       var layer = new google.maps.KmlLayer(url, kml_options);
@@ -697,7 +707,7 @@ var GMaps = (function() {
         optimizeWaypoints: false,
         waypoints: []
       };
-      
+
       var request_options =  extend_object(base_options, options);
 
       request_options.origin = new google.maps.LatLng(options.origin[0], options.origin[1]);
@@ -838,7 +848,7 @@ var GMaps = (function() {
 
     this.checkMarkerGeofence = function(marker, outside_callback) {
       if (marker.fences) {
-        for (var i=0, fence; fence=marker.fences[i]; i++) { 
+        for (var i=0, fence; fence=marker.fences[i]; i++) {
           var pos = marker.getPosition();
           if (!self.checkGeofence(pos.lat(), pos.lng(), fence)) {
             outside_callback(marker, fence);
@@ -956,7 +966,7 @@ var GMaps = (function() {
     else if (options.address){
       parameters.push('center=' + options.address);
       delete options.address;
-    } 
+    }
     else if (options.lat){
       parameters.push(['center=', options.lat, ',', options.lng].join(''));
       delete options.lat;
@@ -1047,7 +1057,7 @@ var GMaps = (function() {
           }
 
           color = color.slice(0,8) + opacity;
-        }  
+        }
       }
       return color;
     }
@@ -1055,7 +1065,7 @@ var GMaps = (function() {
     if (polyline){
       data = polyline;
       polyline = [];
-      
+
       if (data.strokeWeight){
         polyline.push('weight:' + parseInt(data.strokeWeight, 10));
       }
@@ -1069,7 +1079,7 @@ var GMaps = (function() {
         var fillcolor = parseColor(data.fillColor, data.fillOpacity);
         polyline.push('fillcolor:' + fillcolor);
       }
-      
+
       var path = data.path;
       if (path.join){
         for (var j=0, pos; pos=path[j]; j++){
@@ -1077,7 +1087,7 @@ var GMaps = (function() {
         }
       }
       else {
-        polyline.push('enc:' + path); 
+        polyline.push('enc:' + path);
       }
 
       polyline = polyline.join('|');
