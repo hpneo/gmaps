@@ -275,6 +275,10 @@ var GMaps = (function() {
       this.map.setZoom(value);
     };
 
+    this.getZoom = function() {
+      return this.map.getZoom();
+    };
+
     this.zoomIn = function(value) {
       this.map.setZoom(this.map.getZoom() + value);
     };
