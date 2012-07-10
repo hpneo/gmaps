@@ -755,7 +755,7 @@ var GMaps = (function(global) {
         origin: options.origin,
         destination: options.destination,
         travelMode: options.travelMode,
-		waypoints : options.waypoints,
+        waypoints : options.waypoints,
         callback: function(e) {
           if (e.length > 0) {
             self.drawPolyline({
@@ -778,6 +778,7 @@ var GMaps = (function(global) {
           origin: options.origin,
           destination: options.destination,
           travelMode: options.travelMode,
+          waypoints : options.waypoints,
           callback: function(e) {
             if (e.length > 0 && options.step) {
               var route = e[e.length - 1];
