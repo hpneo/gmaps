@@ -6,13 +6,13 @@
  * Released under the MIT License.
  */
 
-var GMaps = (function() {
+var GMaps = (function(global) {
   "use strict";
 
   var doc = document;
   var getElementById = function(id, context) {
     var ele
-    if(jQuery && context){
+    if('jQuery' in global && context){
       ele = $("#"+id.replace('#', ''), context)[0]
     }else{
       ele = doc.getElementById(id.replace('#', ''));
@@ -1172,7 +1172,7 @@ var GMaps = (function() {
   };
 
   return GMaps;
-}());
+}(this));
 
 var extend_object = function(obj, new_obj) {
   if(obj === new_obj) return obj;
