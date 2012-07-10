@@ -755,6 +755,7 @@ var GMaps = (function(global) {
         origin: options.origin,
         destination: options.destination,
         travelMode: options.travelMode,
+		waypoints : options.waypoints,
         callback: function(e) {
           if (e.length > 0) {
             self.drawPolyline({
