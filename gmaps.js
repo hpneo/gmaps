@@ -616,10 +616,6 @@ var GMaps = (function(global) {
       this.polygons.push(polygon);
 
       return polygon;
-
-      function arrayToLatLng(coords) {
-          return new google.maps.LatLng(coords[0], coords[1]);
-      }
     };
 
     this.getFromFusionTables = function(options) {
@@ -739,35 +735,44 @@ var GMaps = (function(global) {
     };
 
     this.getElevations = function(options) {
-      var base_options = {
+      options = extend_object({
         locations: [],
         path : false,
         samples : 256
-      };
-      
-      var request_options =  extend_object(base_options, options);
+      }, options);
 
-      delete request_options.callback;
+      if(options.locations.length > 0) {
+        if(options.locations[0].length > 0) {
+          options.locations = array_map(options.locations, arrayToLatLng);
+        }
+      }
+
+      var callback = options.callback;
+      delete options.callback;
 
       var service = new google.maps.ElevationService();
 
       //location request
-      if (!request_options.path) {
-        delete request_options.path;
-        delete request_options.samples;
-        service.getElevationForLocations(request_options, function(result, status) {
-          if (options.callback) {
-            options.callback(result, status);
+      if (!options.path) {
+        delete options.path;
+        delete options.samples;
+        service.getElevationForLocations(options, function(result, status){
+          if (callback && typeof(callback) === "function") {
+            callback(result, status);
           }
         });
       //path request
       } else {
         var pathRequest = {
-          path : request_options.locations,
-          samples : request_options.samples
+          path : options.locations,
+          samples : options.samples
         };
 
-        service.getElevationAlongPath(pathRequest, options.callback);
+        service.getElevationAlongPath(pathRequest, function(result, status){
+         if (callback && typeof(callback) === "function") {
+            callback(result, status);
+          }
+        });
       }
     };
 
@@ -1208,6 +1213,10 @@ var GMaps = (function(global) {
 
   return GMaps;
 }(this));
+
+  var arrayToLatLng = function(coords) {
+    return new google.maps.LatLng(coords[0], coords[1]);
+  }
 
 var extend_object = function(obj, new_obj) {
   if(obj === new_obj) return obj;
