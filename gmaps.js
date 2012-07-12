@@ -738,6 +738,39 @@ var GMaps = (function(global) {
       });
     };
 
+    this.getElevations = function(options) {
+      var base_options = {
+        locations: [],
+        path : false,
+        samples : 256
+      };
+      
+      var request_options =  extend_object(base_options, options);
+
+      delete request_options.callback;
+
+      var service = new google.maps.ElevationService();
+
+      //location request
+      if (!request_options.path) {
+        delete request_options.path;
+        delete request_options.samples;
+        service.getElevationForLocations(request_options, function(result, status) {
+          if (options.callback) {
+            options.callback(result, status);
+          }
+        });
+      //path request
+      } else {
+        var pathRequest = {
+          path : request_options.locations,
+          samples : request_options.samples
+        };
+
+        service.getElevationAlongPath(pathRequest, options.callback);
+      }
+    };
+
     this.removePolylines = function(){
       var index;
       for(index in this.polylines){
