@@ -8,6 +8,10 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.2.4
+-----------------------
+* New feature: **Elevation service**
+
 0.2.3
 -----------------------
 * New method: getZoom
