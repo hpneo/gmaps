@@ -616,10 +616,6 @@ var GMaps = (function(global) {
       this.polygons.push(polygon);
 
       return polygon;
-
-      function arrayToLatLng(coords) {
-          return new google.maps.LatLng(coords[0], coords[1]);
-      }
     };
 
     this.getFromFusionTables = function(options) {
@@ -736,6 +732,48 @@ var GMaps = (function(global) {
           options.callback(self.routes);
         }
       });
+    };
+
+    this.getElevations = function(options) {
+      options = extend_object({
+        locations: [],
+        path : false,
+        samples : 256
+      }, options);
+
+      if(options.locations.length > 0) {
+        if(options.locations[0].length > 0) {
+          options.locations = array_map(options.locations, arrayToLatLng);
+        }
+      }
+
+      var callback = options.callback;
+      delete options.callback;
+
+      var service = new google.maps.ElevationService();
+
+      //location request
+      if (!options.path) {
+        delete options.path;
+        delete options.samples;
+        service.getElevationForLocations(options, function(result, status){
+          if (callback && typeof(callback) === "function") {
+            callback(result, status);
+          }
+        });
+      //path request
+      } else {
+        var pathRequest = {
+          path : options.locations,
+          samples : options.samples
+        };
+
+        service.getElevationAlongPath(pathRequest, function(result, status){
+         if (callback && typeof(callback) === "function") {
+            callback(result, status);
+          }
+        });
+      }
     };
 
     this.removePolylines = function(){
@@ -1175,6 +1213,10 @@ var GMaps = (function(global) {
 
   return GMaps;
 }(this));
+
+  var arrayToLatLng = function(coords) {
+    return new google.maps.LatLng(coords[0], coords[1]);
+  }
 
 var extend_object = function(obj, new_obj) {
   if(obj === new_obj) return obj;
