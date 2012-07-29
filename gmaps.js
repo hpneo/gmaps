@@ -410,7 +410,7 @@ var GMaps = (function(global) {
     };
 
     this.addMarker = function(options) {
-      if (options.lat && options.lng) {
+      if ((options.lat && options.lng) || options.position) {
         var marker = this.createMarker(options);
         marker.setMap(this.map);
         this.markers.push(marker);
