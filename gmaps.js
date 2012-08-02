@@ -588,6 +588,34 @@ var GMaps = (function(global) {
 
       return polygon;
     };
+    
+    this.drawRectangle = function(options) {
+      options = extend_object({
+        map: this.map
+      }, options);
+
+      var latLngBounds = new google.maps.LatLngBounds(
+        new google.maps.LatLng(options.bounds[0][0], options.bounds[0][1]),
+        new google.maps.LatLng(options.bounds[1][0], options.bounds[1][1])
+      );
+      
+      options.bounds = latLngBounds;
+
+      var polygon = new google.maps.Rectangle(options);
+
+      var polygon_events = ['click', 'dblclick', 'mousedown', 'mousemove', 'mouseout', 'mouseover', 'mouseup', 'rightclick'];
+
+      for (var ev = 0; ev < polygon_events.length; ev++) {
+        (function(object, name) {
+          google.maps.event.addListener(object, name, function(e){
+            if (options[name])
+              options[name].apply(this, [e]);
+          });
+        })(polygon, polygon_events[ev]);
+      }
+
+      return polygon;
+    };
 
     this.drawPolygon = function(options) {
       options = extend_object({
