@@ -55,6 +55,7 @@
         <li><a href="#GMaps-removeOverlays">removeOverlays</a></li>
         <li><a href="#GMaps-drawPolyline">drawPolyline</a></li>
         <li><a href="#GMaps-drawCircle">drawCircle</a></li>
+        <li><a href="#GMaps-drawRectangle">drawRectangle</a></li>
         <li><a href="#GMaps-drawPolygon">drawPolygon</a></li>
         <li><a href="#GMaps-getFromFusionTables">getFromFusionTables</a></li>
         <li><a href="#GMaps-loadFromFusionTables">loadFromFusionTables</a></li>
@@ -551,16 +552,124 @@
 
       <h4 id="GMaps-drawCircle">drawCircle</h4>
       <p>Draw a circle and add it in the Map.</p>
+      <p><code>drawCircle</code> accepts a hash of options.</p>
+      <h5>Options</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>lat</td>
+            <td>float</td>
+            <td>Latitude of the coordinate.</td>
+          </tr>
+          <tr>
+            <td>lng</td>
+            <td>float</td>
+            <td>Longitude of the coordinate.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Also, <code>drawCircle</code> accepts any option defined in <a href="https://developers.google.com/maps/documentation/javascript/reference#CircleOptions">google.maps.CircleOptions</a> and any event defined in <a href="https://developers.google.com/maps/documentation/javascript/reference#Circle">google.maps.Circle ('Events' section)</a>.</p>
+
+      <h4 id="GMaps-drawRectangle">drawRectangle</h4>
+      <p>Draw a rectangle and add it in the Map.</p>
+      <p><code>drawRectangle</code> accepts a hash of options.</p>
+      <h5>Options</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>bounds</td>
+            <td>array</td>
+            <td>Bi-dimensional array of latitudes and longitudes</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Also, <code>drawRectangle</code> accepts any option defined in <a href="https://developers.google.com/maps/documentation/javascript/reference#RectangleOptions">google.maps.RectangleOptions</a> and any event defined in <a href="https://developers.google.com/maps/documentation/javascript/reference#Rectangle">google.maps.Rectangle ('Events' section)</a>.</p>
+
       <h4 id="GMaps-drawPolygon">drawPolygon</h4>
       <p>Draw a polygon and add it in the Map and the polygons collection.</p>
-      <h4 id="GMaps-getFromFusionTables">getFromFusionTables</h4>
-      <p>Get data from a Fusion Tables table.</p>
+      <p><code>drawPolygon</code> accepts a hash of options.</p>
+      <h5>Options</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>paths</td>
+            <td>array</td>
+            <td>Bi-dimensional array of latitudes and longitudes</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Also, <code>drawPolygon</code> accepts any option defined in <a href="https://developers.google.com/maps/documentation/javascript/reference#PolygonOptions">google.maps.PolygonOptions</a> and any event defined in <a href="https://developers.google.com/maps/documentation/javascript/reference#Polygon">google.maps.Polygon ('Events' section)</a>.</p>
+
       <h4 id="GMaps-loadFromFusionTables">loadFromFusionTables</h4>
       <p>Get data from a Fusion Tables table and create the layer in the Map.</p>
-      <h4 id="GMaps-getFromKML">getFromKML</h4>
-      <p>Get data from a KML file or a GeoRSS file.</p>
+      <p><code>loadFromFusionTables</code> accepts a hash of options.</p>
+      <h5>Options</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>events</td>
+            <td>object</td>
+            <td>Hash of events defined in <a href="https://developers.google.com/maps/documentation/javascript/reference#FusionTablesLayer">google.maps.FusionTablesLayer ('Events' section)</a>.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Also, <code>loadFromFusionTables</code> accepts any option defined in <a href="https://developers.google.com/maps/documentation/javascript/reference#FusionTablesLayerOptions">google.maps.FusionTablesLayerOptions</a>.</p>
+
       <h4 id="GMaps-loadFromKML">loadFromKML</h4>
       <p>Get data from a KML file or a GeoRSS file and create the layer in the Map.</p>
+      <p><code>loadFromKML</code> accepts a hash of options.</p>
+      <h5>Options</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>url</td>
+            <td>string</td>
+            <td>URL of the source</td>
+          </tr>
+          <tr>
+            <td>events</td>
+            <td>object</td>
+            <td>Hash of events defined in <a href="https://developers.google.com/maps/documentation/javascript/reference#KmlLayer">google.maps.KmlLayer ('Events' section)</a>.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Also, <code>loadFromKML</code> accepts any option defined in <a href="https://developers.google.com/maps/documentation/javascript/reference#KmlLayerOptions">google.maps.KmlLayerOptions</a>.</p>
+
       <h4 id="GMaps-getRoutes">getRoutes</h4>
       <p>Get routes between two coordinates.</p>
       <h4 id="GMaps-removePolylines">removePolylines</h4>

@@ -28,6 +28,10 @@ h5 {
 code,
 pre {
   font-family: 'Monaco', 'Consolas';
+  padding: 2px 6px;
+  background: #005199;
+  color: #fff;
+  border-radius: 12px;
 }
 
 label,
@@ -59,7 +63,7 @@ table {
 }
 table thead,
 table tbody tr{
-  border-bottom: solid 1px #eee;
+  border-bottom: solid 1px #999;
 }
 table th,
 table td {
