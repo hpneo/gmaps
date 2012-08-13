@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>gmaps.js &mdash; Google Maps API with less pain and more fun</title>
+  <meta charset="utf-8">
+  <link href='http://fonts.googleapis.com/css?family=Convergence|Ubuntu|Open+Sans' rel='stylesheet' type='text/css' />
+  <link rel="stylesheet" href="documentation.css" type="text/css" />
+</head>
+<body>
+  <div id="header">
+    <h1>gmaps.js</h1>
+    <ul>
+      <li><a href="/gmaps/documentation.html">Documentation</a></li>
+      <li><a href="/gmaps/examples.html">Examples</a></li>
+      <li><a href="#Download">Download</a></li>
+      <li><a href="#Change-log">Change log</a></li>
+      <li><a href="/gmaps/try.html">Try!</a></li>
+      <li><a href="https://github.com/hpneo/gmaps">Watch the repo</a></li>
+    </ul>
+  </div>
+  <div id="body">
+    <div id="sidebar">
+      <h3 id="Documentation">Documentation</h3>
+      <h4>GMaps</h4>
+      <ul>
+        <li><a href="#GMaps-div">div</a></li>
+        <li><a href="#GMaps-controls">controls</a></li>
+        <li><a href="#GMaps-overlays">overlays</a></li>
+        <li><a href="#GMaps-layers">layers</a></li>
+        <li><a href="#GMaps-markers">markers</a></li>
+        <li><a href="#GMaps-polylines">polylines</a></li>
+        <li><a href="#GMaps-routes">routes</a></li>
+        <li><a href="#GMaps-polygons">polygons</a></li>
+        <li><a href="#GMaps-zoom">zoom</a></li>
+        <li><a href="#GMaps-map">map</a></li>
+        <li><a href="#GMaps-setContextMenu">setContextMenu</a></li>
+        <li><a href="#GMaps-hideContextMenu">hideContextMenu</a></li>
+        <li><a href="#GMaps-refresh">refresh</a></li>
+        <li><a href="#GMaps-fitZoom">fitZoom</a></li>
+        <li><a href="#GMaps-fitBounds">fitBounds</a></li>
+        <li><a href="#GMaps-setCenter">setCenter</a></li>
+        <li><a href="#GMaps-getCenter">getCenter</a></li>
+        <li><a href="#GMaps-getDiv">getDiv</a></li>
+        <li><a href="#GMaps-setZoom">setZoom</a></li>
+        <li><a href="#GMaps-zoomIn">zoomIn</a></li>
+        <li><a href="#GMaps-zoomOut">zoomOut</a></li>
+        <li><a href="#GMaps-addControl">addControl</a></li>
+        <li><a href="#GMaps-createMarker">createMarker</a></li>
+        <li><a href="#GMaps-addMarker">addMarker</a></li>
+        <li><a href="#GMaps-addMarkers">addMarkers</a></li>
+        <li><a href="#GMaps-hideInfoWindows">hideInfoWindows</a></li>
+        <li><a href="#GMaps-removeMarkers">removeMarkers</a></li>
+        <li><a href="#GMaps-drawOverlay">drawOverlay</a></li>
+        <li><a href="#GMaps-removeOverlay">removeOverlay</a></li>
+        <li><a href="#GMaps-removeOverlays">removeOverlays</a></li>
+        <li><a href="#GMaps-drawPolyline">drawPolyline</a></li>
+        <li><a href="#GMaps-drawCircle">drawCircle</a></li>
+        <li><a href="#GMaps-drawRectangle">drawRectangle</a></li>
+        <li><a href="#GMaps-drawPolygon">drawPolygon</a></li>
+        <li><a href="#GMaps-getFromFusionTables">getFromFusionTables</a></li>
+        <li><a href="#GMaps-loadFromFusionTables">loadFromFusionTables</a></li>
+        <li><a href="#GMaps-getFromKML">getFromKML</a></li>
+        <li><a href="#GMaps-loadFromKML">loadFromKML</a></li>
+        <li><a href="#GMaps-getRoutes">getRoutes</a></li>
+        <li><a href="#GMaps-getElevations">getElevations</a></li>
+        <li><a href="#GMaps-removePolylines">removePolylines</a></li>
+        <li><a href="#GMaps-cleanRoute">cleanRoute</a></li>
+        <li><a href="#GMaps-drawRoute">drawRoute</a></li>
+        <li><a href="#GMaps-travelRoute">travelRoute</a></li>
+        <li><a href="#GMaps-drawSteppedRoute">drawSteppedRoute</a></li>
+        <li><a href="#GMaps-checkGeofence">checkGeofence</a></li>
+        <li><a href="#GMaps-checkMarkerGeofence">checkMarkerGeofence</a></li>
+      </ul>
+      <h4>GMaps.geocode</h4>
+      <h4>GMaps.geolocate</h4>
+      <h4>GMaps.Route</h4>
+      <h4>GMaps.staticMapURL</h4>
+    </div>
+    <div id="content">
+      <h3>Documentation</h3>
+      <h4 id="GMaps-div">div — HTMLDivElement</h4>
+      <p>HTML Element that represents the Map in the DOM tree.</p>
+      
+      <h4 id="GMaps-controls">controls — Array</h4>
+      <p>Collection of custom controls in the Map.</p>
+      
+      <h4 id="GMaps-overlays">overlays — Array</h4>
+      <p>Collection of HTML overlays drawn in the Map.</p>
+      
+      <h4 id="GMaps-layers">layers — Array</h4>
+      <p>Collection of layers created in the Map.</p>
+      
+      <h4 id="GMaps-markers">markers — Array</h4>
+      <p>Collection of markers added in the Map.</p>
+      
+      <h4 id="GMaps-polylines">polylines — Array</h4>
+      <p>Collection of polylines drawn in the Map.</p>
+      
+      <h4 id="GMaps-routes">routes — Array</h4>
+      <p>Collection of the routes used in the Map.</p>
+      
+      <h4 id="GMaps-polygons">polygons — Array</h4>
+      <p>Collection of polygons drawn in the Map.</p>
+      
+      <h4 id="GMaps-zoom">zoom — Integer</h4>
+      <p>Current zoom level in the Map.</p>
+      
+      <h4 id="GMaps-map">map — google.maps.Map</h4>
+      <p>Native google.maps.Map object.</p>
+      
+      <h4 id="GMaps-setContextMenu">setContextMenu</h4>
+      <p>Set a context menu for the entire Map or a marker.</p>
+      <p><code>setContextMenu</code> accepts a hash of options.</p>
+      <h5>Options:</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>control</td>
+            <td>string</td>
+            <td>Control that the context menu is attached. Can be <code>map</code> or <code>marker</code>.</td>
+          </tr>
+          <tr>
+            <td>options</td>
+            <td>array</td>
+            <td>Collection of context menu items. Each item in this collection has three options.</td>
+          </tr>
+        </tbody>
+      </table>
+      <h5>Context menu item options:</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>title</td>
+            <td>string</td>
+            <td>Text displayed in the menu item.</td>
+          </tr>
+          <tr>
+            <td>name</td>
+            <td>string</td>
+            <td>Unique name used by GMaps to build the menu item.</td>
+          </tr>
+          <tr>
+            <td>action</td>
+            <td>function</td>
+            <td>Action performed when user selects a context menu item. It takes 1 parameter, which contains the coordinate in the map where the context menu is displayed.</td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <h4 id="GMaps-hideContextMenu">hideContextMenu</h4>
+      <p>Hide current context menu displayed.</p>
+
+      <h4 id="GMaps-refresh">refresh</h4>
+      <p>Trigger the <code>resize</code> event of a Map. Useful when the Map is created in a dynamic container</p>
+      
+      <h4 id="GMaps-fitZoom">fitZoom</h4>
+      <p>Fit zoom level to show all markers in the viewport.</p>
+      
+      <h4 id="GMaps-fitBounds">fitBounds</h4>
+      <p>Fit zoom level to show a bound of coordinates.</p>
+      <p><code>fitBounds</code> accepts 1 parameter.</p>
+      <h5>Parameters:</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>latLngs</td>
+            <td>array</td>
+            <td>Array of google.maps.LatLng objects.</td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <h4 id="GMaps-setCenter">setCenter</h4>
+      <p>Set center in the Map.</p>
+      <p><code>setCenter</code> accepts 3 parameters.</p>
+      <h5>Parameters:</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>lat</td>
+            <td>float</td>
+            <td>Latitude of the coordinate.</td>
+          </tr>
+          <tr>
+            <td>lng</td>
+            <td>float</td>
+            <td>Longitude of the coordinate.</td>
+          </tr>
+          <tr>
+            <td>callback</td>
+            <td>function</td>
+            <td>Function that triggers after the map is centered.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4 id="GMaps-getCenter">getCenter</h4>
+      <p>Get current coordinates of the center.</p>
+
+      <h4 id="GMaps-getDiv">getDiv</h4>
+      <p>Get div object described above.</p>
+
+      <h4 id="GMaps-setZoom">setZoom</h4>
+      <p>Set zoom level.</p>
+      <p><code>setZoom</code> accepts 1 parameter.</p>
+      <h5>Parameters:</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>value</td>
+            <td>integer</td>
+            <td>New zoom value.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4 id="GMaps-zoomIn">zoomIn</h4>
+      <p>Increase zoom level.</p>
+      <p><code>zoomIn</code> accepts 1 parameter.</p>
+      <h5>Parameters:</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>value</td>
+            <td>integer</td>
+            <td>Number of zoom level that the zoom is increased.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4 id="GMaps-zoomOut">zoomOut</h4>
+      <p>Decrease zoom level.</p>
+      <p><code>zoomOut</code> accepts 1 parameter.</p>
+      <h5>Parameters:</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>value</td>
+            <td>integer</td>
+            <td>Number of zoom level that the zoom is decreased.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4 id="GMaps-addControl">addControl</h4>
+      <p>Add a control in the Map UI.</p>
+      <p><code>addControl</code> accepts a hash of options.</p>
+      <h5>Options:</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>position</td>
+            <td>string</td>
+            <td>
+              Position in the Map UI where the control is placed:
+              <ul>
+                <li>TOP_CENTER</li>
+                <li>TOP_LEFT</li>
+                <li>TOP_RIGHT</li>
+                <li>LEFT_TOP</li>
+                <li>RIGHT_TOP</li>
+                <li>LEFT_CENTER</li>
+                <li>RIGHT_CENTER</li>
+                <li>LEFT_BOTTOM</li>
+                <li>RIGHT_BOTTOM</li>
+                <li>BOTTOM_CENTER</li>
+                <li>BOTTOM_LEFT</li>
+                <li>BOTTOM_RIGHT</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>style</td>
+            <td>object</td>
+            <td>Hash of CSS styles applied to the control.</td>
+          </tr>
+          <tr>
+            <td>events</td>
+            <td>object</td>
+            <td>Hash of events bound to the control.</td>
+          </tr>
+        </tbody>
+      </table>
+      <h5>Control event options:</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>name</td>
+            <td>string</td>
+            <td>Name of the event.</td>
+          </tr>
+          <tr>
+            <td>event</td>
+            <td>function</td>
+            <td>Function attached to the event.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4 id="GMaps-createMarker">createMarker</h4>
+      <p>Create a marker and return it.</p>
+      <p><code>createMarker</code> accepts a hash of options.</p>
+      <h5>Options</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>lat</td>
+            <td>float</td>
+            <td>Latitude of the coordinate.</td>
+          </tr>
+          <tr>
+            <td>lng</td>
+            <td>float</td>
+            <td>Longitude of the coordinate.</td>
+          </tr>
+          <tr>
+            <td>details</td>
+            <td>object</td>
+            <td>Custom object with extra data.</td>
+          </tr>
+          <tr>
+            <td>fences</td>
+            <td>array</td>
+            <td>Collection of google.maps.Polygon objects.</td>
+          </tr>
+          <tr>
+            <td>outside</td>
+            <td>function</td>
+            <td>Callback fired when the marker is oustide any of its fences.</td>
+          </tr>
+          <tr>
+            <td>infoWindow</td>
+            <td>object</td>
+            <td>Object with all options defined in <a href="https://developers.google.com/maps/documentation/javascript/reference#InfoWindowOptions">google.maps.InfoWindowOptions</a>.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Also, <code>createMarker</code> accepts any option defined in <a href="https://developers.google.com/maps/documentation/javascript/reference#MarkerOptions">google.maps.MarkerOptions</a> and any marker event defined in <a href="https://developers.google.com/maps/documentation/javascript/reference#Marker">google.maps.Marker ('Events' section)</a>.</p>
+
+      <h4 id="GMaps-addMarker">addMarker</h4>
+      <p>Create a marker and add it in the Map and the markers collection.</p>
+      <p><code>addMarker</code> accepts the same options of <code>createMarker</code>.</p>
+
+      <h4 id="GMaps-addMarkers">addMarkers</h4>
+      <p>Add a collection of markers.</p>
+      <p><code>addMarkers</code> accept one parameter, which is an array of the same options used in <code>addMarker</code>.</p>
+
+      <h4 id="GMaps-hideInfoWindows">hideInfoWindows</h4>
+      <p>Hide all infoWindows shown in the Map.</p>
+
+      <h4 id="GMaps-removeMarkers">removeMarkers</h4>
+      <p>Delete all markers and clear the markers collection.</p>
+
+      <h4 id="GMaps-drawOverlay">drawOverlay</h4>
+      <p>Draw a HTML overlay and add it in the Map.</p>
+      <code>drawOverlay</code> accepts a hash of options.
+      <h5>Options</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>lat</td>
+            <td>float</td>
+            <td>Latitude of the coordinate where the overlay is placed.</td>
+          </tr>
+          <tr>
+            <td>lng</td>
+            <td>float</td>
+            <td>Longitude of the coordinate where the overlay is placed.</td>
+          </tr>
+          <tr>
+            <td>content</td>
+            <td>string</td>
+            <td>HTML that will be drawn in the overlay.</td>
+          </tr>
+          <tr>
+            <td>layer</td>
+            <td>string</td>
+            <td>
+              Id of any of the layers defined in <a href="https://developers.google.com/maps/documentation/javascript/reference#MapPanes">google.maps.MapPanes</a>:
+              <ul>
+                <li>floatPane</li>
+                <li>floatShadow</li>
+                <li>mapPane</li>
+                <li>overlayImage</li>
+                <li>overlayLayer</li>
+                <li>overlayMouseTarget</li>
+                <li>overlayShadow</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>verticalAlign</td>
+            <td>string</td>
+            <td>
+              Vertical align of the overlay (where the center is the coordinate <code>lat</code>, <code>lng</code>):
+              <ul>
+                <li>top</li>
+                <li>middle</li>
+                <li>bottom</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>horizontalAlign</td>
+            <td>string</td>
+            <td>
+              Horizontal align of the overlay (where the center is the coordinate <code>lat</code>, <code>lng</code>):
+              <ul>
+                <li>left</li>
+                <li>center</li>
+                <li>right</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>horizontalOffset</td>
+            <td>integer</td>
+            <td>Horizontal offset in pixels of the overlay.</td>
+          </tr>
+          <tr>
+            <td>verticalOffset</td>
+            <td>integer</td>
+            <td>Vertical offset in pixels of the overlay.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4 id="GMaps-removeOverlay">removeOverlay</h4>
+      <p>Delete a overlay.</p>
+      <p><code>removeOverlay</code> accepts 1 parameter, which is a google.maps.OverlayView object.</p>
+
+      <h4 id="GMaps-removeOverlays">removeOverlays</h4>
+      <p>Delete all overlays.</p>
+
+      <h4 id="GMaps-drawPolyline">drawPolyline</h4>
+      <p>Draw a polyline and add it in the Map and the polylines collection.</p>
+      <p><code>drawPolyline</code> accepts a hash of options.</p>
+      <h5>Options</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>path</td>
+            <td>array</td>
+            <td>Collection of coordinates (which can be either an array [lat, lng] or a <a href="https://developers.google.com/maps/documentation/javascript/reference#LatLng">google.maps.LatLng object</a>).</td>
+          </tr>
+          <tr>
+            <td>strokeColor</td>
+            <td>string</td>
+            <td>Color of the polyline. Can be hexadecimal or CSS name.</td>
+          </tr>
+          <tr>
+            <td>strokeOpacity</td>
+            <td>float</td>
+            <td>Opacity of the polyline from 0.0 to 1.0</td>
+          </tr>
+          <tr>
+            <td>strokeWeight</td>
+            <td>integer</td>
+            <td>Polyline width in pixels.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Also, <code>drawPolyline</code> accepts any event defined in <a href="https://developers.google.com/maps/documentation/javascript/reference#Polyline">google.maps.Polyline ('Events' section)</a>.</p>
+
+      <h4 id="GMaps-drawCircle">drawCircle</h4>
+      <p>Draw a circle and add it in the Map.</p>
+      <p><code>drawCircle</code> accepts a hash of options.</p>
+      <h5>Options</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>lat</td>
+            <td>float</td>
+            <td>Latitude of the coordinate.</td>
+          </tr>
+          <tr>
+            <td>lng</td>
+            <td>float</td>
+            <td>Longitude of the coordinate.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Also, <code>drawCircle</code> accepts any option defined in <a href="https://developers.google.com/maps/documentation/javascript/reference#CircleOptions">google.maps.CircleOptions</a> and any event defined in <a href="https://developers.google.com/maps/documentation/javascript/reference#Circle">google.maps.Circle ('Events' section)</a>.</p>
+
+      <h4 id="GMaps-drawRectangle">drawRectangle</h4>
+      <p>Draw a rectangle and add it in the Map.</p>
+      <p><code>drawRectangle</code> accepts a hash of options.</p>
+      <h5>Options</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>bounds</td>
+            <td>array</td>
+            <td>Bi-dimensional array of latitudes and longitudes</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Also, <code>drawRectangle</code> accepts any option defined in <a href="https://developers.google.com/maps/documentation/javascript/reference#RectangleOptions">google.maps.RectangleOptions</a> and any event defined in <a href="https://developers.google.com/maps/documentation/javascript/reference#Rectangle">google.maps.Rectangle ('Events' section)</a>.</p>
+
+      <h4 id="GMaps-drawPolygon">drawPolygon</h4>
+      <p>Draw a polygon and add it in the Map and the polygons collection.</p>
+      <p><code>drawPolygon</code> accepts a hash of options.</p>
+      <h5>Options</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>paths</td>
+            <td>array</td>
+            <td>Bi-dimensional array of latitudes and longitudes</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Also, <code>drawPolygon</code> accepts any option defined in <a href="https://developers.google.com/maps/documentation/javascript/reference#PolygonOptions">google.maps.PolygonOptions</a> and any event defined in <a href="https://developers.google.com/maps/documentation/javascript/reference#Polygon">google.maps.Polygon ('Events' section)</a>.</p>
+
+      <h4 id="GMaps-loadFromFusionTables">loadFromFusionTables</h4>
+      <p>Get data from a Fusion Tables table and create the layer in the Map.</p>
+      <p><code>loadFromFusionTables</code> accepts a hash of options.</p>
+      <h5>Options</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>events</td>
+            <td>object</td>
+            <td>Hash of events defined in <a href="https://developers.google.com/maps/documentation/javascript/reference#FusionTablesLayer">google.maps.FusionTablesLayer ('Events' section)</a>.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Also, <code>loadFromFusionTables</code> accepts any option defined in <a href="https://developers.google.com/maps/documentation/javascript/reference#FusionTablesLayerOptions">google.maps.FusionTablesLayerOptions</a>.</p>
+
+      <h4 id="GMaps-loadFromKML">loadFromKML</h4>
+      <p>Get data from a KML file or a GeoRSS file and create the layer in the Map.</p>
+      <p><code>loadFromKML</code> accepts a hash of options.</p>
+      <h5>Options</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>url</td>
+            <td>string</td>
+            <td>URL of the source</td>
+          </tr>
+          <tr>
+            <td>events</td>
+            <td>object</td>
+            <td>Hash of events defined in <a href="https://developers.google.com/maps/documentation/javascript/reference#KmlLayer">google.maps.KmlLayer ('Events' section)</a>.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Also, <code>loadFromKML</code> accepts any option defined in <a href="https://developers.google.com/maps/documentation/javascript/reference#KmlLayerOptions">google.maps.KmlLayerOptions</a>.</p>
+
+      <h4 id="GMaps-getRoutes">getRoutes</h4>
+      <p>Get routes between two coordinates.</p>
+      <p><code>getRoutes</code> accepts a hash of options.</p>
+      <h5>Options</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>origin</td>
+            <td>array</td>
+            <td>Array with two elements: latitude and longitude</td>
+          </tr>
+          <tr>
+            <td>destination</td>
+            <td>array</td>
+            <td>Array with two elements: latitude and longitude</td>
+          </tr>
+          <tr>
+            <td>callback</td>
+            <td>function</td>
+            <td>Function that fires after the results are returned.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Also, <code>getRoutes</code> accepts any option defined in <a href="https://developers.google.com/maps/documentation/javascript/reference#DirectionsRequest">google.maps.DirectionsRequest</a>.</p>
+
+      <h4 id="GMaps-getElevations">getElevations</h4>
+      <p>Get elevation information of locations or routes.</p>
+      <p><code>getElevations</code> accepts a hash of options.</p>
+      <h5>Options</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>locations</td>
+            <td>array</td>
+            <td>Bi-dimensional array of latitudes and longitudes</td>
+          </tr>
+          <tr>
+            <td>path</td>
+            <td>boolean</td>
+            <td>If is true, makes a request along a path. If is false, only on discrete locations</td>
+          </tr>
+          <tr>
+            <td>callback</td>
+            <td>function</td>
+            <td>Native callback function defined in <a href="https://developers.google.com/maps/documentation/javascript/reference#ElevationService">google.maps.ElevationService ('Methods' section)</a></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4 id="GMaps-removePolylines">removePolylines</h4>
+      <p>Delete all polylines.</p>
+
+      <h4 id="GMaps-drawRoute">drawRoute</h4>
+      <p>Draw a route using polylines.</p>
+      <p><code>drawRoute</code> accepts a hash of options.</p>
+      <h5>Options</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>origin</td>
+            <td>array</td>
+            <td>Array with two elements: latitude and longitude</td>
+          </tr>
+          <tr>
+            <td>destination</td>
+            <td>array</td>
+            <td>Array with two elements: latitude and longitude</td>
+          </tr>
+          <tr>
+            <td>travelMode</td>
+            <td>string</td>
+            <td>Can be <code>driving</code>, <code>bicycling</code> or <code>walking</code>.</td>
+          </tr>
+          <tr>
+            <td>waypoints</td>
+            <td>array</td>
+            <td>Array of <a href="https://developers.google.com/maps/documentation/javascript/reference#DirectionsWaypoint">google.maps.DirectionsWaypoint objects</a>.</td>
+          </tr>
+          <tr>
+            <td>strokeColor</td>
+            <td>string</td>
+            <td>Color of the polyline. Can be hexadecimal or CSS name.</td>
+          </tr>
+          <tr>
+            <td>strokeOpacity</td>
+            <td>float</td>
+            <td>Opacity of the polyline from 0.0 to 1.0</td>
+          </tr>
+          <tr>
+            <td>strokeWeight</td>
+            <td>integer</td>
+            <td>Polyline width in pixels.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4 id="GMaps-cleanRoute">cleanRoute</h4>
+      <p>Alias for <code>removePolylines</code>.</p>
+
+      <h4 id="GMaps-travelRoute">travelRoute</h4>
+      <p>Travel a route automatically.</p>
+      <p><code>travelRoute</code> accepts a hash of options.</p>
+      <h5>Options</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>origin</td>
+            <td>array</td>
+            <td>Array with two elements: latitude and longitude</td>
+          </tr>
+          <tr>
+            <td>destination</td>
+            <td>array</td>
+            <td>Array with two elements: latitude and longitude</td>
+          </tr>
+          <tr>
+            <td>travelMode</td>
+            <td>string</td>
+            <td>Can be <code>driving</code>, <code>bicycling</code> or <code>walking</code>.</td>
+          </tr>
+          <tr>
+            <td>waypoints</td>
+            <td>array</td>
+            <td>Array of <a href="https://developers.google.com/maps/documentation/javascript/reference#DirectionsWaypoint">google.maps.DirectionsWaypoint objects</a>.</td>
+          </tr>
+          <tr>
+            <td>route</td>
+            <td>google.maps.DirectionsRoute</td>
+            <td><a href="https://developers.google.com/maps/documentation/javascript/reference#DirectionsRoute">google.maps.DirectionsRoute</a> object.</td>
+          </tr>
+          <tr>
+            <td>step</td>
+            <td>function</td>
+            <td>Fired each step in the route. It pass a single parameter, which is a <a href="https://developers.google.com/maps/documentation/javascript/reference#DirectionsStep">DirectionsStep</a> object.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4 id="GMaps-drawSteppedRoute">drawSteppedRoute</h4>
+      <p>Draw and travel a route automatically step by step.</p>
+      <p><code>drawSteppedRoute</code> accepts a hash of options.</p>
+      <h5>Options</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>origin</td>
+            <td>array</td>
+            <td>Array with two elements: latitude and longitude</td>
+          </tr>
+          <tr>
+            <td>destination</td>
+            <td>array</td>
+            <td>Array with two elements: latitude and longitude</td>
+          </tr>
+          <tr>
+            <td>travelMode</td>
+            <td>string</td>
+            <td>Can be <code>driving</code>, <code>bicycling</code> or <code>walking</code>.</td>
+          </tr>
+          <tr>
+            <td>route</td>
+            <td>google.maps.DirectionsRoute</td>
+            <td><a href="https://developers.google.com/maps/documentation/javascript/reference#DirectionsRoute">google.maps.DirectionsRoute</a> object.</td>
+          </tr>
+          <tr>
+            <td>strokeColor</td>
+            <td>string</td>
+            <td>Color of the polyline. Can be hexadecimal or CSS name.</td>
+          </tr>
+          <tr>
+            <td>strokeOpacity</td>
+            <td>float</td>
+            <td>Opacity of the polyline from 0.0 to 1.0</td>
+          </tr>
+          <tr>
+            <td>strokeWeight</td>
+            <td>integer</td>
+            <td>Polyline width in pixels.</td>
+          </tr>
+          <tr>
+            <td>step</td>
+            <td>function</td>
+            <td>Fired each step in the route. It pass a single parameter, which is a <a href="https://developers.google.com/maps/documentation/javascript/reference#DirectionsStep">DirectionsStep</a> object.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4 id="GMaps-checkGeofence">checkGeofence</h4>
+      <p>Check if a coordinate is inside or outside of a geofence.</p>
+      <p>Use three arguments and return true or false depending if a coordinate is inside or outside a geofence.</p>
+      <h5>Arguments</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>lat</td>
+            <td>float</td>
+            <td>Latitude of the coordinate</td>
+          </tr>
+          <tr>
+            <td>lng</td>
+            <td>float</td>
+            <td>Longitude of the coordinate</td>
+          </tr>
+          <tr>
+            <td>fence</td>
+            <td>google.maps.Polygon</td>
+            <td>Any polygon drawn in the map</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4 id="GMaps-checkMarkerGeofence">checkMarkerGeofence</h4>
+      <p>Trigger a callback when a marker is outside its geofences.</p>
+      <h5>Arguments</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>marker</td>
+            <td>google.maps.Marker</td>
+            <td>Marker created with <code>addMarker</code>.</td>
+          </tr>
+          <tr>
+            <td>outside_callback</td>
+            <td>function</td>
+            <td>Function that triggers at each marker fence (defined with <code>fences</code> option in <code>addMarker</code>).</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+</body>
+</html>
