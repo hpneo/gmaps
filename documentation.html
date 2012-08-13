@@ -62,6 +62,7 @@
         <li><a href="#GMaps-getFromKML">getFromKML</a></li>
         <li><a href="#GMaps-loadFromKML">loadFromKML</a></li>
         <li><a href="#GMaps-getRoutes">getRoutes</a></li>
+        <li><a href="#GMaps-getElevations">getElevations</a></li>
         <li><a href="#GMaps-removePolylines">removePolylines</a></li>
         <li><a href="#GMaps-cleanRoute">cleanRoute</a></li>
         <li><a href="#GMaps-drawRoute">drawRoute</a></li>
@@ -529,11 +530,6 @@
           <tr>
             <td>strokeColor</td>
             <td>string</td>
-            <td>Color in HEX</td>
-          </tr>
-          <tr>
-            <td>strokeColor</td>
-            <td>string</td>
             <td>Color of the polyline. Can be hexadecimal or CSS name.</td>
           </tr>
           <tr>
@@ -672,20 +668,282 @@
 
       <h4 id="GMaps-getRoutes">getRoutes</h4>
       <p>Get routes between two coordinates.</p>
+      <p><code>getRoutes</code> accepts a hash of options.</p>
+      <h5>Options</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>origin</td>
+            <td>array</td>
+            <td>Array with two elements: latitude and longitude</td>
+          </tr>
+          <tr>
+            <td>destination</td>
+            <td>array</td>
+            <td>Array with two elements: latitude and longitude</td>
+          </tr>
+          <tr>
+            <td>callback</td>
+            <td>function</td>
+            <td>Function that fires after the results are returned.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Also, <code>getRoutes</code> accepts any option defined in <a href="https://developers.google.com/maps/documentation/javascript/reference#DirectionsRequest">google.maps.DirectionsRequest</a>.</p>
+
+      <h4 id="GMaps-getElevations">getElevations</h4>
+      <p>Get elevation information of locations or routes.</p>
+      <p><code>getElevations</code> accepts a hash of options.</p>
+      <h5>Options</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>locations</td>
+            <td>array</td>
+            <td>Bi-dimensional array of latitudes and longitudes</td>
+          </tr>
+          <tr>
+            <td>path</td>
+            <td>boolean</td>
+            <td>If is true, makes a request along a path. If is false, only on discrete locations</td>
+          </tr>
+          <tr>
+            <td>callback</td>
+            <td>function</td>
+            <td>Native callback function defined in <a href="https://developers.google.com/maps/documentation/javascript/reference#ElevationService">google.maps.ElevationService ('Methods' section)</a></td>
+          </tr>
+        </tbody>
+      </table>
+
       <h4 id="GMaps-removePolylines">removePolylines</h4>
       <p>Delete all polylines.</p>
+
       <h4 id="GMaps-drawRoute">drawRoute</h4>
       <p>Draw a route using polylines.</p>
+      <p><code>drawRoute</code> accepts a hash of options.</p>
+      <h5>Options</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>origin</td>
+            <td>array</td>
+            <td>Array with two elements: latitude and longitude</td>
+          </tr>
+          <tr>
+            <td>destination</td>
+            <td>array</td>
+            <td>Array with two elements: latitude and longitude</td>
+          </tr>
+          <tr>
+            <td>travelMode</td>
+            <td>string</td>
+            <td>Can be <code>driving</code>, <code>bicycling</code> or <code>walking</code>.</td>
+          </tr>
+          <tr>
+            <td>waypoints</td>
+            <td>array</td>
+            <td>Array of <a href="https://developers.google.com/maps/documentation/javascript/reference#DirectionsWaypoint">google.maps.DirectionsWaypoint objects</a>.</td>
+          </tr>
+          <tr>
+            <td>strokeColor</td>
+            <td>string</td>
+            <td>Color of the polyline. Can be hexadecimal or CSS name.</td>
+          </tr>
+          <tr>
+            <td>strokeOpacity</td>
+            <td>float</td>
+            <td>Opacity of the polyline from 0.0 to 1.0</td>
+          </tr>
+          <tr>
+            <td>strokeWeight</td>
+            <td>integer</td>
+            <td>Polyline width in pixels.</td>
+          </tr>
+        </tbody>
+      </table>
+
       <h4 id="GMaps-cleanRoute">cleanRoute</h4>
       <p>Alias for <code>removePolylines</code>.</p>
+
       <h4 id="GMaps-travelRoute">travelRoute</h4>
       <p>Travel a route automatically.</p>
+      <p><code>travelRoute</code> accepts a hash of options.</p>
+      <h5>Options</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>origin</td>
+            <td>array</td>
+            <td>Array with two elements: latitude and longitude</td>
+          </tr>
+          <tr>
+            <td>destination</td>
+            <td>array</td>
+            <td>Array with two elements: latitude and longitude</td>
+          </tr>
+          <tr>
+            <td>travelMode</td>
+            <td>string</td>
+            <td>Can be <code>driving</code>, <code>bicycling</code> or <code>walking</code>.</td>
+          </tr>
+          <tr>
+            <td>waypoints</td>
+            <td>array</td>
+            <td>Array of <a href="https://developers.google.com/maps/documentation/javascript/reference#DirectionsWaypoint">google.maps.DirectionsWaypoint objects</a>.</td>
+          </tr>
+          <tr>
+            <td>route</td>
+            <td>google.maps.DirectionsRoute</td>
+            <td><a href="https://developers.google.com/maps/documentation/javascript/reference#DirectionsRoute">google.maps.DirectionsRoute</a> object.</td>
+          </tr>
+          <tr>
+            <td>step</td>
+            <td>function</td>
+            <td>Fired each step in the route. It pass a single parameter, which is a <a href="https://developers.google.com/maps/documentation/javascript/reference#DirectionsStep">DirectionsStep</a> object.</td>
+          </tr>
+        </tbody>
+      </table>
+
       <h4 id="GMaps-drawSteppedRoute">drawSteppedRoute</h4>
-      <p>Draw and travel a route step by step.</p>
+      <p>Draw and travel a route automatically step by step.</p>
+      <p><code>drawSteppedRoute</code> accepts a hash of options.</p>
+      <h5>Options</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>origin</td>
+            <td>array</td>
+            <td>Array with two elements: latitude and longitude</td>
+          </tr>
+          <tr>
+            <td>destination</td>
+            <td>array</td>
+            <td>Array with two elements: latitude and longitude</td>
+          </tr>
+          <tr>
+            <td>travelMode</td>
+            <td>string</td>
+            <td>Can be <code>driving</code>, <code>bicycling</code> or <code>walking</code>.</td>
+          </tr>
+          <tr>
+            <td>route</td>
+            <td>google.maps.DirectionsRoute</td>
+            <td><a href="https://developers.google.com/maps/documentation/javascript/reference#DirectionsRoute">google.maps.DirectionsRoute</a> object.</td>
+          </tr>
+          <tr>
+            <td>strokeColor</td>
+            <td>string</td>
+            <td>Color of the polyline. Can be hexadecimal or CSS name.</td>
+          </tr>
+          <tr>
+            <td>strokeOpacity</td>
+            <td>float</td>
+            <td>Opacity of the polyline from 0.0 to 1.0</td>
+          </tr>
+          <tr>
+            <td>strokeWeight</td>
+            <td>integer</td>
+            <td>Polyline width in pixels.</td>
+          </tr>
+          <tr>
+            <td>step</td>
+            <td>function</td>
+            <td>Fired each step in the route. It pass a single parameter, which is a <a href="https://developers.google.com/maps/documentation/javascript/reference#DirectionsStep">DirectionsStep</a> object.</td>
+          </tr>
+        </tbody>
+      </table>
+
       <h4 id="GMaps-checkGeofence">checkGeofence</h4>
       <p>Check if a coordinate is inside or outside of a geofence.</p>
+      <p>Use three arguments and return true or false depending if a coordinate is inside or outside a geofence.</p>
+      <h5>Arguments</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>lat</td>
+            <td>float</td>
+            <td>Latitude of the coordinate</td>
+          </tr>
+          <tr>
+            <td>lng</td>
+            <td>float</td>
+            <td>Longitude of the coordinate</td>
+          </tr>
+          <tr>
+            <td>fence</td>
+            <td>google.maps.Polygon</td>
+            <td>Any polygon drawn in the map</td>
+          </tr>
+        </tbody>
+      </table>
+
       <h4 id="GMaps-checkMarkerGeofence">checkMarkerGeofence</h4>
       <p>Trigger a callback when a marker is outside its geofences.</p>
+      <h5>Arguments</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>marker</td>
+            <td>google.maps.Marker</td>
+            <td>Marker created with <code>addMarker</code>.</td>
+          </tr>
+          <tr>
+            <td>outside_callback</td>
+            <td>function</td>
+            <td>Function that triggers at each marker fence (defined with <code>fences</code> option in <code>addMarker</code>).</td>
+          </tr>
+        </tbody>
+      </table>
+
     </div>
   </div>
 </body>
