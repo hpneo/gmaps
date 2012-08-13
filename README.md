@@ -8,6 +8,39 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.2.4
+-----------------------
+* New feature: **Elevation service**
+
+0.2.3
+-----------------------
+* New method: getZoom
+
+0.2.2
+-----------------------
+* Minor improvements to support Backbone.js
+* Fix controls position
+
+0.2.1
+-----------------------
+* More default values in GMaps constructor.
+
+0.2
+-----------------------
+Remove jQuery dependency.
+
+0.1.12.5
+-----------------------
+* New method "removePolylines" and alias "cleanRoute"
+
+0.1.12.4
+-----------------------
+* New methods: fitZoom and fitBounds
+
+0.1.12.3
+-----------------------
+* New method: refresh
+
 0.1.12.2
 -----------------------
 * New options in GMaps constructor: width and height
