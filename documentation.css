@@ -12,25 +12,26 @@ h1 {
 
 h3 {
   margin: 0;
-  font-family: 'Ubuntu';
+  margin-bottom: 20px;
+  color: #005294;
+  text-shadow: -1px -1px -1px #000;
+	font: 20px Arial, Helvetica, Geneva, sans-serif;
 }
 
 h4 {
   margin: 4px 8px;
-  font-family: 'Ubuntu';
 }
 
 h5 {
   margin: 4px 16px;
-  font-family: 'Ubuntu';
 }
 
 code,
 pre {
   font-family: 'Monaco', 'Consolas';
   padding: 2px 6px;
-  background: #005199;
-  color: #fff;
+  background: #e0e1ea;
+  color: #63595d;
   border-radius: 12px;
 }
 
@@ -57,9 +58,20 @@ table {
   background-color: transparent;
 }
 table {
-  width: 90%;
-  margin:0 auto;
-  font-size: 15px;
+  width: 99%;
+  margin:20px auto 40px auto;
+}
+
+#content table tbody tr td ul li {
+	margin-bottom: 5px;
+	list-style-type: square;
+	opacity: 1;
+	color: #575757;
+	font-family: Arial, Helvetica, Geneva, sans-serif;
+}
+
+#content a {
+	color: #ff2e2d;
 }
 table thead,
 table tbody tr{
@@ -71,10 +83,13 @@ table td {
   line-height: 18px;
   text-align: left;
   vertical-align: middle;
+	font-family: Arial, Helvetica, Geneva, sans-serif;
+	color: #5e5e5e;
 }
 table th {
   font-weight: bold;
   color: #383838;
+	font-size: 16px;
 }
 table thead th {
   vertical-align: bottom;
@@ -97,7 +112,7 @@ table thead th {
     color-stop(0.8, #0069aa)
   );
 
-  padding: 6px 0;
+  padding: 10px 0;
   color: #fafafa;
   border-bottom: solid 1px #004893;
   box-shadow: 0 0 20px 0px #034282;
@@ -113,8 +128,6 @@ table thead th {
 }
 
 #header a {
-  font-family: 'Ubuntu', 'Bitter';
-  font-weight: bold;
   color: #fefefe;
   text-decoration: none;
 }
@@ -123,12 +136,13 @@ table thead th {
   color: #fff;
   margin: 0 10px;
   font-family: 'Convergence';
-  text-shadow: 0 1px 1px #00264a;
+  text-shadow: -1 -1 -1 #000;
 }
 
 #header ul {
   list-style: none;
   margin: 0;
+  margin-left: 120px;
   padding: 0;
 }
 
@@ -146,7 +160,7 @@ table thead th {
 
 #content {
   position: fixed;
-  top: 46px;
+  top: 56px;
   bottom: 0;
   overflow: auto;
   right: 0;
@@ -160,8 +174,10 @@ table thead th {
   top: 46px;
   bottom: 0;
   left: 0;
-  width: 240px;
+  width: 220px;
   padding: 10px;
+  padding-top: 30px;
+  padding-left: 30px;
   overflow-x: hidden;
   overflow-y: auto;
 }
@@ -192,15 +208,36 @@ table thead th {
 
 #content h3 {
   font-size: 22px;
+  margin-left: 6px;
+  display: none;
 }
 
 #content h4 {
-  font-size: 20px;
+  font-size: 23px;
   font-weight: normal;
+  margin-top: 50px;
+  border-top: 1px dotted #c9c9c9;
+  padding-top: 50px;
+}
+
+#content h4:first-of-type {
+	margin-top: 0px;
+
+	border: none;
+}
+
+#content p {
+	margin-left: 7px;	
+	margin-top: 0px;
+	font-size: 14px;
+	color: #646464;
 }
 
 #content h5 {
-  font-size: 18px;
+  margin-left: 6px;
+  margin-top: 30px;
+  font: 18px Arial, Helvetica, Geneva, sans-serif;
+  color: #005294;
 }
 
 #content h2{
