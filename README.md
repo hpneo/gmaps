@@ -8,6 +8,11 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.2.5
+-----------------------
+* Add support to all marker events
+* Add suport for animations at show and remove overlays
+
 0.2.4.1
 -----------------------
 * Create GMaps class only when Google Maps API is loaded
