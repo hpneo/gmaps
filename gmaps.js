@@ -486,7 +486,7 @@ if(window.google && window.google.maps){
           div.style.zIndex = 100;
           div.innerHTML = options.content;
 
-          self.overlay_div = div;
+          overlay.div = div;
 
           var panes = this.getPanes();
           if (!options.layer) {
@@ -521,7 +521,7 @@ if(window.google && window.google.maps){
           options.horizontalOffset = options.horizontalOffset || 0;
           options.verticalOffset = options.verticalOffset || 0;
 
-          var div = self.overlay_div;
+          var div = overlay.div;
           var content = div.children[0];
 
           var content_height = content.clientHeight;
@@ -561,14 +561,14 @@ if(window.google && window.google.maps){
         };
 
         overlay.onRemove = function() {
-          var div = self.overlay_div;
+          var div = overlay.div;
 
           if(options.remove){
             options.remove.apply(this, [div]);
           }
           else{
-            self.overlay_div.parentNode.removeChild(self.overlay_div);
-            self.overlay_div = null;
+            overlay.div.parentNode.removeChild(overlay.div);
+            overlay.div = null;
           }
         };
 
