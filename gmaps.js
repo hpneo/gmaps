@@ -76,8 +76,6 @@ if(window.google && window.google.maps){
           streetViewControl = options.streetViewControl || true,
           overviewMapControl = overviewMapControl || true;
 
-
-
       var map_base_options = {
         zoom: this.zoom,
         center: map_center,
@@ -109,7 +107,9 @@ if(window.google && window.google.maps){
                 option.title + '</a></li>';
             }
           }
+
           if(!getElementById('gmaps_context_menu')) return;
+          
           var context_menu_element = getElementById('gmaps_context_menu');
           context_menu_element.innerHTML = html;
 
@@ -265,20 +265,8 @@ if(window.google && window.google.maps){
         }
       };
 
-      this.getCenter = function() {
-        return this.map.getCenter();
-      };
-
       this.getDiv = function() {
         return this.div;
-      };
-
-      this.setZoom = function(value) {
-        this.map.setZoom(value);
-      };
-
-      this.getZoom = function() {
-        return this.map.getZoom();
       };
 
       this.zoomIn = function(value) {
@@ -288,6 +276,22 @@ if(window.google && window.google.maps){
       this.zoomOut = function(value) {
         this.map.setZoom(this.map.getZoom() - value);
       };
+
+      var native_methods = [];
+
+      for(var method in this.map){
+        if(typeof(this.map[method]) == 'function' && !this[method]){
+          native_methods.push(method);
+        }
+      }
+
+      for(var i=0; i < native_methods.length; i++){
+        (function(gmaps, scope, method_name) {
+          gmaps[method_name] = function(){
+            return scope[method_name].apply(scope, arguments);
+          };
+        })(this, this.map, native_methods[i]);
+      }
 
       this.createControl = function(options) {
         var control = doc.createElement('div');
@@ -830,6 +834,10 @@ if(window.google && window.google.maps){
         });
       };
 
+      this.removeRoutes = function() {
+        this.routes = [];
+      };
+
       this.getElevations = function(options) {
         options = extend_object({
           locations: [],
@@ -878,7 +886,7 @@ if(window.google && window.google.maps){
           this.polylines[index].setMap(null);
         }
         this.polylines = [];
-      }
+      };
 
       // Alias for the method "drawRoute"
       this.cleanRoute = this.removePolylines;
@@ -1312,7 +1320,7 @@ if(window.google && window.google.maps){
 
   var arrayToLatLng = function(coords) {
     return new google.maps.LatLng(coords[0], coords[1]);
-  }
+  };
 
   var extend_object = function(obj, new_obj) {
     if(obj === new_obj) return obj;

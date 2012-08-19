@@ -8,6 +8,11 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.2.7
+-----------------------
+* New method: removeRoutes
+* Access all native methods of google.maps.Map class
+
 0.2.6
 -----------------------
 * Support for multiple overlays
