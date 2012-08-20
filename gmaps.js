@@ -1349,3 +1349,44 @@ if(window.google && window.google.maps){
   }
 
 }
+
+/*Extension: Styled map*/
+GMaps.prototype.addStyle = function(options){       
+  var styledMapType = new google.maps.StyledMapType(options.styles, options.styledMapName);
+  this.map.mapTypes.set(options.mapTypeId, styledMapType);
+};
+GMaps.prototype.setStyle = function(mapTypeId){     
+  this.map.setMapTypeId(mapTypeId);
+};
+
+/*Extension Weater layer*/
+GMaps.prototype.setWeather = function(options){
+  options = options || {};
+  var weatherLayer = new google.maps.weather.WeatherLayer();
+  weatherLayer.setOptions(options);
+  weatherLayer.setMap(this.map);
+};
+
+/*Extension cloud layer*/
+GMaps.prototype.setClouds = function(options){
+  var cloudLayer = new google.maps.weather.CloudLayer();
+  cloudLayer.setMap(this.map);
+};
+
+/*Extension Traffic layer*/
+GMaps.prototype.setTraffic = function(){
+  var trafficLayer = new google.maps.TrafficLayer();
+  trafficLayer.setMap(this.map);
+};
+
+/*Extension Transit layer*/
+GMaps.prototype.setTransit = function(){
+  var transitLayer = new google.maps.TransitLayer();
+  transitLayer.setMap(this.map);
+};
+
+/*Extension Bicycling layer*/
+GMaps.prototype.setBicycling = function(){
+  var bikeLayer = new google.maps.BicyclingLayer();
+  bikeLayer.setMap(this.map);
+};
