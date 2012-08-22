@@ -35,7 +35,7 @@ if(window.google && window.google.maps){
       this.controls = [];
       this.overlays = [];
       this.layers = []; // array with kml and ft layers, can be as many
-      this.single_layers = {}; // object with the other layers, only one per layer
+      this.singleLayers = {}; // object with the other layers, only one per layer
       this.markers = [];
       this.polylines = [];
       this.routes = [];
@@ -1013,15 +1013,15 @@ if(window.google && window.google.maps){
         var layer;
           
         switch(layerName) {
-          case 'weather': this.single_layers.weather = layer = new google.maps.weather.WeatherLayer(); 
+          case 'weather': this.singleLayers.weather = layer = new google.maps.weather.WeatherLayer(); 
             break;
-          case 'clouds': this.single_layers.clouds = layer = new google.maps.weather.CloudLayer(); 
+          case 'clouds': this.singleLayers.clouds = layer = new google.maps.weather.CloudLayer(); 
             break;
-          case 'traffic': this.single_layers.traffic = layer = new google.maps.TrafficLayer(); 
+          case 'traffic': this.singleLayers.traffic = layer = new google.maps.TrafficLayer(); 
             break;
-          case 'transit': this.single_layers.transit = layer = new google.maps.TransitLayer(); 
+          case 'transit': this.singleLayers.transit = layer = new google.maps.TransitLayer(); 
             break;
-          case 'bicycling': this.single_layers.bicycling = layer = new google.maps.BicyclingLayer(); 
+          case 'bicycling': this.singleLayers.bicycling = layer = new google.maps.BicyclingLayer(); 
             break;
         }
 
@@ -1033,9 +1033,9 @@ if(window.google && window.google.maps){
 
       //remove layers
       this.removeLayer = function(layerName) {
-        if(this.single_layers[layerName] !== undefined) {
-           this.single_layers[layerName].setMap(null);
-           delete this.single_layers[layerName];
+        if(this.singleLayers[layerName] !== undefined) {
+           this.singleLayers[layerName].setMap(null);
+           delete this.singleLayers[layerName];
         }
       }
 
