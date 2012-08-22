@@ -27,6 +27,7 @@
         <li><a href="#GMaps-controls">controls</a></li>
         <li><a href="#GMaps-overlays">overlays</a></li>
         <li><a href="#GMaps-layers">layers</a></li>
+        <li><a href="#GMaps-singleLayers">singleLayers</a></li>
         <li><a href="#GMaps-markers">markers</a></li>
         <li><a href="#GMaps-polylines">polylines</a></li>
         <li><a href="#GMaps-routes">routes</a></li>
@@ -70,6 +71,8 @@
         <li><a href="#GMaps-drawSteppedRoute">drawSteppedRoute</a></li>
         <li><a href="#GMaps-checkGeofence">checkGeofence</a></li>
         <li><a href="#GMaps-checkMarkerGeofence">checkMarkerGeofence</a></li>
+        <li><a href="#GMaps-addLayer">addLayer</a></li>
+        <li><a href="#GMaps-removeLayer">removeLayer</a></li>
       </ul>
       <h4>GMaps.geocode</h4>
       <h4>GMaps.geolocate</h4>
@@ -86,6 +89,8 @@
       <h4 id="GMaps-overlays">overlays — Array</h4>
       
       <h4 id="GMaps-layers">layers — Array</h4>
+
+      <h4 id="GMaps-singleLayers">singleLayers — Object</h4>
       
       <h4 id="GMaps-markers">markers — Array</h4>
       
@@ -932,6 +937,51 @@
             <td>outside_callback</td>
             <td>function</td>
             <td>Function that triggers at each marker fence (defined with <code>fences</code> option in <code>addMarker</code>).</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4 id="GMaps-addLayer">addLayer</h4>
+      <p>Add a layer to the maps.</p>
+      <h5>Arguments</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Options</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>LayerName</td>
+            <td>string</td>
+            <td>The name of the layer. e.g weather, clouds, transit, traffic, bicycling</td>
+          </tr>
+          <tr>
+            <td>options</td>
+            <td>object</td>
+            <td>An object with options for the layer</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4 id="GMaps-removeLayer">removeLayer</h4>
+      <p>Remove a layer from the maps.</p>
+      <h5>Arguments</h5>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Options</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>LayerName</td>
+            <td>string</td>
+            <td>The name of the layer. e.g weather, clouds, transit, traffic, bicycling</td>
           </tr>
         </tbody>
       </table>
