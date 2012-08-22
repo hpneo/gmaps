@@ -34,7 +34,7 @@ if(window.google && window.google.maps){
 
       this.controls = [];
       this.overlays = [];
-      this.layers = [];
+      this.layers = {};
       this.markers = [];
       this.polylines = [];
       this.routes = [];
@@ -735,7 +735,7 @@ if(window.google && window.google.maps){
           })(layer, ev);
         }
 
-        this.layers.push(layer);
+        this.layers.fusionTable = layer;
 
         return layer;
       };
@@ -766,7 +766,7 @@ if(window.google && window.google.maps){
           })(layer, ev);
         }
 
-        this.layers.push(layer);
+        this.layers.kml = layer;
 
         return layer;
       };
@@ -1004,6 +1004,40 @@ if(window.google && window.google.maps){
           }
         }
       };
+
+      //add layers to the maps
+      this.addLayer = function(layerName, options) {
+        //var default_layers = ['weather', 'clouds', 'traffic', 'transit', 'bicycling'];
+        options = options || {};
+        var layer;
+          
+        switch(layerName) {
+          case 'weather': this.layers.weather = layer = new google.maps.weather.WeatherLayer(); 
+            break;
+          case 'clouds': this.layers.clouds = layer = new google.maps.weather.CloudLayer(); 
+            break;
+          case 'traffic': this.layers.traffic = layer = new google.maps.TrafficLayer(); 
+            break;
+          case 'transit': this.layers.transit = layer = new google.maps.TransitLayer(); 
+            break;
+          case 'bicycling': this.layers.bicycling = layer = new google.maps.BicyclingLayer(); 
+            break;
+        }
+
+        if(layer !== undefined) {
+          layer.setOptions(options);
+          layer.setMap(this.map);
+        }
+      };
+
+      //remove layers
+      this.removeLayer = function(layerName) {
+        if(this.layers[layerName] !== undefined) {
+           this.layers[layerName].setMap(null);
+           delete this.layers[layerName];
+        }
+      }
+
     };
 
     GMaps.Route = function(options) {
@@ -1357,36 +1391,4 @@ GMaps.prototype.addStyle = function(options){
 };
 GMaps.prototype.setStyle = function(mapTypeId){     
   this.map.setMapTypeId(mapTypeId);
-};
-
-/*Extension Weater layer*/
-GMaps.prototype.setWeather = function(options){
-  options = options || {};
-  var weatherLayer = new google.maps.weather.WeatherLayer();
-  weatherLayer.setOptions(options);
-  weatherLayer.setMap(this.map);
-};
-
-/*Extension cloud layer*/
-GMaps.prototype.setClouds = function(options){
-  var cloudLayer = new google.maps.weather.CloudLayer();
-  cloudLayer.setMap(this.map);
-};
-
-/*Extension Traffic layer*/
-GMaps.prototype.setTraffic = function(){
-  var trafficLayer = new google.maps.TrafficLayer();
-  trafficLayer.setMap(this.map);
-};
-
-/*Extension Transit layer*/
-GMaps.prototype.setTransit = function(){
-  var transitLayer = new google.maps.TransitLayer();
-  transitLayer.setMap(this.map);
-};
-
-/*Extension Bicycling layer*/
-GMaps.prototype.setBicycling = function(){
-  var bikeLayer = new google.maps.BicyclingLayer();
-  bikeLayer.setMap(this.map);
 };
