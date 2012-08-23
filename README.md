@@ -8,6 +8,10 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.2.8
+-----------------------
+* New feature: **Layers**
+
 0.2.7
 -----------------------
 * New method: removeRoutes

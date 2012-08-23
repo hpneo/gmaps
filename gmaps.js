@@ -1,5 +1,5 @@
 /*!
- * GMaps.js v0.2.7
+ * GMaps.js v0.2.8
  * http://hpneo.github.com/gmaps/
  *
  * Copyright 2012, Gustavo Leon
@@ -34,7 +34,8 @@ if(window.google && window.google.maps){
 
       this.controls = [];
       this.overlays = [];
-      this.layers = [];
+      this.layers = []; // array with kml and ft layers, can be as many
+      this.singleLayers = {}; // object with the other layers, only one per layer
       this.markers = [];
       this.polylines = [];
       this.routes = [];
@@ -1004,6 +1005,40 @@ if(window.google && window.google.maps){
           }
         }
       };
+
+      //add layers to the maps
+      this.addLayer = function(layerName, options) {
+        //var default_layers = ['weather', 'clouds', 'traffic', 'transit', 'bicycling'];
+        options = options || {};
+        var layer;
+          
+        switch(layerName) {
+          case 'weather': this.singleLayers.weather = layer = new google.maps.weather.WeatherLayer(); 
+            break;
+          case 'clouds': this.singleLayers.clouds = layer = new google.maps.weather.CloudLayer(); 
+            break;
+          case 'traffic': this.singleLayers.traffic = layer = new google.maps.TrafficLayer(); 
+            break;
+          case 'transit': this.singleLayers.transit = layer = new google.maps.TransitLayer(); 
+            break;
+          case 'bicycling': this.singleLayers.bicycling = layer = new google.maps.BicyclingLayer(); 
+            break;
+        }
+
+        if(layer !== undefined) {
+          layer.setOptions(options);
+          layer.setMap(this.map);
+        }
+      };
+
+      //remove layers
+      this.removeLayer = function(layerName) {
+        if(this.singleLayers[layerName] !== undefined) {
+           this.singleLayers[layerName].setMap(null);
+           delete this.singleLayers[layerName];
+        }
+      }
+
     };
 
     GMaps.Route = function(options) {
@@ -1349,3 +1384,12 @@ if(window.google && window.google.maps){
   }
 
 }
+
+/*Extension: Styled map*/
+GMaps.prototype.addStyle = function(options){       
+  var styledMapType = new google.maps.StyledMapType(options.styles, options.styledMapName);
+  this.map.mapTypes.set(options.mapTypeId, styledMapType);
+};
+GMaps.prototype.setStyle = function(mapTypeId){     
+  this.map.setMapTypeId(mapTypeId);
+};
