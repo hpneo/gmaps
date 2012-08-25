@@ -1,5 +1,5 @@
 /*!
- * GMaps.js v0.2.9
+ * GMaps.js v0.2.10
  * http://hpneo.github.com/gmaps/
  *
  * Copyright 2012, Gustavo Leon
@@ -1060,7 +1060,36 @@ if(window.google && window.google.maps){
            this.singleLayers[layerName].setMap(null);
            delete this.singleLayers[layerName];
         }
-      }
+      };
+
+      this.toImage = function(options) {
+        var options = options || {};
+        var static_map_options = {};
+        static_map_options['size'] = options['size'] || [this.div.clientWidth, this.div.clientHeight];
+        static_map_options['lat'] = this.getCenter().lat();
+        static_map_options['lng'] = this.getCenter().lng();
+
+        if(this.markers.length > 0) {
+          static_map_options['markers'] = [];
+          for(var i=0; i < this.markers.length; i++) {
+            static_map_options['markers'].push({
+              lat: this.markers[i].getPosition().lat(),
+              lng: this.markers[i].getPosition().lng()
+            });
+          }
+        }
+
+        if(this.polylines.length > 0) {
+          var polyline = this.polylines[0];
+          static_map_options['polyline'] = {};
+          static_map_options['polyline']['path'] = google.maps.geometry.encoding.encodePath(polyline.getPath());
+          static_map_options['polyline']['strokeColor'] = polyline.strokeColor
+          static_map_options['polyline']['strokeOpacity'] = polyline.strokeOpacity
+          static_map_options['polyline']['strokeWeight'] = polyline.strokeWeight
+        }
+        
+        return GMaps.staticMapURL(static_map_options);
+      };
 
     };
 
