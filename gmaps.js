@@ -1031,7 +1031,7 @@ if(window.google && window.google.maps){
 
       //add layers to the maps
       this.addLayer = function(layerName, options) {
-        //var default_layers = ['weather', 'clouds', 'traffic', 'transit', 'bicycling'];
+        //var default_layers = ['weather', 'clouds', 'traffic', 'transit', 'bicycling', 'panoramio'];
         options = options || {};
         var layer;
           
@@ -1045,6 +1045,17 @@ if(window.google && window.google.maps){
           case 'transit': this.singleLayers.transit = layer = new google.maps.TransitLayer(); 
             break;
           case 'bicycling': this.singleLayers.bicycling = layer = new google.maps.BicyclingLayer(); 
+            break;
+          case 'panoramio': 
+              this.singleLayers.panoramio = layer = new google.maps.panoramio.PanoramioLayer();
+              layer.setTag(options.filter);
+
+              //click event
+              if(options.click) {
+                google.maps.event.addListener(layer, 'click', function(event) {
+                  options.click(event);
+                });
+              }
             break;
         }
 
