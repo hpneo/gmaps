@@ -971,7 +971,7 @@ if(window.google && window.google.maps){
                 options.start(e[e.length - 1]);
               }
 
-              //step function
+              //step callback
               if (e.length > 0 && options.step) {
                 var route = e[e.length - 1];
                 if (route.legs.length > 0) {
