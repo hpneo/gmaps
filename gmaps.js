@@ -1,5 +1,5 @@
 /*!
- * GMaps.js v0.2.8
+ * GMaps.js v0.2.9
  * http://hpneo.github.com/gmaps/
  *
  * Copyright 2012, Gustavo Leon
