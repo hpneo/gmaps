@@ -923,15 +923,26 @@ if(window.google && window.google.maps){
             travelMode: options.travelMode,
             waypoints : options.waypoints,
             callback: function(e) {
+              //start callback
+              if (e.length > 0 && options.start) {
+                options.start(e[e.length - 1]);
+              }
+
+              //step callback
               if (e.length > 0 && options.step) {
                 var route = e[e.length - 1];
                 if (route.legs.length > 0) {
                   var steps = route.legs[0].steps;
                   for (var i=0, step; step=steps[i]; i++) {
                     step.step_number = i;
-                    options.step(step);
+                    options.step(step, (route.legs[0].steps.length - 1));
                   }
                 }
+              }
+
+              //end callback
+              if (e.length > 0 && options.end) {
+                 options.end(e[e.length - 1]);
               }
             }
           });
@@ -953,7 +964,14 @@ if(window.google && window.google.maps){
             origin: options.origin,
             destination: options.destination,
             travelMode: options.travelMode,
+            waypoints : options.waypoints,
             callback: function(e) {
+              //start callback
+              if (e.length > 0 && options.start) {
+                options.start(e[e.length - 1]);
+              }
+
+              //step callback
               if (e.length > 0 && options.step) {
                 var route = e[e.length - 1];
                 if (route.legs.length > 0) {
@@ -966,9 +984,14 @@ if(window.google && window.google.maps){
                       strokeOpacity: options.strokeOpacity,
                       strokeWeight: options.strokeWeight
                     });
-                    options.step(step);
+                    options.step(step, (route.legs[0].steps.length - 1));
                   }
                 }
+              }
+
+              //end callback
+              if (e.length > 0 && options.end) {
+                 options.end(e[e.length - 1]);
               }
             }
           });
