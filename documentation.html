@@ -822,9 +822,19 @@
             <td><a href="https://developers.google.com/maps/documentation/javascript/reference#DirectionsRoute">google.maps.DirectionsRoute</a> object.</td>
           </tr>
           <tr>
+            <td>start</td>
+            <td>function</td>
+            <td>Fired before the first step.  It pass a single parameter,  which is a <a href="https://developers.google.com/maps/documentation/javascript/reference#DirectionsRoute">DirectionsRoute</a> object.</td>
+          </tr>
+          <tr>
             <td>step</td>
             <td>function</td>
-            <td>Fired each step in the route. It pass a single parameter, which is a <a href="https://developers.google.com/maps/documentation/javascript/reference#DirectionsStep">DirectionsStep</a> object.</td>
+            <td>Fired each step in the route. It pass 2 parameters, which is a <a href="https://developers.google.com/maps/documentation/javascript/reference#DirectionsStep">DirectionsStep</a> object and the total length of the steps.</td>
+          </tr>
+          <tr>
+            <td>end</td>
+            <td>function</td>
+            <td>Fired after the last step.  It pass a single parameter,  which is a <a href="https://developers.google.com/maps/documentation/javascript/reference#DirectionsRoute">DirectionsRoute</a> object.</td>
           </tr>
         </tbody>
       </table>
@@ -857,6 +867,11 @@
             <td>string</td>
             <td>Can be <code>driving</code>, <code>bicycling</code> or <code>walking</code>.</td>
           </tr>
+           <tr>
+            <td>waypoints</td>
+            <td>array</td>
+            <td>Array of <a href="https://developers.google.com/maps/documentation/javascript/reference#DirectionsWaypoint">google.maps.DirectionsWaypoint objects</a>.</td>
+          </tr>
           <tr>
             <td>route</td>
             <td>google.maps.DirectionsRoute</td>
@@ -878,9 +893,19 @@
             <td>Polyline width in pixels.</td>
           </tr>
           <tr>
+            <td>start</td>
+            <td>function</td>
+            <td>Fired before the first step.  It pass a single parameter,  which is a <a href="https://developers.google.com/maps/documentation/javascript/reference#DirectionsRoute">DirectionsRoute</a> object.</td>
+          </tr>
+          <tr>
             <td>step</td>
             <td>function</td>
-            <td>Fired each step in the route. It pass a single parameter, which is a <a href="https://developers.google.com/maps/documentation/javascript/reference#DirectionsStep">DirectionsStep</a> object.</td>
+            <td>Fired each step in the route. It pass 2 parameters, which is a <a href="https://developers.google.com/maps/documentation/javascript/reference#DirectionsStep">DirectionsStep</a> object and the total length of the steps.</td>
+          </tr>
+          <tr>
+            <td>end</td>
+            <td>function</td>
+            <td>Fired after the last step.  It pass a single parameter,  which is a <a href="https://developers.google.com/maps/documentation/javascript/reference#DirectionsRoute">DirectionsRoute</a> object.</td>
           </tr>
         </tbody>
       </table>
