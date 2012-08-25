@@ -1049,11 +1049,13 @@ if(window.google && window.google.maps){
           case 'panoramio': 
               this.singleLayers.panoramio = layer = new google.maps.panoramio.PanoramioLayer();
               layer.setTag(options.filter);
+              delete options.filter;
 
               //click event
               if(options.click) {
                 google.maps.event.addListener(layer, 'click', function(event) {
                   options.click(event);
+                  delete options.click;
                 });
               }
             break;
