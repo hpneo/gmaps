@@ -8,6 +8,10 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.2.11
+-----------------------
+* Add support to Panoramio en addLayer
+
 0.2.10
 -----------------------
 * New method: toImage
