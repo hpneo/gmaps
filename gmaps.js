@@ -29,8 +29,8 @@ if(window.google && window.google.maps){
       if(typeof(options.div)=='string'){
         this.div = getElementById(options.div, options.context);
       }else{this.div = options.div;};
-      this.div.style.width = this.div.clientWidth || options.width;
-      this.div.style.height = this.div.clientHeight || options.height;
+      this.div.style.width = options.width || this.div.scrollWidth || this.div.offsetWidth;
+      this.div.style.height = options.height || this.div.scrollHeight || this.div.offsetHeight;
 
       this.controls = [];
       this.overlays = [];
