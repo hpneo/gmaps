@@ -1044,7 +1044,7 @@ if(window.google && window.google.maps){
 
       //add layers to the maps
       this.addLayer = function(layerName, options) {
-        //var default_layers = ['weather', 'clouds', 'traffic', 'transit', 'bicycling', 'panoramio'];
+        //var default_layers = ['weather', 'clouds', 'traffic', 'transit', 'bicycling', 'panoramio', 'places'];
         options = options || {};
         var layer;
           
@@ -1072,12 +1072,36 @@ if(window.google && window.google.maps){
                 });
               }
             break;
+            case 'places': 
+              this.singleLayers.places = layer = new google.maps.places.PlacesService(this.map);
+
+              //search callback
+              if(options.search) {
+                layer.search(options, options.search);
+              }
+
+              //textSearch callback
+              if(options.textSearch) {
+                layer.textSearch(options, options.textSearch);
+              }
+
+              //nearbySearch callback
+              if(options.nearbySearch) {
+                layer.nearbySearch(options, options.nearbySearch);
+              }
+            break;
         }
 
         if(layer !== undefined) {
-          layer.setOptions(options);
-          layer.setMap(this.map);
+          if(typeof layer.setOptions == 'function') {
+            layer.setOptions(options);
+          }
+          if(typeof layer.setMap == 'function') {
+            layer.setMap(this.map);
+          }
         }
+
+        return layer;
       };
 
       //remove layers
