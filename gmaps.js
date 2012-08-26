@@ -1099,9 +1099,9 @@ if(window.google && window.google.maps){
           if(typeof layer.setMap == 'function') {
             layer.setMap(this.map);
           }
-        }
 
-        return layer;
+          return layer;
+        }
       };
 
       //remove layers
