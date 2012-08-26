@@ -8,9 +8,16 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.2.12
+-----------------------
+* Fix map events without MouseEvent object
+* Fix bug in drawCircle and drawRectangle
+* Fix bug in zoomIn and zoomOut
+* New methods: removePolygon and removePolygons
+
 0.2.11
 -----------------------
-* Add support to Panoramio en addLayer
+* Add support to Panoramio in addLayer
 
 0.2.10
 -----------------------

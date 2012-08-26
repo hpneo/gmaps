@@ -1,5 +1,5 @@
 /*!
- * GMaps.js v0.2.11
+ * GMaps.js v0.2.12
  * http://hpneo.github.com/gmaps/
  *
  * Copyright 2012, Gustavo Leon
@@ -207,6 +207,9 @@ if(window.google && window.google.maps){
       for (var ev = 0; ev < events_that_hide_context_menu.length; ev++) {
         (function(object, name) {
           google.maps.event.addListener(object, name, function(e){
+            if(e == undefined)
+              e = this;
+
             if (options[name])
               options[name].apply(this, [e]);
 
@@ -218,6 +221,9 @@ if(window.google && window.google.maps){
       for (var ev = 0; ev < events_that_doesnt_hide_context_menu.length; ev++) {
         (function(object, name) {
           google.maps.event.addListener(object, name, function(e){
+            if(e == undefined)
+              e = this;
+            
             if (options[name])
               options[name].apply(this, [e]);
           });
@@ -271,11 +277,13 @@ if(window.google && window.google.maps){
       };
 
       this.zoomIn = function(value) {
-        this.map.setZoom(this.map.getZoom() + value);
+        this.zoom = this.map.getZoom() + value;
+        this.map.setZoom(this.zoom);
       };
 
       this.zoomOut = function(value) {
-        this.map.setZoom(this.map.getZoom() - value);
+        this.zoom = this.map.getZoom() - value;
+        this.map.setZoom(this.zoom);
       };
 
       var native_methods = [];
@@ -659,6 +667,8 @@ if(window.google && window.google.maps){
           })(polygon, polygon_events[ev]);
         }
 
+        this.polygons.push(polygon);
+
         return polygon;
       };
       
@@ -686,6 +696,8 @@ if(window.google && window.google.maps){
             });
           })(polygon, polygon_events[ev]);
         }
+
+        this.polygons.push(polygon);
 
         return polygon;
       };
@@ -717,6 +729,15 @@ if(window.google && window.google.maps){
         this.polygons.push(polygon);
 
         return polygon;
+      };
+
+      this.removePolygon = this.removeOverlay;
+
+      this.removePolygons = function() {
+        for (var i=0, item; item=self.polygons[i]; i++){
+          item.setMap(null);
+        }
+        self.polygons = [];
       };
 
       this.getFromFusionTables = function(options) {
@@ -879,14 +900,6 @@ if(window.google && window.google.maps){
             }
           });
         }
-      };
-
-      this.removePolylines = function(){
-        var index;
-        for(index in this.polylines){
-          this.polylines[index].setMap(null);
-        }
-        this.polylines = [];
       };
 
       // Alias for the method "drawRoute"
