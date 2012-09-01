@@ -1075,19 +1075,37 @@ if(window.google && window.google.maps){
             case 'places': 
               this.singleLayers.places = layer = new google.maps.places.PlacesService(this.map);
 
-              //search callback
-              if(options.search) {
-                layer.search(options, options.search);
+              //search and  nearbySearch callback, Both are the same
+              if(options.search || options.nearbySearch) {
+                var placeSearchRequest  = {
+                  bounds : options.bounds || null,
+                  keyword : options.keyword || null,
+                  location : options.location || null,
+                  name : options.name || null,
+                  radius : options.radius || null,
+                  rankBy : options.rankBy || null,
+                  types : options.types || null
+                };
+
+                if(options.search) {
+                  layer.search(placeSearchRequest, options.search);
+                }
+
+                if(options.nearbySearch) {
+                  layer.nearbySearch(placeSearchRequest, options.nearbySearch);
+                }
               }
 
               //textSearch callback
               if(options.textSearch) {
-                layer.textSearch(options, options.textSearch);
-              }
-
-              //nearbySearch callback
-              if(options.nearbySearch) {
-                layer.nearbySearch(options, options.nearbySearch);
+                var textSearchRequest  = {
+                  bounds : options.bounds || null,
+                  location : options.location || null,
+                  query : options.query || null,
+                  radius : options.radius || null
+                };
+                
+                layer.textSearch(textSearchRequest, options.textSearch);
               }
             break;
         }
