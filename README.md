@@ -8,6 +8,10 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.2.13
+-----------------------
+* Add support for Places library in addLayer
+
 0.2.12
 -----------------------
 * Fix map events without MouseEvent object
