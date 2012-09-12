@@ -305,16 +305,13 @@ if(window.google && window.google.maps){
       this.createControl = function(options) {
         var control = doc.createElement('div');
 
-        if(!options.style) {
-          control.style.cursor = 'pointer';
-          control.style.fontFamily = 'Arial, sans-serif';
-          control.style.fontSize = '13px';
-          control.style.boxShadow = 'rgba(0, 0, 0, 0.398438) 0px 2px 4px';
-        } else {
-          for(var option in options.style){
-            control.style[option] = options.style[option];
-          }
-        }
+        control.style.cursor = 'pointer';
+        control.style.fontFamily = 'Arial, sans-serif';
+        control.style.fontSize = '13px';
+        control.style.boxShadow = 'rgba(0, 0, 0, 0.398438) 0px 2px 4px';
+
+        for(var option in options.style)
+          control.style[option] = options.style[option];
 
         if(options.id) {
           control.id = options.id;
@@ -324,8 +321,8 @@ if(window.google && window.google.maps){
           control.className = options.classes;
         }
 
-        if(options.text) {
-          control.textContent = options.text;
+        if(options.content) {
+          control.innerHTML = options.content;
         }
 
         for (var ev in options.events) {
@@ -1225,7 +1222,7 @@ if(window.google && window.google.maps){
           if (options.always) {
             options.always();
           }
-        }, options);
+        }, options.options);
       }
       else {
         options.not_supported();
