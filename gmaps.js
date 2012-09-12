@@ -1,5 +1,5 @@
 /*!
- * GMaps.js v0.2.12
+ * GMaps.js v0.2.13
  * http://hpneo.github.com/gmaps/
  *
  * Copyright 2012, Gustavo Leon
@@ -1056,7 +1056,7 @@ if(window.google && window.google.maps){
 
       //add layers to the maps
       this.addLayer = function(layerName, options) {
-        //var default_layers = ['weather', 'clouds', 'traffic', 'transit', 'bicycling', 'panoramio'];
+        //var default_layers = ['weather', 'clouds', 'traffic', 'transit', 'bicycling', 'panoramio', 'places'];
         options = options || {};
         var layer;
           
@@ -1084,11 +1084,53 @@ if(window.google && window.google.maps){
                 });
               }
             break;
+            case 'places': 
+              this.singleLayers.places = layer = new google.maps.places.PlacesService(this.map);
+
+              //search and  nearbySearch callback, Both are the same
+              if(options.search || options.nearbySearch) {
+                var placeSearchRequest  = {
+                  bounds : options.bounds || null,
+                  keyword : options.keyword || null,
+                  location : options.location || null,
+                  name : options.name || null,
+                  radius : options.radius || null,
+                  rankBy : options.rankBy || null,
+                  types : options.types || null
+                };
+
+                if(options.search) {
+                  layer.search(placeSearchRequest, options.search);
+                }
+
+                if(options.nearbySearch) {
+                  layer.nearbySearch(placeSearchRequest, options.nearbySearch);
+                }
+              }
+
+              //textSearch callback
+              if(options.textSearch) {
+                var textSearchRequest  = {
+                  bounds : options.bounds || null,
+                  location : options.location || null,
+                  query : options.query || null,
+                  radius : options.radius || null
+                };
+                
+                layer.textSearch(textSearchRequest, options.textSearch);
+              }
+            break;
         }
 
         if(layer !== undefined) {
-          layer.setOptions(options);
-          layer.setMap(this.map);
+          if(typeof layer.setOptions == 'function') {
+            layer.setOptions(options);
+          }
+          if(typeof layer.setMap == 'function') {
+            layer.setMap(this.map);
+          }
+
+          return layer;
         }
       };
 
