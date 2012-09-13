@@ -808,6 +808,9 @@ if(window.google && window.google.maps){
         case 'bicycling':
           travelMode = google.maps.TravelMode.BICYCLING;
           break;
+        case 'transit':
+          travelMode = google.maps.TravelMode.TRANSIT;
+          break;
         case 'driving':
           travelMode = google.maps.TravelMode.DRIVING;
           break;
