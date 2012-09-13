@@ -627,7 +627,8 @@ if(window.google && window.google.maps){
           path: path,
           strokeColor: options.strokeColor,
           strokeOpacity: options.strokeOpacity,
-          strokeWeight: options.strokeWeight
+          strokeWeight: options.strokeWeight,
+          geodesic: options.geodesic
         });
 
         var polyline_events = ['click', 'dblclick', 'mousedown', 'mousemove', 'mouseout', 'mouseover', 'mouseup', 'rightclick'];
