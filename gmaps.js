@@ -343,7 +343,7 @@ if(window.google && window.google.maps){
 
       // Markers
       this.createMarker = function(options) {
-        if ((options.lat && options.lng) || options.position) {
+        if ((options.hasOwnProperty('lat') && options.hasOwnProperty('lng')) || options.position) {
           var self = this;
           var details = options.details;
           var fences = options.fences;
@@ -436,7 +436,7 @@ if(window.google && window.google.maps){
       };
 
       this.addMarker = function(options) {
-        if ((options.lat && options.lng) || options.position) {
+        if ((options.hasOwnProperty('lat') && options.hasOwnProperty('lng')) || options.position) {
           var marker = this.createMarker(options);
           marker.setMap(this.map);
           this.markers.push(marker);
@@ -1231,7 +1231,7 @@ if(window.google && window.google.maps){
     GMaps.geocode = function(options) {
       this.geocoder = new google.maps.Geocoder();
       var callback = options.callback;
-      if (options.lat && options.lng) {
+      if (options.hasOwnProperty('lat') && options.hasOwnProperty('lng')) {
         options.latLng = new google.maps.LatLng(options.lat, options.lng);
       }
 
