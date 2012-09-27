@@ -8,6 +8,55 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.2.14
+-----------------------
+* Adding IDs, classes and innerHTML to createControl. (**Note**: Use 'content' instead 'text' in createControl)
+
+0.2.13
+-----------------------
+* Add support for Places library in addLayer
+
+0.2.12
+-----------------------
+* Fix map events without MouseEvent object
+* Fix bug in drawCircle and drawRectangle
+* Fix bug in zoomIn and zoomOut
+* New methods: removePolygon and removePolygons
+
+0.2.11
+-----------------------
+* Add support to Panoramio in addLayer
+
+0.2.10
+-----------------------
+* New method: toImage
+
+0.2.9
+-----------------------
+* Extend the drawSteppedRoute and travelRoute functions
+
+0.2.8
+-----------------------
+* New feature: **Layers**
+
+0.2.7
+-----------------------
+* New method: removeRoutes
+* Access all native methods of google.maps.Map class
+
+0.2.6
+-----------------------
+* Support for multiple overlays
+
+0.2.5
+-----------------------
+* Add support to all marker events
+* Add suport for animations at show and remove overlays
+
+0.2.4.1
+-----------------------
+* Create GMaps class only when Google Maps API is loaded
+
 0.2.4
 -----------------------
 * New feature: **Elevation service**
@@ -27,7 +76,7 @@ Changelog
 
 0.2
 -----------------------
-Remove jQuery dependency.
+* Remove jQuery dependency.
 
 0.1.12.5
 -----------------------
