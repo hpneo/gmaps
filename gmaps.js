@@ -223,7 +223,7 @@ if(window.google && window.google.maps){
           google.maps.event.addListener(object, name, function(e){
             if(e == undefined)
               e = this;
-            
+
             if (options[name])
               options[name].apply(this, [e]);
           });
@@ -310,11 +310,20 @@ if(window.google && window.google.maps){
         control.style.fontSize = '13px';
         control.style.boxShadow = 'rgba(0, 0, 0, 0.398438) 0px 2px 4px';
 
-        for(var option in options.style){
+        for(var option in options.style)
           control.style[option] = options.style[option];
+
+        if(options.id) {
+          control.id = options.id;
         }
 
-        control.textContent = options.text;
+        if(options.classes) {
+          control.className = options.classes;
+        }
+
+        if(options.content) {
+          control.innerHTML = options.content;
+        }
 
         for (var ev in options.events) {
           (function(object, name) {
@@ -697,9 +706,9 @@ if(window.google && window.google.maps){
             });
           })(polygon, polygon_events[ev]);
         }
-
+        
         this.polygons.push(polygon);
-
+        
         return polygon;
       };
 
@@ -1133,7 +1142,7 @@ if(window.google && window.google.maps){
            delete this.singleLayers[layerName];
         }
       };
-
+      
       this.toImage = function(options) {
         var options = options || {};
         var static_map_options = {};
@@ -1162,7 +1171,7 @@ if(window.google && window.google.maps){
         
         return GMaps.staticMapURL(static_map_options);
       };
-
+      
     };
 
     GMaps.Route = function(options) {
