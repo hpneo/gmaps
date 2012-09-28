@@ -996,12 +996,20 @@
           <tr>
             <td>LayerName</td>
             <td>string</td>
-            <td>The name of the layer. e.g weather, clouds, transit, traffic, bicycling, panoramio</td>
+            <td>The name of the layer. e.g <code>weather</code>, <code>clouds</code>, <code>transit</code>, <code>traffic</code>, <code>bicycling</code>, <code>panoramio</code>, <code>places</code></td>
           </tr>
           <tr>
             <td>options</td>
             <td>object</td>
-            <td>An object with options for the layer.</td>
+            <td>
+              An object with options for the layer. <br /><br />
+              <b>Places specific</b>
+              <ul>
+                <li>nearbySearch : Callback : <a href="https://developers.google.com/maps/documentation/javascript/reference#PlaceSearchRequest" target="_blank">PlaceSearchRequest Object</a></li>
+                 <li>search : Callback : Alias for <code>nearbySearch</code></li>
+                <li>textSearch : Callback : <a href="https://developers.google.com/maps/documentation/javascript/reference#TextSearchRequest" target="_blank">TextSearchRequest  Object</a></li>
+              </ul>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -1021,7 +1029,7 @@
           <tr>
             <td>LayerName</td>
             <td>string</td>
-            <td>The name of the layer. e.g weather, clouds, transit, traffic, bicycling</td>
+            <td>The name of the layer. e.g <code>weather</code>, <code>clouds</code>, <code>transit</code>, <code>traffic</code>, <code>bicycling</code>, <code>panoramio</code>, <code>places</code></td>
           </tr>
         </tbody>
       </table>
