@@ -1,5 +1,5 @@
 /*!
- * GMaps.js v0.2.14
+ * GMaps.js v0.2.15
  * http://hpneo.github.com/gmaps/
  *
  * Copyright 2012, Gustavo Leon
@@ -402,16 +402,16 @@ if(window.google && window.google.maps){
             })(marker, marker_events[ev]);
           }
 
-          for (var ev = 0; ev < marker_events.length; ev++) {
+          for (var ev = 0; ev < marker_events_with_mouse.length; ev++) {
             (function(object, name) {
               google.maps.event.addListener(object, name, function(me){
                 if(!me.pixel){
-                  me.pixel = this.map.getProjection().fromLatLngToPoint(me.latLng)
+                  me.pixel = map.getProjection().fromLatLngToPoint(me.latLng)
                 }
                 if (options[name])
                   options[name].apply(this, [me]);
               });
-            })(marker, marker_events_with_mouse[ev]);
+            })(this.map, marker, marker_events_with_mouse[ev]);
           }
 
           google.maps.event.addListener(marker, 'click', function() {

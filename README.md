@@ -8,6 +8,10 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.2.15
+-----------------------
+* Fix bug in createMarker
+
 0.2.14
 -----------------------
 * Adding IDs, classes and innerHTML to createControl. (**Note**: Use 'content' instead 'text' in createControl)
