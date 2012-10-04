@@ -8,6 +8,10 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.2.16
+-----------------------
+* Fix another bug in createMarker
+
 0.2.15
 -----------------------
 * Fix bug in createMarker

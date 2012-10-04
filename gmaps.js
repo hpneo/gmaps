@@ -1,5 +1,5 @@
 /*!
- * GMaps.js v0.2.15
+ * GMaps.js v0.2.16
  * http://hpneo.github.com/gmaps/
  *
  * Copyright 2012, Gustavo Leon
@@ -403,7 +403,7 @@ if(window.google && window.google.maps){
           }
 
           for (var ev = 0; ev < marker_events_with_mouse.length; ev++) {
-            (function(object, name) {
+            (function(map, object, name) {
               google.maps.event.addListener(object, name, function(me){
                 if(!me.pixel){
                   me.pixel = map.getProjection().fromLatLngToPoint(me.latLng)
