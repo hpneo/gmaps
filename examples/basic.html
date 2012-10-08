@@ -12,7 +12,7 @@
     var map;
     $(document).ready(function(){
       map = new GMaps({
-        div: '#map',
+        el: '#map',
         lat: -12.043333,
         lng: -77.028333,
         zoomControl : true,
@@ -37,7 +37,7 @@
     <div class="span6">
       <p>Using GMaps.js is as easy as:</p>
       <pre>new GMaps({
-  div: '#map',
+  el: '#map',
   lat: -12.043333,
   lng: -77.028333
 });</pre>
