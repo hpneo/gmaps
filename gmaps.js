@@ -26,9 +26,11 @@ if(window.google && window.google.maps){
       var self = this;
       window.context_menu = {};
 
-      if(typeof(options.el)==='string'){
-        this.el = getElementById(options.el, options.context);
-      }else{this.el = options.el;};
+      if (typeof(options.el) === 'string' || typeof(options.div) === 'string') {
+        this.el = getElementById(options.el || options.div, options.context);
+      } else {
+        this.el = options.el || options.div;
+      };
       this.el.style.width = options.width || this.el.scrollWidth || this.el.offsetWidth;
       this.el.style.height = options.height || this.el.scrollHeight || this.el.offsetHeight;
 
