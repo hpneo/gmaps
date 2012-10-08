@@ -8,7 +8,11 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
-0.2.19
+0.2.20
+-----------------------
+* Add support for other HTML block elements instead "div" (like "section").
+
+0.2.20
 -----------------------
 * Use MarkerClusterer to group markers
 
