@@ -26,11 +26,11 @@ if(window.google && window.google.maps){
       var self = this;
       window.context_menu = {};
 
-      if(typeof(options.div)=='string'){
-        this.div = getElementById(options.div, options.context);
-      }else{this.div = options.div;};
-      this.div.style.width = options.width || this.div.scrollWidth || this.div.offsetWidth;
-      this.div.style.height = options.height || this.div.scrollHeight || this.div.offsetHeight;
+      if(typeof(options.el)==='string'){
+        this.el = getElementById(options.el, options.context);
+      }else{this.el = options.el;};
+      this.el.style.width = options.width || this.el.scrollWidth || this.el.offsetWidth;
+      this.el.style.height = options.height || this.el.scrollHeight || this.el.offsetHeight;
 
       this.controls = [];
       this.overlays = [];
@@ -41,7 +41,7 @@ if(window.google && window.google.maps){
       this.routes = [];
       this.polygons = [];
       this.infoWindow = null;
-      this.overlay_div = null;
+      this.overlay_el = null;
       this.zoom = options.zoom || 15;
 
       //'Hybrid', 'Roadmap', 'Satellite' or 'Terrain'
@@ -56,7 +56,7 @@ if(window.google && window.google.maps){
 
       var map_center = new google.maps.LatLng(options.lat, options.lng);
 
-      delete options.div;
+      delete options.el;
       delete options.lat;
       delete options.lng;
       delete options.mapType;
@@ -103,7 +103,7 @@ if(window.google && window.google.maps){
 
       map_options = extend_object(map_base_options, options);
 
-      this.map = new google.maps.Map(this.div, map_options);
+      this.map = new google.maps.Map(this.el, map_options);
 
       // Context menus
       var buildContextMenuHTML = function(control, e) {
@@ -140,8 +140,8 @@ if(window.google && window.google.maps){
             google.maps.event.addDomListenerOnce(context_menu_item, 'click', assign_menu_item_action, false);
           }
 
-          var left = self.div.offsetLeft + e.pixel.x - 15;
-          var top = self.div.offsetTop + e.pixel.y - 15;
+          var left = self.el.offsetLeft + e.pixel.x - 15;
+          var top = self.el.offsetTop + e.pixel.y - 15;
 
           context_menu_element.style.left = left + "px";
           context_menu_element.style.top = top + "px";
@@ -280,8 +280,8 @@ if(window.google && window.google.maps){
         }
       };
 
-      this.getDiv = function() {
-        return this.div;
+      this.getElement = function() {
+        return this.el;
       };
 
       this.zoomIn = function(value) {
@@ -509,21 +509,21 @@ if(window.google && window.google.maps){
           auto_show = options.auto_show;
 
         overlay.onAdd = function() {
-          var div = doc.createElement('div');
-          div.style.borderStyle = "none";
-          div.style.borderWidth = "0px";
-          div.style.position = "absolute";
-          div.style.zIndex = 100;
-          div.innerHTML = options.content;
+          var el = doc.createElement('div');
+          el.style.borderStyle = "none";
+          el.style.borderWidth = "0px";
+          el.style.position = "absolute";
+          el.style.zIndex = 100;
+          el.innerHTML = options.content;
 
-          overlay.div = div;
+          overlay.el = el;
 
           var panes = this.getPanes();
           if (!options.layer) {
             options.layer = 'overlayLayer';
           }
           var overlayLayer = panes[options.layer];
-          overlayLayer.appendChild(div);
+          overlayLayer.appendChild(el);
 
           var stop_overlay_events = ['contextmenu', 'DOMMouseScroll', 'dblclick', 'mousedown'];
 
@@ -538,7 +538,7 @@ if(window.google && window.google.maps){
                   e.stopPropagation();
                 }
               });
-            })(div, stop_overlay_events[ev]);
+            })(el, stop_overlay_events[ev]);
           }
 
           google.maps.event.trigger(this, 'ready');
@@ -551,54 +551,54 @@ if(window.google && window.google.maps){
           options.horizontalOffset = options.horizontalOffset || 0;
           options.verticalOffset = options.verticalOffset || 0;
 
-          var div = overlay.div;
-          var content = div.children[0];
+          var el = overlay.el;
+          var content = el.children[0];
 
           var content_height = content.clientHeight;
           var content_width = content.clientWidth;
 
           switch (options.verticalAlign) {
             case 'top':
-              div.style.top = (pixel.y - content_height + options.verticalOffset) + 'px';
+              el.style.top = (pixel.y - content_height + options.verticalOffset) + 'px';
               break;
             default:
             case 'middle':
-              div.style.top = (pixel.y - (content_height / 2) + options.verticalOffset) + 'px';
+              el.style.top = (pixel.y - (content_height / 2) + options.verticalOffset) + 'px';
               break;
             case 'bottom':
-              div.style.top = (pixel.y + options.verticalOffset) + 'px';
+              el.style.top = (pixel.y + options.verticalOffset) + 'px';
               break;
           }
 
           switch (options.horizontalAlign) {
             case 'left':
-              div.style.left = (pixel.x - content_width + options.horizontalOffset) + 'px';
+              el.style.left = (pixel.x - content_width + options.horizontalOffset) + 'px';
               break;
             default:
             case 'center':
-              div.style.left = (pixel.x - (content_width / 2) + options.horizontalOffset) + 'px';
+              el.style.left = (pixel.x - (content_width / 2) + options.horizontalOffset) + 'px';
               break;
             case 'right':
-              div.style.left = (pixel.x + options.horizontalOffset) + 'px';
+              el.style.left = (pixel.x + options.horizontalOffset) + 'px';
               break;
           }
 
-          div.style.display = auto_show ? 'block' : 'none';
+          el.style.display = auto_show ? 'block' : 'none';
 
           if(!auto_show){
-            options.show.apply(this, [div]);
+            options.show.apply(this, [el]);
           }
         };
 
         overlay.onRemove = function() {
-          var div = overlay.div;
+          var el = overlay.el;
 
           if(options.remove){
-            options.remove.apply(this, [div]);
+            options.remove.apply(this, [el]);
           }
           else{
-            overlay.div.parentNode.removeChild(overlay.div);
-            overlay.div = null;
+            overlay.el.parentNode.removeChild(overlay.el);
+            overlay.el = null;
           }
         };
 
@@ -1154,7 +1154,7 @@ if(window.google && window.google.maps){
       this.toImage = function(options) {
         var options = options || {};
         var static_map_options = {};
-        static_map_options['size'] = options['size'] || [this.div.clientWidth, this.div.clientHeight];
+        static_map_options['size'] = options['size'] || [this.el.clientWidth, this.el.clientHeight];
         static_map_options['lat'] = this.getCenter().lat();
         static_map_options['lng'] = this.getCenter().lng();
 
