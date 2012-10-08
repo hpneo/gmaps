@@ -8,6 +8,10 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.2.18
+-----------------------
+* Check if GMaps is defined before load extensions
+
 0.2.17
 -----------------------
 * Fix bug with disableDefaultUI option in constructor
