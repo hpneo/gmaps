@@ -1,5 +1,5 @@
 /*!
- * GMaps.js v0.2.16
+ * GMaps.js v0.2.17
  * http://hpneo.github.com/gmaps/
  *
  * Copyright 2012, Gustavo Leon
@@ -77,10 +77,15 @@ if(window.google && window.google.maps){
           streetViewControl = options.streetViewControl || true,
           overviewMapControl = overviewMapControl || true;
 
+      var map_options = {};
+
       var map_base_options = {
         zoom: this.zoom,
         center: map_center,
-        mapTypeId: mapType,
+        mapTypeId: mapType
+      };
+
+      var map_controls_options = {
         panControl: panControl,
         zoomControl: zoomControl,
         zoomControlOptions: {
@@ -91,9 +96,12 @@ if(window.google && window.google.maps){
         scaleControl: scaleControl,
         streetViewControl: streetViewControl,
         overviewMapControl: overviewMapControl
-      };
+      }
 
-      var map_options = extend_object(map_base_options, options);
+      if(options.disableDefaultUI != true)
+        map_base_options = extend_object(map_base_options, map_controls_options);
+
+      map_options = extend_object(map_base_options, options);
 
       this.map = new google.maps.Map(this.div, map_options);
 
@@ -1493,8 +1501,19 @@ if(window.google && window.google.maps){
   var extend_object = function(obj, new_obj) {
     if(obj === new_obj) return obj;
 
-    for(var name in new_obj){
+    for(var name in new_obj) {
       obj[name] = new_obj[name];
+    }
+
+    return obj;
+  };
+
+  var replace_object = function(obj, replace) {
+    if(obj === replace) return obj;
+
+    for(var name in replace) {
+      if(obj[name] != undefined)
+        obj[name] = replace[name];
     }
 
     return obj;
