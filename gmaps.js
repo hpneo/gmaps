@@ -1,5 +1,5 @@
 /*!
- * GMaps.js v0.2.18
+ * GMaps.js v0.2.19
  * http://hpneo.github.com/gmaps/
  *
  * Copyright 2012, Gustavo Leon
@@ -44,6 +44,8 @@ if(window.google && window.google.maps){
       this.overlay_div = null;
       this.zoom = options.zoom || 15;
 
+      var markerClusterer = options.markerClusterer;
+
       //'Hybrid', 'Roadmap', 'Satellite' or 'Terrain'
       var mapType;
 
@@ -62,6 +64,7 @@ if(window.google && window.google.maps){
       delete options.mapType;
       delete options.width;
       delete options.height;
+      delete options.markerClusterer;
 
       var zoomControlOpt = options.zoomControlOpt || {
         style: 'DEFAULT',
@@ -104,6 +107,9 @@ if(window.google && window.google.maps){
       map_options = extend_object(map_base_options, options);
 
       this.map = new google.maps.Map(this.div, map_options);
+
+      if(markerClusterer)
+        this.markerClusterer = markerClusterer.apply(this, [this.map]);
 
       // Context menus
       var buildContextMenuHTML = function(control, e) {
@@ -456,6 +462,10 @@ if(window.google && window.google.maps){
         if ((options.hasOwnProperty('lat') && options.hasOwnProperty('lng')) || options.position) {
           var marker = this.createMarker(options);
           marker.setMap(this.map);
+
+          if(this.markerClusterer)
+            this.markerClusterer.addMarker(marker);
+
           this.markers.push(marker);
 
           return marker;

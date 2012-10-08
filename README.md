@@ -8,6 +8,10 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.2.19
+-----------------------
+* Use MarkerClusterer to group markers
+
 0.2.18
 -----------------------
 * Check if GMaps is defined before load extensions
