@@ -462,7 +462,7 @@ if(window.google && window.google.maps){
 
       this.addMarker = function(options) {
         var marker;
-        if(options.hasOwnProperty('gm_accessors_') && options.hasOwnProperty('__gm_id')) {
+        if(options.hasOwnProperty('gm_accessors_')) {
           // Native google.maps.Marker object
           marker = options;
         }
