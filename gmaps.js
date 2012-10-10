@@ -1,5 +1,5 @@
 /*!
- * GMaps.js v0.2.20
+ * GMaps.js v0.2.21
  * http://hpneo.github.com/gmaps/
  *
  * Copyright 2012, Gustavo Leon
@@ -461,20 +461,28 @@ if(window.google && window.google.maps){
       };
 
       this.addMarker = function(options) {
-        if ((options.hasOwnProperty('lat') && options.hasOwnProperty('lng')) || options.position) {
-          var marker = this.createMarker(options);
-          marker.setMap(this.map);
-
-          if(this.markerClusterer)
-            this.markerClusterer.addMarker(marker);
-
-          this.markers.push(marker);
-
-          return marker;
+        var marker;
+        if(options.hasOwnProperty('gm_accessors_') && options.hasOwnProperty('__gm_id')) {
+          // Native google.maps.Marker object
+          marker = options;
         }
         else {
-          throw 'No latitude or longitude defined';
+          if ((options.hasOwnProperty('lat') && options.hasOwnProperty('lng')) || options.position) {
+            marker = this.createMarker(options);
+          }
+          else {
+            throw 'No latitude or longitude defined';
+          }
         }
+
+        marker.setMap(this.map);
+
+        if(this.markerClusterer)
+          this.markerClusterer.addMarker(marker);
+
+        this.markers.push(marker);
+
+        return marker;
       };
 
       this.addMarkers = function(array) {

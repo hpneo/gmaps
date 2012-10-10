@@ -8,11 +8,15 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.2.21
+-----------------------
+* Support to add google.maps.Marker objects in addMarker and addMarkers methods.
+
 0.2.20
 -----------------------
 * Add support for other HTML block elements instead "div" (like "section").
 
-0.2.20
+0.2.19
 -----------------------
 * Use MarkerClusterer to group markers
 
