@@ -8,6 +8,10 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.2.22
+-----------------------
+* New feature: **Map Types**
+
 0.2.21
 -----------------------
 * Support to add google.maps.Marker objects in addMarker and addMarkers methods.
