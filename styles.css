@@ -143,3 +143,8 @@ ul.gallery li h5{
   height: 40px;
   margin: 4px;
 }
+
+code {
+  font-family: 'Ubuntu Mono', 'Monaco', 'Andale Mono', 'Courier New', monospace;
+  font-weight: bold;
+}
