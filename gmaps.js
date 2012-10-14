@@ -1,5 +1,5 @@
 /*!
- * GMaps.js v0.2.22
+ * GMaps.js v0.2.23
  * http://hpneo.github.com/gmaps/
  *
  * Copyright 2012, Gustavo Leon
@@ -500,6 +500,18 @@ if(window.google && window.google.maps){
         }
       };
 
+      this.removeMarker = function(marker) {
+        for(var i=0; i < this.markers.length; i++) {
+          if(this.markers[i] === marker) {
+            this.markers[i].setMap(null);
+            this.markers.splice(i, 1);
+            break;
+          }
+        }
+
+        return marker;
+      };
+
       this.removeMarkers = function(collection) {
         var collection = (collection || this.markers);
           
@@ -659,14 +671,31 @@ if(window.google && window.google.maps){
           }
         }
 
-        var polyline = new google.maps.Polyline({
+        var polyline_options = {
           map: this.map,
           path: path,
           strokeColor: options.strokeColor,
           strokeOpacity: options.strokeOpacity,
           strokeWeight: options.strokeWeight,
-          geodesic: options.geodesic
-        });
+          geodesic: options.geodesic,
+          clickable: true,
+          editable: false,
+          visible: true
+        };
+
+        if(options.hasOwnProperty("clickable"))
+          polyline_options.clickable = options.clickable;
+
+        if(options.hasOwnProperty("editable"))
+          polyline_options.editable = options.editable;
+
+        if(options.hasOwnProperty("icons"))
+          polyline_options.icons = options.icons;
+
+        if(options.hasOwnProperty("zIndex"))
+          polyline_options.zIndex = options.zIndex;
+
+        var polyline = new google.maps.Polyline(polyline_options);
 
         var polyline_events = ['click', 'dblclick', 'mousedown', 'mousemove', 'mouseout', 'mouseover', 'mouseup', 'rightclick'];
 

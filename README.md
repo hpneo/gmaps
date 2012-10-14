@@ -8,6 +8,11 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.2.23
+-----------------------
+* Add full support to google.maps.PolylineOptions
+* New method: removeMarker
+
 0.2.22
 -----------------------
 * New feature: **Map Types**
