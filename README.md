@@ -8,6 +8,11 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.2.25
+-----------------------
+* Support for GeoJSON in drawPolygon
+* Use 'complete' instead of 'always' in GMaps.geolocate
+
 0.2.24
 -----------------------
 * New feature: **Overlay Map Types**

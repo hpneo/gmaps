@@ -1,5 +1,5 @@
 /*!
- * GMaps.js v0.2.24
+ * GMaps.js v0.2.25
  * http://hpneo.github.com/gmaps/
  *
  * Copyright 2012, Gustavo Leon
@@ -770,14 +770,23 @@ if(window.google && window.google.maps){
       };
 
       this.drawPolygon = function(options) {
+        var useGeoJSON = false;
+        if(options.hasOwnProperty("useGeoJSON"))
+          useGeoJSON = options.useGeoJSON;
+
+        delete options.useGeoJSON;
+
         options = extend_object({
           map: this.map
         }, options);
 
+        if(useGeoJSON == false)
+          options.paths = [options.paths];
+
         if(options.paths.length > 0) {
-            if(options.paths[0].length > 0) {
-               options.paths = array_map(options.paths, arrayToLatLng);
-            }
+          if(options.paths[0].length > 0) {
+            options.paths = array_flat(array_map(options.paths, arrayToLatLng, useGeoJSON));
+          }
         }
 
         var polygon = new google.maps.Polygon(options);
@@ -1303,23 +1312,28 @@ if(window.google && window.google.maps){
 
     // Geolocation (Modern browsers only)
     GMaps.geolocate = function(options) {
+      var complete_callback = options.always || options.complete;
+
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
           options.success(position);
-          if (options.always) {
-            options.always();
+
+          if (complete_callback) {
+            complete_callback();
           }
         }, function(error) {
           options.error(error);
-          if (options.always) {
-            options.always();
+
+          if (complete_callback) {
+            complete_callback();
           }
         }, options.options);
       }
       else {
         options.not_supported();
-        if (options.always) {
-          options.always();
+
+        if (complete_callback) {
+          complete_callback();
         }
       }
     };
@@ -1574,8 +1588,29 @@ if(window.google && window.google.maps){
     return GMaps;
   }(this));
 
-  var arrayToLatLng = function(coords) {
-    return new google.maps.LatLng(coords[0], coords[1]);
+  var coordsToLatLngs = function(coords, useGeoJSON) {
+    var first_coord = coords[0];
+    var second_coord = coords[1];
+
+    if(useGeoJSON) {
+      first_coord = coords[1];
+      second_coord = coords[0];
+    }
+
+    return new google.maps.LatLng(first_coord, second_coord);
+  };
+
+  var arrayToLatLng = function(coords, useGeoJSON) {
+    for(var i=0; i < coords.length; i++) {
+      if(coords[i].length > 0 && typeof(coords[i][0]) != "number") {
+        coords[i] = arrayToLatLng(coords[i], useGeoJSON);
+      }
+      else {
+        coords[i] = coordsToLatLngs(coords[i], useGeoJSON);
+      }
+    }
+
+    return coords;
   };
 
   var extend_object = function(obj, new_obj) {
@@ -1600,20 +1635,39 @@ if(window.google && window.google.maps){
   };
 
   var array_map = function(array, callback) {
-    if (Array.prototype.map && array.map === Array.prototype.map) {
-      return array.map(callback);
-    } else {
-      var array_return = [];
+    var original_callback_params = Array.prototype.slice.call(arguments, 2);
 
+    if (Array.prototype.map && array.map === Array.prototype.map) {
+      return Array.prototype.map.call(array, function(item) {
+        callback_params = original_callback_params;
+        callback_params.splice(0, 0, item);
+
+        return callback.apply(this, callback_params);
+      });
+    }
+    else {
+      var array_return = [];
       var array_length = array.length;
 
       for(var i = 0; i < array_length; i++) {
-        array_return.push(callback(array[i]));
+        callback_params = original_callback_params;
+        callback_params = callback_params.splice(0, 0, array[i]);
+        array_return.push(callback.apply(this, callback_params));
       }
 
       return array_return;
     }
-  }
+  };
+
+  var array_flat = function(array) {
+    new_array = [];
+
+    for(var i=0; i < array.length; i++) {
+      new_array = new_array.concat(array[i]);
+    }
+
+    return new_array;
+  };
 
   if(this.GMaps) {
     /*Extension: Styled map*/
