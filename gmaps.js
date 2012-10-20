@@ -677,6 +677,7 @@ if(window.google && window.google.maps){
           strokeColor: options.strokeColor,
           strokeOpacity: options.strokeOpacity,
           strokeWeight: options.strokeWeight,
+          icons: options.icons,
           geodesic: options.geodesic,
           clickable: true,
           editable: false,
