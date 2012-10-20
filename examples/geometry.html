@@ -50,7 +50,7 @@
       for(i in paths){
         bounds.push(paths[i]);
       }
-      b = []
+      b = [];
       for(i in bounds){
         latlng = new google.maps.LatLng(bounds[i][0], bounds[i][1]);
         b.push(latlng);
@@ -59,7 +59,7 @@
         latlng = new google.maps.LatLng(paths[i][0], paths[i][1]);
         b.push(latlng);
       }
-      map.fitBounds(b);
+      map.fitLatLngBounds(b);
     });
   </script>
 </head>

@@ -8,6 +8,11 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.2.26
+-----------------------
+* Fix bug in getElevations
+* Rename fitBounds to fitLatLngBounds
+
 0.2.25
 -----------------------
 * Support for GeoJSON in drawPolygon

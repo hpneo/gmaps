@@ -1,5 +1,5 @@
 /*!
- * GMaps.js v0.2.25
+ * GMaps.js v0.2.26
  * http://hpneo.github.com/gmaps/
  *
  * Copyright 2012, Gustavo Leon
@@ -266,10 +266,10 @@ if(window.google && window.google.maps){
           latLngs.push(this.markers[i].getPosition());
         }
 
-        this.fitBounds(latLngs);
+        this.fitLatLngBounds(latLngs);
       };
 
-      this.fitBounds = function(latLngs) {
+      this.fitLatLngBounds = function(latLngs) {
         var total = latLngs.length;
         var bounds = new google.maps.LatLngBounds();
 
@@ -781,7 +781,7 @@ if(window.google && window.google.maps){
         }, options);
 
         if(useGeoJSON == false)
-          options.paths = [options.paths];
+          options.paths = [options.paths.slice(0)];
 
         if(options.paths.length > 0) {
           if(options.paths[0].length > 0) {
