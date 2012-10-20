@@ -948,7 +948,7 @@ if(window.google && window.google.maps){
 
         if(options.locations.length > 0) {
           if(options.locations[0].length > 0) {
-            options.locations = array_map(options.locations, arrayToLatLng);
+            options.locations = array_flat(array_map([options.locations], arrayToLatLng,  false));
           }
         }
 
