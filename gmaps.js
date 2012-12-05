@@ -990,7 +990,8 @@ if(window.google && window.google.maps){
           origin: options.origin,
           destination: options.destination,
           travelMode: options.travelMode,
-          waypoints : options.waypoints,
+          waypoints: options.waypoints,
+          unitSystem: options.unitSystem,
           callback: function(e) {
             if (e.length > 0) {
               self.drawPolyline({
