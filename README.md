@@ -8,6 +8,10 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.2.27
+-----------------------
+* Allow create context menus for markers
+
 0.2.26
 -----------------------
 * Fix bug in getElevations

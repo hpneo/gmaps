@@ -1,5 +1,5 @@
 /*!
- * GMaps.js v0.2.26
+ * GMaps.js v0.2.27
  * http://hpneo.github.com/gmaps/
  *
  * Copyright 2012, Gustavo Leon
@@ -134,7 +134,7 @@ if(window.google && window.google.maps){
 
           var context_menu_items_count = context_menu_items.length;
 
-          for(var i=0;i<context_menu_items_count;i++){
+          for(var i = 0; i < context_menu_items_count; i++){
             var context_menu_item = context_menu_items[i];
 
             var assign_menu_item_action = function(ev){
@@ -251,7 +251,9 @@ if(window.google && window.google.maps){
           options.rightclick.apply(this, [e]);
         }
 
-        buildContextMenu('map', e);
+        if(window.context_menu['map'] != undefined) {
+          buildContextMenu('map', e);
+        }
       });
 
       this.refresh = function() {
@@ -440,6 +442,18 @@ if(window.google && window.google.maps){
             if (marker.infoWindow) {
               self.hideInfoWindows();
               marker.infoWindow.open(self.map, marker);
+            }
+          });
+
+          google.maps.event.addListener(marker, 'rightclick', function(e) {
+            e.marker = this;
+
+            if (options.rightclick) {
+              options.rightclick.apply(this, [e]);
+            }
+
+            if (window.context_menu['marker'] != undefined) {
+              buildContextMenu('marker', e);
             }
           });
 
