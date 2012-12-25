@@ -52,7 +52,7 @@ describe("Map", function() {
   });
 
   describe("With events", function() {
-    var callbacks;
+    var callbacks, current_zoom = 0, current_center = null;
 
     beforeEach(function() {
       callbacks = {
@@ -65,16 +65,26 @@ describe("Map", function() {
             lng : lng,
             title : 'New Marker'
           });
+        },
+        onzoomchanged : function() {
+          current_zoom = this.getZoom();
+        },
+        oncenterchanged : function() {
+          current_center = this.getCenter();
         }
       };
 
       spyOn(callbacks, 'onclick').andCallThrough();
+      spyOn(callbacks, 'onzoomchanged').andCallThrough();
+      spyOn(callbacks, 'oncenterchanged').andCallThrough();
 
       map = new GMaps({
         el : '#map-test',
-        lat: -12.0433,
-        lng: -77.0283,
-        click: callbacks.onclick
+        lat : -12.0433,
+        lng : -77.0283,
+        click : callbacks.onclick,
+        zoom_changed : callbacks.onzoomchanged,
+        center_changed : callbacks.oncenterchanged
       });
     });
 
@@ -83,9 +93,27 @@ describe("Map", function() {
         latLng : new google.maps.LatLng(-12.0433, -77.0283)
       });
 
-      expect(map.markers.length).toEqual(1);
-      expect(callbacks.onclick.calls.length).toEqual(1);
       expect(callbacks.onclick).toHaveBeenCalled();
+      expect(map.markers.length).toEqual(1);
+    });
+
+    it("should respond to zoom_changed event", function() {
+      map.setZoom(16);
+      
+      expect(callbacks.onzoomchanged).toHaveBeenCalled();
+      expect(current_zoom).toEqual(16);
+    });
+
+    it("should respond to center_changed event", function() {
+      map.map.setCenter(new google.maps.LatLng(-12.0907, -77.0227));
+
+      // Fix for floating-point bug
+      var lat = parseFloat(current_center.lat().toFixed(4));
+      var lng = parseFloat(current_center.lng().toFixed(4));
+
+      expect(callbacks.oncenterchanged).toHaveBeenCalled();
+      expect(lat).toEqual(-12.0907);
+      expect(lng).toEqual(-77.0227);
     });
   });
 });
