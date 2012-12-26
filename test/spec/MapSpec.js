@@ -1,4 +1,4 @@
-describe("Map", function() {
+describe("Creating a map", function() {
   var map;
 
   describe("With basic options", function() {
