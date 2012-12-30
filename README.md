@@ -8,6 +8,11 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.2.28
+-----------------------
+* Test suite
+* Fix double event firing bug
+
 0.2.27
 -----------------------
 * Allow create context menus for markers
