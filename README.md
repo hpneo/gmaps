@@ -8,6 +8,11 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.2.29
+-----------------------
+* New methods: removePolyline and removePolygon
+* Tests for Styled MapTypes
+
 0.2.28
 -----------------------
 * Test suite

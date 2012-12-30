@@ -1,5 +1,5 @@
 /*!
- * GMaps.js v0.2.28
+ * GMaps.js v0.2.29
  * http://hpneo.github.com/gmaps/
  *
  * Copyright 2012, Gustavo Leon
@@ -121,73 +121,75 @@ if(window.google && window.google.maps){
 
       this.map = new google.maps.Map(this.el, map_options);
 
-      if(markerClusterer)
+      if(markerClusterer) {
         this.markerClusterer = markerClusterer.apply(this, [this.map]);
+      }
 
       // Context menus
       var buildContextMenuHTML = function(control, e) {
-          var html = '';
-          var options = window.context_menu[control];
-          for (var i in options){
-            if (options.hasOwnProperty(i)){
-              var option = options[i];
-              html += '<li><a id="' + control + '_' + i + '" href="#">' +
-                option.title + '</a></li>';
-            }
+        var html = '';
+        var options = window.context_menu[control];
+        for (var i in options){
+          if (options.hasOwnProperty(i)){
+            var option = options[i];
+            html += '<li><a id="' + control + '_' + i + '" href="#">' +
+              option.title + '</a></li>';
           }
+        }
 
-          if(!getElementById('gmaps_context_menu')) return;
+        if(!getElementById('gmaps_context_menu')) return;
           
-          var context_menu_element = getElementById('gmaps_context_menu');
-          context_menu_element.innerHTML = html;
+        var context_menu_element = getElementById('gmaps_context_menu');
+        context_menu_element.innerHTML = html;
 
-          var context_menu_items = context_menu_element.getElementsByTagName('a');
+        var context_menu_items = context_menu_element.getElementsByTagName('a');
 
-          var context_menu_items_count = context_menu_items.length;
+        var context_menu_items_count = context_menu_items.length;
 
-          for(var i = 0; i < context_menu_items_count; i++){
-            var context_menu_item = context_menu_items[i];
+        for(var i = 0; i < context_menu_items_count; i++){
+          var context_menu_item = context_menu_items[i];
 
-            var assign_menu_item_action = function(ev){
-              ev.preventDefault();
+          var assign_menu_item_action = function(ev){
+            ev.preventDefault();
 
-              options[this.id.replace(control + '_', '')].action.apply(self, [e]);
-              self.hideContextMenu();
-            };
+            options[this.id.replace(control + '_', '')].action.apply(self, [e]);
+            self.hideContextMenu();
+          };
 
-            google.maps.event.clearListeners(context_menu_item, 'click');
-            google.maps.event.addDomListenerOnce(context_menu_item, 'click', assign_menu_item_action, false);
-          }
+          google.maps.event.clearListeners(context_menu_item, 'click');
+          google.maps.event.addDomListenerOnce(context_menu_item, 'click', assign_menu_item_action, false);
+        }
 
-          var left = self.el.offsetLeft + e.pixel.x - 15;
-          var top = self.el.offsetTop + e.pixel.y - 15;
+        var left = self.el.offsetLeft + e.pixel.x - 15;
+        var top = self.el.offsetTop + e.pixel.y - 15;
 
-          context_menu_element.style.left = left + "px";
-          context_menu_element.style.top = top + "px";
+        context_menu_element.style.left = left + "px";
+        context_menu_element.style.top = top + "px";
 
-          context_menu_element.style.display = 'block';
-        };
+        context_menu_element.style.display = 'block';
+      };
 
       var buildContextMenu = function(control, e) {
-          if (control === 'marker') {
-            e.pixel = {};
-            var overlay = new google.maps.OverlayView();
-            overlay.setMap(self.map);
-            overlay.draw = function() {
-              var projection = overlay.getProjection();
-              var position = e.marker.getPosition();
-              e.pixel = projection.fromLatLngToContainerPixel(position);
+        if (control === 'marker') {
+          e.pixel = {};
+          var overlay = new google.maps.OverlayView();
+          overlay.setMap(self.map);
+          overlay.draw = function() {
+            var projection = overlay.getProjection();
+            var position = e.marker.getPosition();
+            e.pixel = projection.fromLatLngToContainerPixel(position);
 
-              buildContextMenuHTML(control, e);
-            };
-          }
-          else {
             buildContextMenuHTML(control, e);
-          }
-        };
+          };
+        }
+        else {
+          buildContextMenuHTML(control, e);
+        }
+      };
 
       this.setContextMenu = function(options) {
         window.context_menu[options.control] = {};
+
         for (var i in options.options){
           if (options.options.hasOwnProperty(i)){
             var option = options.options[i];
@@ -197,7 +199,9 @@ if(window.google && window.google.maps){
             };
           }
         }
+
         var ul = doc.createElement('ul');
+        
         ul.id = 'gmaps_context_menu';
         ul.style.display = 'none';
         ul.style.position = 'absolute';
@@ -525,10 +529,11 @@ if(window.google && window.google.maps){
       };
 
       this.removeMarker = function(marker) {
-        for(var i=0; i < this.markers.length; i++) {
+        for(var i = 0; i < this.markers.length; i++) {
           if(this.markers[i] === marker) {
             this.markers[i].setMap(null);
             this.markers.splice(i, 1);
+
             break;
           }
         }
@@ -555,6 +560,7 @@ if(window.google && window.google.maps){
       };
 
       // Overlays
+
       this.drawOverlay = function(options) {
         var overlay = new google.maps.OverlayView();
         overlay.setMap(self.map);
@@ -663,7 +669,14 @@ if(window.google && window.google.maps){
       };
 
       this.removeOverlay = function(overlay) {
-        overlay.setMap(null);
+        for(var i = 0; i < this.overlays.length; i++) {
+          if(this.overlays[i] === overlay) {
+            this.overlays[i].setMap(null);
+            this.overlays.splice(i, 1);
+
+            break;
+          }
+        }
       };
 
       this.removeOverlays = function() {
@@ -673,12 +686,7 @@ if(window.google && window.google.maps){
         self.overlays = [];
       };
 
-      this.removePolylines = function() {
-        for (var i=0, item; item=self.polylines[i]; i++){
-          item.setMap(null);
-        }
-        self.polylines = [];
-      };
+      // Geometry
 
       this.drawPolyline = function(options) {
         var path = [];
@@ -735,6 +743,24 @@ if(window.google && window.google.maps){
         this.polylines.push(polyline);
 
         return polyline;
+      };
+
+      this.removePolyline = function(polyline) {
+        for(var i = 0; i < this.polylines.length; i++) {
+          if(this.polylines[i] === polyline) {
+            this.polylines[i].setMap(null);
+            this.polylines.splice(i, 1);
+            
+            break;
+          }
+        }
+      };
+
+      this.removePolylines = function() {
+        for (var i=0, item; item=self.polylines[i]; i++){
+          item.setMap(null);
+        }
+        self.polylines = [];
       };
 
       this.drawCircle = function(options) {
@@ -831,7 +857,16 @@ if(window.google && window.google.maps){
         return polygon;
       };
 
-      this.removePolygon = this.removeOverlay;
+      this.removePolygon = function(polygon) {
+        for(var i = 0; i < this.polygons.length; i++) {
+          if(this.polygons[i] === polygon) {
+            this.polygons[i].setMap(null);
+            this.polygons.splice(i, 1);
+            
+            break;
+          }
+        }
+      };
 
       this.removePolygons = function() {
         for (var i=0, item; item=self.polygons[i]; i++){
@@ -839,6 +874,8 @@ if(window.google && window.google.maps){
         }
         self.polygons = [];
       };
+
+      // Fusion Tables
 
       this.getFromFusionTables = function(options) {
         var events = options.events;
@@ -868,6 +905,8 @@ if(window.google && window.google.maps){
 
         return layer;
       };
+
+      // KML
 
       this.getFromKML = function(options) {
         var url = options.url;
@@ -900,7 +939,8 @@ if(window.google && window.google.maps){
         return layer;
       };
 
-      // Services
+      // Routes
+
       var travelMode, unitSystem;
       this.getRoutes = function(options) {
         switch (options.travelMode) {
@@ -1131,6 +1171,7 @@ if(window.google && window.google.maps){
       };
 
       // Geofence
+
       this.checkGeofence = function(lat, lng, fence) {
         return fence.containsLatLng(new google.maps.LatLng(lat, lng));
       };
@@ -1146,7 +1187,8 @@ if(window.google && window.google.maps){
         }
       };
 
-      //add layers to the maps
+      // Layers
+
       this.addLayer = function(layerName, options) {
         //var default_layers = ['weather', 'clouds', 'traffic', 'transit', 'bicycling', 'panoramio', 'places'];
         options = options || {};
@@ -1226,7 +1268,6 @@ if(window.google && window.google.maps){
         }
       };
 
-      //remove layers
       this.removeLayer = function(layerName) {
         if(this.singleLayers[layerName] !== undefined) {
            this.singleLayers[layerName].setMap(null);
@@ -1234,6 +1275,8 @@ if(window.google && window.google.maps){
         }
       };
       
+      // Static Maps
+
       this.toImage = function(options) {
         var options = options || {};
         var static_map_options = {};
@@ -1263,9 +1306,10 @@ if(window.google && window.google.maps){
         return GMaps.staticMapURL(static_map_options);
       };
 
+      // Map Types
+
       this.addMapType = function(mapTypeId, options) {
         if(options.hasOwnProperty("getTileUrl") && typeof(options["getTileUrl"]) == "function") {
-          
           options.tileSize = options.tileSize || new google.maps.Size(256, 256);
           
           var mapType = new google.maps.ImageMapType(options);
@@ -1293,7 +1337,18 @@ if(window.google && window.google.maps){
       this.removeOverlayMapType = function(overlayMapTypeIndex) {
         this.map.overlayMapTypes.removeAt(overlayMapTypeIndex);
       };
+
+      // Styles
       
+      this.addStyle = function(options){       
+        var styledMapType = new google.maps.StyledMapType(options.styles, options.styledMapName);
+        
+        this.map.mapTypes.set(options.mapTypeId, styledMapType);
+      };
+      
+      this.setStyle = function(mapTypeId){     
+        this.map.setMapTypeId(mapTypeId);
+      };
     };
 
     GMaps.Route = function(options) {
@@ -1563,40 +1618,42 @@ if(window.google && window.google.maps){
       };
     }
 
-    // Polygon containsLatLng - method to determine if a latLng is within a polygon
-    google.maps.Polygon.prototype.containsLatLng = function(latLng) {
-      // Exclude points outside of bounds as there is no way they are in the poly
-      var bounds = this.getBounds();
+    if (!google.maps.Polygon.prototype.containsLatLng) {
+      // Polygon containsLatLng - method to determine if a latLng is within a polygon
+      google.maps.Polygon.prototype.containsLatLng = function(latLng) {
+        // Exclude points outside of bounds as there is no way they are in the poly
+        var bounds = this.getBounds();
 
-      if (bounds !== null && !bounds.contains(latLng)) {
-        return false;
-      }
-
-      // Raycast point in polygon method
-      var inPoly = false;
-
-      var numPaths = this.getPaths().getLength();
-      for (var p = 0; p < numPaths; p++) {
-        var path = this.getPaths().getAt(p);
-        var numPoints = path.getLength();
-        var j = numPoints - 1;
-
-        for (var i = 0; i < numPoints; i++) {
-          var vertex1 = path.getAt(i);
-          var vertex2 = path.getAt(j);
-
-          if (vertex1.lng() < latLng.lng() && vertex2.lng() >= latLng.lng() || vertex2.lng() < latLng.lng() && vertex1.lng() >= latLng.lng()) {
-            if (vertex1.lat() + (latLng.lng() - vertex1.lng()) / (vertex2.lng() - vertex1.lng()) * (vertex2.lat() - vertex1.lat()) < latLng.lat()) {
-              inPoly = !inPoly;
-            }
-          }
-
-          j = i;
+        if (bounds !== null && !bounds.contains(latLng)) {
+          return false;
         }
-      }
 
-      return inPoly;
-    };
+        // Raycast point in polygon method
+        var inPoly = false;
+
+        var numPaths = this.getPaths().getLength();
+        for (var p = 0; p < numPaths; p++) {
+          var path = this.getPaths().getAt(p);
+          var numPoints = path.getLength();
+          var j = numPoints - 1;
+
+          for (var i = 0; i < numPoints; i++) {
+            var vertex1 = path.getAt(i);
+            var vertex2 = path.getAt(j);
+
+            if (vertex1.lng() < latLng.lng() && vertex2.lng() >= latLng.lng() || vertex2.lng() < latLng.lng() && vertex1.lng() >= latLng.lng()) {
+              if (vertex1.lat() + (latLng.lng() - vertex1.lng()) / (vertex2.lng() - vertex1.lng()) * (vertex2.lat() - vertex1.lat()) < latLng.lat()) {
+                inPoly = !inPoly;
+              }
+            }
+
+            j = i;
+          }
+        }
+
+        return inPoly;
+      };
+    }
 
     google.maps.LatLngBounds.prototype.containsLatLng = function(latLng) {
       return this.contains(latLng);
@@ -1693,16 +1750,5 @@ if(window.google && window.google.maps){
 
     return new_array;
   };
-
-  if(this.GMaps) {
-    /*Extension: Styled map*/
-    GMaps.prototype.addStyle = function(options){       
-      var styledMapType = new google.maps.StyledMapType(options.styles, options.styledMapName);
-      this.map.mapTypes.set(options.mapTypeId, styledMapType);
-    };
-    GMaps.prototype.setStyle = function(mapTypeId){     
-      this.map.setMapTypeId(mapTypeId);
-    };
-  }
 
 }
