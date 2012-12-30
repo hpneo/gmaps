@@ -1,25 +1,51 @@
 describe("Drawing geometry overlays", function() {
-  var map_with_polygons, rectangle, circle, polygon;
+  var map_with_polygons, line, rectangle, circle, polygon;
 
   beforeEach(function() {
     map_with_polygons = map_with_polygons || new GMaps({
       el : '#map-with-polygons',
-      lat: -12.0433,
-      lng: -77.0283,
-      zoom: 12
+      lat : -12.0433,
+      lng : -77.0283,
+      zoom : 12
     });
-    window.map_with_polygons = map_with_polygons;
+  });
+
+  describe("A line", function() {
+    beforeEach(function() {
+      line = line || map_with_polygons.drawPolyline({
+        path : [[-12.0440, -77.0247], [-12.0544, -77.0302], [-12.0551, -77.0303], [-12.0759, -77.0276], [-12.0763, -77.0279], [-12.0768, -77.0289], [-12.0885, -77.0241], [-12.0908, -77.0227]],
+        strokeColor : '#131540',
+        strokeOpacity : 0.6,
+        strokeWeight : 6
+      });
+    });
+
+    it("should add the line to the polylines collection", function() {
+      expect(map_with_polygons.polylines.length).toEqual(1);
+      expect(map_with_polygons.polylines[0]).toEqual(line);
+    });
+
+    it("should be added in the current map", function() {
+      expect(line.getMap()).toEqual(map_with_polygons.map);
+    });
+
+    it("should return the defined path", function() {
+      var first_point = line.getPath().getAt(0);
+
+      expect(parseFloat(first_point.lat().toFixed(4))).toEqual(-12.0440);
+      expect(parseFloat(first_point.lng().toFixed(4))).toEqual(-77.0247);
+    });
   });
 
   describe("A rectangle", function() {
     beforeEach(function() {
       rectangle = rectangle || map_with_polygons.drawRectangle({
-        bounds: [[-12.0303,-77.0237],[-12.0348,-77.0115]],
-        strokeColor: '#BBD8E9',
-        strokeOpacity: 1,
-        strokeWeight: 3,
-        fillColor: '#BBD8E9',
-        fillOpacity: 0.6
+        bounds : [[-12.0303,-77.0237],[-12.0348,-77.0115]],
+        strokeColor : '#BBD8E9',
+        strokeOpacity : 1,
+        strokeWeight : 3,
+        fillColor : '#BBD8E9',
+        fillOpacity : 0.6
       });
     });
 
@@ -49,12 +75,12 @@ describe("Drawing geometry overlays", function() {
   describe("A polygon", function() {
     beforeEach(function() {
       polygon = polygon || map_with_polygons.drawPolygon({
-        paths: [[-12.0403,-77.0337],[-12.0402,-77.0399],[-12.0500,-77.0244],[-12.0448,-77.0215]],
-        strokeColor: '#25D359',
-        strokeOpacity: 1,
-        strokeWeight: 3,
-        fillColor: '#25D359',
-        fillOpacity: 0.6
+        paths : [[-12.0403,-77.0337],[-12.0402,-77.0399],[-12.0500,-77.0244],[-12.0448,-77.0215]],
+        strokeColor : '#25D359',
+        strokeOpacity : 1,
+        strokeWeight : 3,
+        fillColor : '#25D359',
+        fillOpacity : 0.6
       });
     });
 
@@ -77,14 +103,14 @@ describe("Drawing geometry overlays", function() {
   describe("A circle", function() {
     beforeEach(function() {
       circle = circle || map_with_polygons.drawCircle({
-        lat: -12.040504866577001,
-        lng: -77.02024422636042,
-        radius: 350,
-        strokeColor: '#432070',
-        strokeOpacity: 1,
-        strokeWeight: 3,
-        fillColor: '#432070',
-        fillOpacity: 0.6
+        lat : -12.040504866577001,
+        lng : -77.02024422636042,
+        radius : 350,
+        strokeColor : '#432070',
+        strokeOpacity : 1,
+        strokeWeight : 3,
+        fillColor : '#432070',
+        fillOpacity : 0.6
       });
     });
 
