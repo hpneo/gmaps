@@ -1,15 +1,17 @@
 describe("Creating a marker", function() {
   var map, marker;
 
+  beforeEach(function() {
+    map = map || new GMaps({
+      el : '#map-with-markers',
+      lat : -12.0533,
+      lng: -77.0293,
+      zoom: 14
+    });
+  });
+
   describe("With basic options", function() {
     beforeEach(function() {
-      map = new GMaps({
-        el : '#map-test',
-        lat: -12.0433,
-        lng: -77.0283,
-        zoom: 14
-      });
-
       marker = map.addMarker({
         lat : -12.0533,
         lng: -77.0293,
@@ -41,16 +43,9 @@ describe("Creating a marker", function() {
 
       spyOn(callbacks, 'onclick').andCallThrough();
 
-      map = new GMaps({
-        el : '#map-test',
-        lat: -12.0433,
-        lng: -77.0283,
-        zoom: 14
-      });
-
       marker = map.addMarker({
         lat : -12.0533,
-        lng: -77.0293,
+        lng: -77.0193,
         title : 'New marker',
         click : callbacks.onclick
       });

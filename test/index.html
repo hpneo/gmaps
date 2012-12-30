@@ -4,8 +4,20 @@
   <title>gmaps.js test</title>
   <link rel="stylesheet" type="text/css" href="lib/jasmine.css" />
   <style type="text/css">
-    #map-test {
-      height: 150px;
+    body {
+      font-family: sans-serif;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      margin: 0;
+      font-weight: lighter;
+      text-transform: lowercase;
+      font-variant: small-caps;
+    }
+
+    .map {
+      width: 100%;
+      height: 100px;
     }
   </style>
   <script type="text/javascript" src="lib/jasmine.js"></script>
@@ -16,6 +28,7 @@
 
   <script type="text/javascript" src="spec/MapSpec.js"></script>
   <script type="text/javascript" src="spec/MarkerSpec.js"></script>
+  <script type="text/javascript" src="spec/GeometrySpec.js"></script>
 
   <script type="text/javascript">
     (function() {
@@ -48,6 +61,17 @@
   </script>
 </head>
 <body>
-  <div id="map-test"></div>
+  <h3>Basic map</h3>
+  <div class="map" id="basic-map"></div>
+  <h3>Advanced map</h3>
+  <div class="map" id="advanced-map"></div>
+  <h3>Map with events</h3>
+  <div class="map" id="map-with-events"></div>
+  <h3>Map with markers</h3>
+  <div class="map" id="map-with-markers"></div>
+  <h3>Map with custom controls</h3>
+  <div class="map" id="map-with-custom-controls"></div>
+  <h3>Map with polygons</h3>
+  <div class="map" id="map-with-polygons"></div>
 </body>
 </html>

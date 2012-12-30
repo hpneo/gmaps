@@ -220,30 +220,32 @@ if(window.google && window.google.maps){
       var events_that_hide_context_menu = ['bounds_changed', 'center_changed', 'click', 'dblclick', 'drag', 'dragend', 'dragstart', 'idle', 'maptypeid_changed', 'projection_changed', 'resize', 'tilesloaded', 'zoom_changed'];
       var events_that_doesnt_hide_context_menu = ['mousemove', 'mouseout', 'mouseover'];
 
+      var setupListener = function(object, name) {
+        google.maps.event.addListener(object, name, function(e){
+          if(e == undefined) {
+            e = this;
+          }
+
+          options[name].apply(this, [e]);
+
+          self.hideContextMenu();
+        });
+      }
+
       for (var ev = 0; ev < events_that_hide_context_menu.length; ev++) {
-        (function(object, name) {
-          google.maps.event.addListener(object, name, function(e){
-            if(e == undefined)
-              e = this;
+        var name = events_that_hide_context_menu[ev];
 
-            if (options[name])
-              options[name].apply(this, [e]);
-
-            self.hideContextMenu();
-          });
-        })(this.map, events_that_hide_context_menu[ev]);
+        if (name in options) {
+          setupListener(this.map, name);
+        }
       }
 
       for (var ev = 0; ev < events_that_doesnt_hide_context_menu.length; ev++) {
-        (function(object, name) {
-          google.maps.event.addListener(object, name, function(e){
-            if(e == undefined)
-              e = this;
+        var name = events_that_doesnt_hide_context_menu[ev];
 
-            if (options[name])
-              options[name].apply(this, [e]);
-          });
-        })(this.map, events_that_doesnt_hide_context_menu[ev]);
+        if (name in options) {
+          setupListener(this.map, name);
+        }
       }
 
       google.maps.event.addListener(this.map, 'rightclick', function(e) {
