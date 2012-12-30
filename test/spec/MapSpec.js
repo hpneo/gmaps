@@ -80,7 +80,7 @@ describe("Creating a map", function() {
       spyOn(callbacks, 'onzoomchanged').andCallThrough();
       spyOn(callbacks, 'oncenterchanged').andCallThrough();
 
-      map_with_events = new GMaps({
+      map_with_events = map_with_events || new GMaps({
         el : '#map-with-events',
         lat : -12.0433,
         lng : -77.0283,

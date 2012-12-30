@@ -24,6 +24,9 @@ if(window.google && window.google.maps){
 
     var GMaps = function(options) {
       var self = this;
+      var events_that_hide_context_menu = ['bounds_changed', 'center_changed', 'click', 'dblclick', 'drag', 'dragend', 'dragstart', 'idle', 'maptypeid_changed', 'projection_changed', 'resize', 'tilesloaded', 'zoom_changed'];
+      var events_that_doesnt_hide_context_menu = ['mousemove', 'mouseout', 'mouseover'];
+
       window.context_menu = {};
 
       if (typeof(options.el) === 'string' || typeof(options.div) === 'string') {
@@ -107,6 +110,14 @@ if(window.google && window.google.maps){
         map_base_options = extend_object(map_base_options, map_controls_options);
 
       map_options = extend_object(map_base_options, options);
+
+      for(var i = 0; i < events_that_hide_context_menu.length; i++) {
+        delete map_options[events_that_hide_context_menu[i]];
+      }
+
+      for(var i = 0; i < events_that_doesnt_hide_context_menu.length; i++) {
+        delete map_options[events_that_doesnt_hide_context_menu[i]];
+      }
 
       this.map = new google.maps.Map(this.el, map_options);
 
@@ -216,9 +227,6 @@ if(window.google && window.google.maps){
       };
 
       //Events
-
-      var events_that_hide_context_menu = ['bounds_changed', 'center_changed', 'click', 'dblclick', 'drag', 'dragend', 'dragstart', 'idle', 'maptypeid_changed', 'projection_changed', 'resize', 'tilesloaded', 'zoom_changed'];
-      var events_that_doesnt_hide_context_menu = ['mousemove', 'mouseout', 'mouseover'];
 
       var setupListener = function(object, name) {
         google.maps.event.addListener(object, name, function(e){
