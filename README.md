@@ -8,6 +8,34 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.2.30
+-----------------------
+* New feature: StreetView Panoramas
+
+0.2.29
+-----------------------
+* New methods: removePolyline and removePolygon
+* Tests for Styled MapTypes
+
+0.2.28
+-----------------------
+* Test suite
+* Fix double event firing bug
+
+0.2.27
+-----------------------
+* Allow create context menus for markers
+
+0.2.26
+-----------------------
+* Fix bug in getElevations
+* Rename fitBounds to fitLatLngBounds
+
+0.2.25
+-----------------------
+* Support for GeoJSON in drawPolygon
+* Use 'complete' instead of 'always' in GMaps.geolocate
+
 0.2.24
 -----------------------
 * New feature: **Overlay Map Types**
