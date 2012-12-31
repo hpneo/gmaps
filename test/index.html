@@ -15,9 +15,24 @@
       font-variant: small-caps;
     }
 
-    .map {
+    .map,
+    .panorama {
       width: 100%;
       height: 100px;
+    }
+
+    .with-columns {
+      display: block;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .with-columns .map,
+    .with-columns .panorama {
+      display: block;
+      width: 50%;
+      height: 150px;
+      float: left;
     }
   </style>
   <script type="text/javascript" src="lib/jasmine.js"></script>
@@ -33,6 +48,7 @@
   <script type="text/javascript" src="spec/OverlaySpec.js"></script>
   <script type="text/javascript" src="spec/RouteSpec.js"></script>
   <script type="text/javascript" src="spec/StyleSpec.js"></script>
+  <script type="text/javascript" src="spec/StreetViewSpec.js"></script>
 
   <script type="text/javascript">
     (function() {
@@ -85,5 +101,14 @@
   <div class="map" id="map-with-routes"></div>
   <h3>Map with styles</h3>
   <div class="map" id="map-with-styles"></div>
+  <h3>Street View Panorama</h3>
+  <div class="panorama" id="streetview-standalone-panorama"></div>
+  <h3>Map with Street View</h3>
+  <div class="with-columns">
+    <div class="map" id="map-with-streetview"></div>
+    <div class="panorama" id="streetview-panorama"></div>
+  </div>
+  <h3>Street View Panorama with events</h3>
+  <div class="panorama" id="streetview-with-events"></div>
 </body>
 </html>

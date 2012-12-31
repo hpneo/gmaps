@@ -8,6 +8,10 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.2.30
+-----------------------
+* New feature: StreetView Panoramas
+
 0.2.29
 -----------------------
 * New methods: removePolyline and removePolygon

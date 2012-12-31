@@ -1,5 +1,5 @@
 /*!
- * GMaps.js v0.2.29
+ * GMaps.js v0.2.30
  * http://hpneo.github.com/gmaps/
  *
  * Copyright 2012, Gustavo Leon
@@ -1340,15 +1340,63 @@ if(window.google && window.google.maps){
 
       // Styles
       
-      this.addStyle = function(options){       
+      this.addStyle = function(options) {       
         var styledMapType = new google.maps.StyledMapType(options.styles, options.styledMapName);
         
         this.map.mapTypes.set(options.mapTypeId, styledMapType);
       };
       
-      this.setStyle = function(mapTypeId){     
+      this.setStyle = function(mapTypeId) {     
         this.map.setMapTypeId(mapTypeId);
       };
+
+      // StreetView
+
+      this.createPanorama = function(streetview_options) {
+        if (!streetview_options.hasOwnProperty('lat') || !streetview_options.hasOwnProperty('lng')) {
+          streetview_options.lat = this.getCenter().lat();
+          streetview_options.lng = this.getCenter().lng();
+        }
+
+        this.panorama = GMaps.createPanorama(streetview_options);
+
+        this.map.setStreetView(this.panorama);
+
+        return this.panorama;
+      };
+    };
+
+    GMaps.createPanorama = function(options) {
+      var el = getElementById(options.el, options.context);
+
+      options.position = new google.maps.LatLng(options.lat, options.lng);
+
+      delete options.el;
+      delete options.context;
+      delete options.lat;
+      delete options.lng;
+
+      var streetview_events = ['closeclick', 'links_changed', 'pano_changed', 'position_changed', 'pov_changed', 'resize', 'visible_changed'];
+
+      var streetview_options = extend_object({visible : true}, options);
+
+      for(var i = 0; i < streetview_events.length; i++) {
+        delete streetview_options[streetview_events[i]];
+      }
+
+      var panorama = new google.maps.StreetViewPanorama(el, streetview_options);
+
+      for(var i = 0; i < streetview_events.length; i++) {
+        (function(object, name) {
+          google.maps.event.addListener(object, name, function(){
+            if (options[name]) {
+              options[name].apply(this);
+            }
+          });
+        })(panorama, streetview_events[i]);
+      }
+
+      return panorama;
     };
 
     GMaps.Route = function(options) {
