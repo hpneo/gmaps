@@ -160,8 +160,9 @@ if(window.google && window.google.maps){
           google.maps.event.addDomListenerOnce(context_menu_item, 'click', assign_menu_item_action, false);
         }
 
-        var left = self.el.offsetLeft + e.pixel.x - 15;
-        var top = self.el.offsetTop + e.pixel.y - 15;
+				var position = self.el.getBoundingClientRect();
+        var left = position.left + e.pixel.x - 15;
+        var top = position.top + e.pixel.y - 15;
 
         context_menu_element.style.left = left + "px";
         context_menu_element.style.top = top + "px";
