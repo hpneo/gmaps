@@ -8,6 +8,10 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.2.31
+-----------------------
+* Fix context menu position bug
+
 0.2.30
 -----------------------
 * New feature: StreetView Panoramas
