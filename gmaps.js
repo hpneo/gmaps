@@ -125,6 +125,21 @@ if(window.google && window.google.maps){
         this.markerClusterer = markerClusterer.apply(this, [this.map]);
       }
 
+      // finds absolute position of an element
+      var findAbsolutePosition = function(obj)  {
+        var curleft = 0;
+        var curtop = 0;
+        if (obj.offsetParent) {
+          do {
+            curleft += obj.offsetLeft;
+            curtop += obj.offsetTop;
+          } while (obj = obj.offsetParent);
+        }
+        return [curleft,curtop];
+      //returns an array
+      }
+
+
       // Context menus
       var buildContextMenuHTML = function(control, e) {
         var html = '';
@@ -160,8 +175,9 @@ if(window.google && window.google.maps){
           google.maps.event.addDomListenerOnce(context_menu_item, 'click', assign_menu_item_action, false);
         }
 
-        var left = self.el.offsetLeft + e.pixel.x - 15;
-        var top = self.el.offsetTop + e.pixel.y - 15;
+        var position = findAbsolutePosition.apply(this, [self.el]);
+        var left = position[0] + e.pixel.x - 15;
+        var top = position[1] + e.pixel.y- 15;
 
         context_menu_element.style.left = left + "px";
         context_menu_element.style.top = top + "px";
