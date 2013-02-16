@@ -8,6 +8,10 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.3
+-----------------------
+* Add native events to google.maps objects and custom events to GMaps map
+
 0.2.31
 -----------------------
 * Fix context menu position bug
