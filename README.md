@@ -10,7 +10,7 @@ Changelog
 
 0.3
 -----------------------
-* Add native events to google.maps objects and custom events to GMaps map
+* Add native events to google.maps objects and custom events to GMaps maps
 
 0.2.31
 -----------------------
