@@ -24,6 +24,7 @@ if(window.google && window.google.maps){
 
     var GMaps = function(options) {
       var self = this;
+
       var events_that_hide_context_menu = ['bounds_changed', 'center_changed', 'click', 'dblclick', 'drag', 'dragend', 'dragstart', 'idle', 'maptypeid_changed', 'projection_changed', 'resize', 'tilesloaded', 'zoom_changed'];
       var events_that_doesnt_hide_context_menu = ['mousemove', 'mouseout', 'mouseover'];
 
@@ -48,6 +49,7 @@ if(window.google && window.google.maps){
       this.infoWindow = null;
       this.overlay_el = null;
       this.zoom = options.zoom || 15;
+      this.registered_events = {};
 
       var markerClusterer = options.markerClusterer;
 
@@ -521,10 +523,13 @@ if(window.google && window.google.maps){
 
         marker.setMap(this.map);
 
-        if(this.markerClusterer)
+        if(this.markerClusterer) {
           this.markerClusterer.addMarker(marker);
+        }
 
         this.markers.push(marker);
+
+        GMaps.fire('marker_added', marker, this);
 
         return marker;
       };
@@ -549,6 +554,8 @@ if(window.google && window.google.maps){
           if(this.markers[i] === marker) {
             this.markers[i].setMap(null);
             this.markers.splice(i, 1);
+
+            GMaps.fire('marker_removed', marker, this);
 
             break;
           }
@@ -758,6 +765,8 @@ if(window.google && window.google.maps){
 
         this.polylines.push(polyline);
 
+        GMaps.fire('polyline_added', polyline, this);
+
         return polyline;
       };
 
@@ -766,6 +775,8 @@ if(window.google && window.google.maps){
           if(this.polylines[i] === polyline) {
             this.polylines[i].setMap(null);
             this.polylines.splice(i, 1);
+
+            GMaps.fire('polyline_removed', polyline, this);
             
             break;
           }
@@ -870,6 +881,8 @@ if(window.google && window.google.maps){
 
         this.polygons.push(polygon);
 
+        GMaps.fire('polygon_added', polygon, this);
+
         return polygon;
       };
 
@@ -878,6 +891,8 @@ if(window.google && window.google.maps){
           if(this.polygons[i] === polygon) {
             this.polygons[i].setMap(null);
             this.polygons.splice(i, 1);
+
+            GMaps.fire('polygon_removed', polygon, this);
             
             break;
           }
@@ -1380,6 +1395,16 @@ if(window.google && window.google.maps){
 
         return this.panorama;
       };
+
+      // Events
+
+      this.on = function(event_name, handler) {
+        return GMaps.on(event_name, this, handler);
+      };
+
+      this.off = function(event_name) {
+        GMaps.off(event_name, this);
+      };
     };
 
     GMaps.createPanorama = function(options) {
@@ -1404,11 +1429,11 @@ if(window.google && window.google.maps){
 
       for(var i = 0; i < streetview_events.length; i++) {
         (function(object, name) {
-          google.maps.event.addListener(object, name, function(){
-            if (options[name]) {
+          if (options[name]) {
+            google.maps.event.addListener(object, name, function(){
               options[name].apply(this);
-            }
-          });
+            });
+          }
         })(panorama, streetview_events[i]);
       }
 
@@ -1455,6 +1480,7 @@ if(window.google && window.google.maps){
     };
 
     // Geolocation (Modern browsers only)
+
     GMaps.geolocate = function(options) {
       var complete_callback = options.always || options.complete;
 
@@ -1483,6 +1509,7 @@ if(window.google && window.google.maps){
     };
 
     // Geocoding
+
     GMaps.geocode = function(options) {
       this.geocoder = new google.maps.Geocoder();
       var callback = options.callback;
@@ -1499,6 +1526,7 @@ if(window.google && window.google.maps){
     };
 
     // Static maps
+
     GMaps.staticMapURL = function(options){
       var parameters = [];
       var data;
@@ -1658,6 +1686,53 @@ if(window.google && window.google.maps){
 
       parameters = parameters.join('&');
       return static_root + parameters;
+    };
+
+    // Events
+
+    GMaps.custom_events = ['marker_added', 'marker_removed', 'polyline_added', 'polyline_removed', 'polygon_added', 'polygon_removed', 'geolocated', 'geolocation_failed'];
+
+    GMaps.on = function(event_name, object, handler) {
+      if (GMaps.custom_events.indexOf(event_name) == -1) {
+        return google.maps.event.addListener(object, event_name, handler);
+      }
+      else {
+        var registered_event = {
+          handler : handler,
+          eventName : event_name
+        };
+
+        object.registered_events[event_name] = object.registered_events[event_name] || [];
+        object.registered_events[event_name].push(registered_event);
+
+        return registered_event;
+      }
+    };
+
+    GMaps.off = function(event_name, object) {
+      if (GMaps.custom_events.indexOf(event_name) == -1) {
+        google.maps.event.clearListeners(object, event_name);
+      }
+      else {
+        object.registered_events[event_name] = [];
+      }
+    };
+
+    GMaps.fire = function(event_name, object, scope) {
+      if (GMaps.custom_events.indexOf(event_name) == -1) {
+        google.maps.event.trigger(object, event_name, Array.prototype.slice.apply(arguments).slice(2));
+      }
+      else {
+        if(event_name in scope.registered_events) {
+          var firing_events = scope.registered_events[event_name];
+
+          for(var i = 0; i < firing_events.length; i++) {
+            (function(handler, scope, object) {
+              handler.apply(scope, [object]);
+            })(firing_events[i]['handler'], scope, object);
+          }
+        }
+      }
     };
 
     //==========================
