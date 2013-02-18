@@ -1,6 +1,12 @@
 describe("Creating a map", function() {
   var basic_map, advanced_map, map_with_events, map_with_custom_controls;
 
+  it("should throw an error if element is not defined", function() {
+    expect(function() {
+      map = new GMaps({});
+    }).toThrow(new Error('No element defined'));
+  });
+
   describe("With basic options", function() {
     beforeEach(function() {
       basic_map = basic_map || new GMaps({
@@ -92,7 +98,7 @@ describe("Creating a map", function() {
 
     it("should respond to zoom_changed event", function() {
       map_with_events.map.setZoom(16);
-      
+
       expect(callbacks.onzoomchanged).toHaveBeenCalled();
       expect(current_zoom).toEqual(16);
     });
@@ -166,7 +172,7 @@ describe("Creating a map", function() {
 
     it("should respond to click event attached to the custom control", function() {
       google.maps.event.trigger(map_with_custom_controls.controls[0], 'click');
-      
+
       expect(callbacks.onclick).toHaveBeenCalled();
       expect(map_with_custom_controls.markers.length).toEqual(1);
     });

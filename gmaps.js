@@ -35,6 +35,10 @@ if(window.google && window.google.maps){
       } else {
         this.el = options.el || options.div;
       };
+
+      if (typeof(this.el) === 'undefined' || this.el === null)
+        throw 'No element defined';
+
       this.el.style.width = options.width || this.el.scrollWidth || this.el.offsetWidth;
       this.el.style.height = options.height || this.el.scrollHeight || this.el.offsetHeight;
 
@@ -155,7 +159,7 @@ if(window.google && window.google.maps){
         }
 
         if(!getElementById('gmaps_context_menu')) return;
-          
+
         var context_menu_element = getElementById('gmaps_context_menu');
         context_menu_element.innerHTML = html;
 
@@ -219,7 +223,7 @@ if(window.google && window.google.maps){
         }
 
         var ul = doc.createElement('ul');
-        
+
         ul.id = 'gmaps_context_menu';
         ul.style.display = 'none';
         ul.style.position = 'absolute';
@@ -566,7 +570,7 @@ if(window.google && window.google.maps){
 
       this.removeMarkers = function(collection) {
         var collection = (collection || this.markers);
-          
+
         for(var i=0;i < this.markers.length; i++){
           if(this.markers[i] === collection[i])
             this.markers[i].setMap(null);
@@ -777,7 +781,7 @@ if(window.google && window.google.maps){
             this.polylines.splice(i, 1);
 
             GMaps.fire('polyline_removed', polyline, this);
-            
+
             break;
           }
         }
@@ -815,7 +819,7 @@ if(window.google && window.google.maps){
 
         return polygon;
       };
-      
+
       this.drawRectangle = function(options) {
         options = extend_object({
           map: this.map
@@ -825,7 +829,7 @@ if(window.google && window.google.maps){
           new google.maps.LatLng(options.bounds[0][0], options.bounds[0][1]),
           new google.maps.LatLng(options.bounds[1][0], options.bounds[1][1])
         );
-        
+
         options.bounds = latLngBounds;
 
         var polygon = new google.maps.Rectangle(options);
@@ -840,9 +844,9 @@ if(window.google && window.google.maps){
             });
           })(polygon, polygon_events[ev]);
         }
-        
+
         this.polygons.push(polygon);
-        
+
         return polygon;
       };
 
@@ -893,7 +897,7 @@ if(window.google && window.google.maps){
             this.polygons.splice(i, 1);
 
             GMaps.fire('polygon_removed', polygon, this);
-            
+
             break;
           }
         }
@@ -1224,19 +1228,19 @@ if(window.google && window.google.maps){
         //var default_layers = ['weather', 'clouds', 'traffic', 'transit', 'bicycling', 'panoramio', 'places'];
         options = options || {};
         var layer;
-          
+
         switch(layerName) {
-          case 'weather': this.singleLayers.weather = layer = new google.maps.weather.WeatherLayer(); 
+          case 'weather': this.singleLayers.weather = layer = new google.maps.weather.WeatherLayer();
             break;
-          case 'clouds': this.singleLayers.clouds = layer = new google.maps.weather.CloudLayer(); 
+          case 'clouds': this.singleLayers.clouds = layer = new google.maps.weather.CloudLayer();
             break;
-          case 'traffic': this.singleLayers.traffic = layer = new google.maps.TrafficLayer(); 
+          case 'traffic': this.singleLayers.traffic = layer = new google.maps.TrafficLayer();
             break;
-          case 'transit': this.singleLayers.transit = layer = new google.maps.TransitLayer(); 
+          case 'transit': this.singleLayers.transit = layer = new google.maps.TransitLayer();
             break;
-          case 'bicycling': this.singleLayers.bicycling = layer = new google.maps.BicyclingLayer(); 
+          case 'bicycling': this.singleLayers.bicycling = layer = new google.maps.BicyclingLayer();
             break;
-          case 'panoramio': 
+          case 'panoramio':
               this.singleLayers.panoramio = layer = new google.maps.panoramio.PanoramioLayer();
               layer.setTag(options.filter);
               delete options.filter;
@@ -1249,7 +1253,7 @@ if(window.google && window.google.maps){
                 });
               }
             break;
-            case 'places': 
+            case 'places':
               this.singleLayers.places = layer = new google.maps.places.PlacesService(this.map);
 
               //search and  nearbySearch callback, Both are the same
@@ -1281,7 +1285,7 @@ if(window.google && window.google.maps){
                   query : options.query || null,
                   radius : options.radius || null
                 };
-                
+
                 layer.textSearch(textSearchRequest, options.textSearch);
               }
             break;
@@ -1305,7 +1309,7 @@ if(window.google && window.google.maps){
            delete this.singleLayers[layerName];
         }
       };
-      
+
       // Static Maps
 
       this.toImage = function(options) {
@@ -1333,7 +1337,7 @@ if(window.google && window.google.maps){
           static_map_options['polyline']['strokeOpacity'] = polyline.strokeOpacity
           static_map_options['polyline']['strokeWeight'] = polyline.strokeWeight
         }
-        
+
         return GMaps.staticMapURL(static_map_options);
       };
 
@@ -1342,7 +1346,7 @@ if(window.google && window.google.maps){
       this.addMapType = function(mapTypeId, options) {
         if(options.hasOwnProperty("getTileUrl") && typeof(options["getTileUrl"]) == "function") {
           options.tileSize = options.tileSize || new google.maps.Size(256, 256);
-          
+
           var mapType = new google.maps.ImageMapType(options);
 
           this.map.mapTypes.set(mapTypeId, mapType);
@@ -1370,14 +1374,14 @@ if(window.google && window.google.maps){
       };
 
       // Styles
-      
-      this.addStyle = function(options) {       
+
+      this.addStyle = function(options) {
         var styledMapType = new google.maps.StyledMapType(options.styles, options.styledMapName);
-        
+
         this.map.mapTypes.set(options.mapTypeId, styledMapType);
       };
-      
-      this.setStyle = function(mapTypeId) {     
+
+      this.setStyle = function(mapTypeId) {
         this.map.setMapTypeId(mapTypeId);
       };
 
