@@ -2,9 +2,7 @@ describe("Creating a map", function() {
   var basic_map, advanced_map, map_with_events, map_with_custom_controls;
 
   it("should throw an error if element is not defined", function() {
-    expect(function() {
-      map = new GMaps({});
-    }).toThrow(new Error('No element defined'));
+    expect(function() { new GMaps({}); }).toThrow(new Error('No element defined'));
   });
 
   describe("With basic options", function() {
