@@ -16,7 +16,7 @@ if(window.google && window.google.maps){
       var ele
       if('jQuery' in global && context){
         ele = $("#"+id.replace('#', ''), context)[0]
-      }else{
+      } else {
         ele = doc.getElementById(id.replace('#', ''));
       };
       return ele;
@@ -685,7 +685,7 @@ if(window.google && window.google.maps){
           if(options.remove){
             options.remove.apply(this, [el]);
           }
-          else{
+          else {
             overlay.el.parentNode.removeChild(overlay.el);
             overlay.el = null;
           }
@@ -1893,5 +1893,8 @@ if(window.google && window.google.maps){
 
     return new_array;
   };
+}
 
+else {
+  throw 'Google Maps API is required. Please register the following JavaScript library http://maps.google.com/maps/api/js?sensor=true.'
 }
