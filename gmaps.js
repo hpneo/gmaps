@@ -36,8 +36,9 @@ if(window.google && window.google.maps){
         this.el = options.el || options.div;
       };
 
-      if (typeof(this.el) === 'undefined' || this.el === null)
+      if (typeof(this.el) === 'undefined' || this.el === null) {
         throw 'No element defined.';
+      }
 
       this.el.style.width = options.width || this.el.scrollWidth || this.el.offsetWidth;
       this.el.style.height = options.height || this.el.scrollHeight || this.el.offsetHeight;
