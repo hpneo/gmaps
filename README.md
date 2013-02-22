@@ -11,6 +11,8 @@ Changelog
 0.3
 -----------------------
 * Add native events to google.maps objects and custom events to GMaps maps
+* Check for Google Maps library and defined element when initialize
+* Allow route origins to be a string or array
 
 0.2.31
 -----------------------
