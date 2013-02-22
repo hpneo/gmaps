@@ -36,8 +36,9 @@ if(window.google && window.google.maps){
         this.el = options.el || options.div;
       };
 
-      if (typeof(this.el) === 'undefined' || this.el === null)
-        throw 'No element defined';
+      if (typeof(this.el) === 'undefined' || this.el === null) {
+        throw 'No element defined.';
+      }
 
       this.el.style.width = options.width || this.el.scrollWidth || this.el.offsetWidth;
       this.el.style.height = options.height || this.el.scrollHeight || this.el.offsetHeight;
@@ -506,7 +507,7 @@ if(window.google && window.google.maps){
           return marker;
         }
         else {
-          throw 'No latitude or longitude defined';
+          throw 'No latitude or longitude defined.';
         }
       };
 
@@ -521,7 +522,7 @@ if(window.google && window.google.maps){
             marker = this.createMarker(options);
           }
           else {
-            throw 'No latitude or longitude defined';
+            throw 'No latitude or longitude defined.';
           }
         }
 
@@ -1352,7 +1353,7 @@ if(window.google && window.google.maps){
           this.map.mapTypes.set(mapTypeId, mapType);
         }
         else {
-          throw "'getTileUrl' function required";
+          throw "'getTileUrl' function required.";
         }
       };
 
@@ -1365,7 +1366,7 @@ if(window.google && window.google.maps){
           this.map.overlayMapTypes.insertAt(overlayMapTypeIndex, options);
         }
         else {
-          throw "'getTile' function required";
+          throw "'getTile' function required.";
         }
       };
 
