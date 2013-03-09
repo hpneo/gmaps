@@ -122,3 +122,17 @@ pre.prettyprint{
 .notice {
   background-color: #3a87ad;
 }
+
+form input[type=text] {
+  border: solid 1px #999999;
+  padding: 2px;
+}
+
+.edit_marker {
+  width: 250px;
+  height: 80px;
+}
+
+.edit_marker p {
+  margin: 0;
+}
