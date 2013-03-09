@@ -210,6 +210,25 @@ $(document).ready(function(){
         </pre>
       </div>
     </div>
+    <h3>Template: #edit_marker_template</h3>
+    <div class="row">
+      <div class="span17">
+        <pre class="prettyprint">
+&lt;h4&gt;Edit Marker&lt;/h4&gt;
+&lt;form class="edit_marker" action="#" method="post" data-marker-index="{{index}}"&gt;
+  &lt;p&gt;
+    &lt;label for="marker_{{index}}_lat"&gt;Latitude:&lt;/label&gt;
+    &lt;input type="text" id="marker_{{index}}_lat" value="{{lat}}" /&gt;
+  &lt;/p&gt;
+  &lt;p&gt;
+    &lt;label for="marker_{{index}}_lng"&gt;Longitude:&lt;/label&gt;
+    &lt;input type="text" id="marker_{{index}}_lng" value="{{lng}}" /&gt;
+  &lt;/p&gt;
+  &lt;input type="submit" value="Update position" /&gt;
+&lt;/form&gt;
+        </pre>
+      </div>
+    </div>
   </div>
   <script type="text/html" id="edit_marker_template">
     <h4>Edit Marker</h4>
