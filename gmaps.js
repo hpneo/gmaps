@@ -1,5 +1,5 @@
 /*!
- * GMaps.js v0.3
+ * GMaps.js v0.3.1
  * http://hpneo.github.com/gmaps/
  *
  * Copyright 2012, Gustavo Leon
@@ -332,11 +332,13 @@ if(window.google && window.google.maps){
       };
 
       this.zoomIn = function(value) {
+        value = value || 1;
         this.zoom = this.map.getZoom() + value;
         this.map.setZoom(this.zoom);
       };
 
       this.zoomOut = function(value) {
+        value = value || 1;
         this.zoom = this.map.getZoom() - value;
         this.map.setZoom(this.zoom);
       };
@@ -436,10 +438,11 @@ if(window.google && window.google.maps){
 
             for (var ev = 0; ev < info_window_events.length; ev++) {
               (function(object, name) {
-                google.maps.event.addListener(object, name, function(e){
-                  if (options.infoWindow[name])
+                if (options.infoWindow[name]) {
+                  google.maps.event.addListener(object, name, function(e){
                     options.infoWindow[name].apply(this, [e]);
-                });
+                  });
+                }
               })(marker.infoWindow, info_window_events[ev]);
             }
           }
@@ -450,22 +453,25 @@ if(window.google && window.google.maps){
 
           for (var ev = 0; ev < marker_events.length; ev++) {
             (function(object, name) {
-              google.maps.event.addListener(object, name, function(){
-                if (options[name])
+              if (options[name]) {
+                google.maps.event.addListener(object, name, function(){
                   options[name].apply(this, [this]);
-              });
+                });
+              }
             })(marker, marker_events[ev]);
           }
 
           for (var ev = 0; ev < marker_events_with_mouse.length; ev++) {
             (function(map, object, name) {
-              google.maps.event.addListener(object, name, function(me){
-                if(!me.pixel){
-                  me.pixel = map.getProjection().fromLatLngToPoint(me.latLng)
-                }
-                if (options[name])
+              if (options[name]) {
+                google.maps.event.addListener(object, name, function(me){
+                  if(!me.pixel){
+                    me.pixel = map.getProjection().fromLatLngToPoint(me.latLng)
+                  }
+                  
                   options[name].apply(this, [me]);
-              });
+                });
+              }
             })(this.map, marker, marker_events_with_mouse[ev]);
           }
 
@@ -494,13 +500,11 @@ if(window.google && window.google.maps){
             }
           });
 
-          if (options.dragend || marker.fences) {
+          if (marker.fences) {
             google.maps.event.addListener(marker, 'dragend', function() {
-              if (marker.fences) {
-                self.checkMarkerGeofence(marker, function(m, f) {
-                  outside(m, f);
-                });
-              }
+              self.checkMarkerGeofence(marker, function(m, f) {
+                outside(m, f);
+              });
             });
           }
 
@@ -761,10 +765,11 @@ if(window.google && window.google.maps){
 
         for (var ev = 0; ev < polyline_events.length; ev++) {
           (function(object, name) {
-            google.maps.event.addListener(object, name, function(e){
-              if (options[name])
+            if (options[name]) {
+              google.maps.event.addListener(object, name, function(e){
                 options[name].apply(this, [e]);
-            });
+              });
+            }
           })(polyline, polyline_events[ev]);
         }
 
@@ -809,10 +814,11 @@ if(window.google && window.google.maps){
 
         for (var ev = 0; ev < polygon_events.length; ev++) {
           (function(object, name) {
-            google.maps.event.addListener(object, name, function(e){
-              if (options[name])
+            if (options[name]) {
+              google.maps.event.addListener(object, name, function(e){
                 options[name].apply(this, [e]);
-            });
+              });
+            }
           })(polygon, polygon_events[ev]);
         }
 
@@ -839,10 +845,11 @@ if(window.google && window.google.maps){
 
         for (var ev = 0; ev < polygon_events.length; ev++) {
           (function(object, name) {
-            google.maps.event.addListener(object, name, function(e){
-              if (options[name])
+            if (options[name]) {
+              google.maps.event.addListener(object, name, function(e){
                 options[name].apply(this, [e]);
-            });
+              });
+            }
           })(polygon, polygon_events[ev]);
         }
 
@@ -877,10 +884,11 @@ if(window.google && window.google.maps){
 
         for (var ev = 0; ev < polygon_events.length; ev++) {
           (function(object, name) {
-            google.maps.event.addListener(object, name, function(e){
-              if (options[name])
+            if (options[name]) {
+              google.maps.event.addListener(object, name, function(e){
                 options[name].apply(this, [e]);
-            });
+              });
+            }
           })(polygon, polygon_events[ev]);
         }
 

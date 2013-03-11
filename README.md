@@ -8,6 +8,10 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.3.1
+-----------------------
+* Improve event binding at adding markers, polylines or polygons
+
 0.3
 -----------------------
 * Add native events to google.maps objects and custom events to GMaps maps
