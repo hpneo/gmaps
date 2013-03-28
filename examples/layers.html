@@ -8,9 +8,10 @@
     <script src="../gmaps.js"></script>
     <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.3.0/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="examples.css" />
-    <script>
-        $(function () {
-          var map = new GMaps({
+    <script type="text/javascript">
+      var map;
+      $(function () {
+        map = new GMaps({
           el: "#map",
           lat: -12.043333,
           lng: -77.028333,

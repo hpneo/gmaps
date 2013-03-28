@@ -1,5 +1,5 @@
 /*!
- * GMaps.js v0.3.1
+ * GMaps.js v0.3.2
  * http://hpneo.github.com/gmaps/
  *
  * Copyright 2012, Gustavo Leon
@@ -1312,10 +1312,20 @@ if(window.google && window.google.maps){
         }
       };
 
-      this.removeLayer = function(layerName) {
-        if(this.singleLayers[layerName] !== undefined) {
-           this.singleLayers[layerName].setMap(null);
-           delete this.singleLayers[layerName];
+      this.removeLayer = function(layer) {
+        if(typeof(layer) == "string" && this.singleLayers[layer] !== undefined) {
+           this.singleLayers[layer].setMap(null);
+           delete this.singleLayers[layer];
+        }
+        else {
+          for(var i = 0; i < this.layers.length; i++) {
+            if(this.layers[i] === layer) {
+              this.layers[i].setMap(null);
+              this.layers.splice(i, 1);
+
+              break;
+            }
+          }
         }
       };
 
