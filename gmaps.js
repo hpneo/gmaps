@@ -1,11 +1,3 @@
-/*!
- * GMaps.js v0.3.3
- * http://hpneo.github.com/gmaps/
- *
- * Copyright 2012, Gustavo Leon
- * Released under the MIT License.
- */
-
 if (window.google == undefined && window.google.maps == undefined) {
   throw 'Google Maps API is required. Please register the following JavaScript library http://maps.google.com/maps/api/js?sensor=true.'
 }
@@ -103,37 +95,37 @@ var arrayToLatLng = function(coords, useGeoJSON) {
   return coords;
 };
 
+var getElementById = function(id, context) {
+  var element,
+  id = id.replace('#', '');
+
+  if ('jQuery' in this && context) {
+    element = $("#" + id, context)[0];
+  } else {
+    element = document.getElementById(id);
+  };
+
+  return element;
+};
+
+var findAbsolutePosition = function(obj)  {
+  var curleft = 0,
+      curtop = 0;
+
+  if (obj.offsetParent) {
+    do {
+      curleft += obj.offsetLeft;
+      curtop += obj.offsetTop;
+    } while (obj = obj.offsetParent);
+  }
+
+  return [curleft, curtop];
+};
+
 var GMaps = (function(global) {
   "use strict";
 
   var doc = document;
-
-  var getElementById = function(id, context) {
-    var element,
-    id = id.replace('#', '');
-
-    if ('jQuery' in global && context) {
-      element = $("#" + id, context)[0];
-    } else {
-      element = doc.getElementById(id);
-    };
-
-    return element;
-  };
-
-  var findAbsolutePosition = function(obj)  {
-    var curleft = 0,
-        curtop = 0;
-
-    if (obj.offsetParent) {
-      do {
-        curleft += obj.offsetLeft;
-        curtop += obj.offsetTop;
-      } while (obj = obj.offsetParent);
-    }
-
-    return [curleft, curtop];
-  };
 
   var GMaps = function(options) {
     options.zoom = options.zoom || 15;
