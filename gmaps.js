@@ -1020,7 +1020,7 @@ if(window.google && window.google.maps){
         var request_options =  extend_object(base_options, options);
 
         request_options.origin = /string/.test(typeof options.origin) ? options.origin : new google.maps.LatLng(options.origin[0], options.origin[1]);
-        request_options.destination = new google.maps.LatLng(options.destination[0], options.destination[1]);
+        request_options.destination = /string/.test(typeof options.destination) ? options.destination : new google.maps.LatLng(options.destination[0], options.destination[1]);
         request_options.travelMode = travelMode;
         request_options.unitSystem = unitSystem;
 
