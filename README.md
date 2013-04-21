@@ -8,6 +8,10 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.3.3
+-----------------------
+* Fix destination as address in getRoutes
+
 0.3.2
 -----------------------
 * Support for removing Fusion Tables and GeoRSS/KML layers with removeLayer
