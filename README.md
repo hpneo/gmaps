@@ -8,6 +8,10 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.3.4
+-----------------------
+* Add support for context menu in multiple maps
+
 0.3.3
 -----------------------
 * Fix destination as address in getRoutes

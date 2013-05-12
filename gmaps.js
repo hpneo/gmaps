@@ -1,5 +1,5 @@
 /*!
- * GMaps.js v0.3.3
+ * GMaps.js v0.3.4
  * http://hpneo.github.com/gmaps/
  *
  * Copyright 2012, Gustavo Leon
@@ -28,13 +28,14 @@ if(window.google && window.google.maps){
       var events_that_hide_context_menu = ['bounds_changed', 'center_changed', 'click', 'dblclick', 'drag', 'dragend', 'dragstart', 'idle', 'maptypeid_changed', 'projection_changed', 'resize', 'tilesloaded', 'zoom_changed'];
       var events_that_doesnt_hide_context_menu = ['mousemove', 'mouseout', 'mouseover'];
 
-      window.context_menu = {};
-
       if (typeof(options.el) === 'string' || typeof(options.div) === 'string') {
         this.el = getElementById(options.el || options.div, options.context);
       } else {
         this.el = options.el || options.div;
       };
+
+      window.context_menu = window.context_menu || {};
+      window.context_menu[self.el.id] = {};
 
       if (typeof(this.el) === 'undefined' || this.el === null) {
         throw 'No element defined.';
@@ -150,7 +151,7 @@ if(window.google && window.google.maps){
       // Context menus
       var buildContextMenuHTML = function(control, e) {
         var html = '';
-        var options = window.context_menu[control];
+        var options = window.context_menu[self.el.id][control];
         for (var i in options){
           if (options.hasOwnProperty(i)){
             var option = options[i];
@@ -159,9 +160,9 @@ if(window.google && window.google.maps){
           }
         }
 
-        if(!getElementById('gmaps_context_menu')) return;
+        if(!getElementById(self.el.id + '_gmaps_context_menu')) return;
 
-        var context_menu_element = getElementById('gmaps_context_menu');
+        var context_menu_element = getElementById(self.el.id + '_gmaps_context_menu');
         context_menu_element.innerHTML = html;
 
         var context_menu_items = context_menu_element.getElementsByTagName('a');
@@ -211,12 +212,12 @@ if(window.google && window.google.maps){
       };
 
       this.setContextMenu = function(options) {
-        window.context_menu[options.control] = {};
+        window.context_menu[self.el.id][options.control] = {};
 
         for (var i in options.options){
           if (options.options.hasOwnProperty(i)){
             var option = options.options[i];
-            window.context_menu[options.control][option.name] = {
+            window.context_menu[self.el.id][options.control][option.name] = {
               title: option.title,
               action: option.action
             };
@@ -225,7 +226,7 @@ if(window.google && window.google.maps){
 
         var ul = doc.createElement('ul');
 
-        ul.id = 'gmaps_context_menu';
+        ul.id = self.el.id + '_gmaps_context_menu';
         ul.style.display = 'none';
         ul.style.position = 'absolute';
         ul.style.minWidth = '100px';
@@ -236,7 +237,7 @@ if(window.google && window.google.maps){
 
         doc.body.appendChild(ul);
 
-        var context_menu_element = getElementById('gmaps_context_menu');
+        var context_menu_element = getElementById(self.el.id + '_gmaps_context_menu');
 
         google.maps.event.addDomListener(context_menu_element, 'mouseout', function(ev) {
           if(!ev.relatedTarget || !this.contains(ev.relatedTarget)){
@@ -248,7 +249,7 @@ if(window.google && window.google.maps){
       };
 
       this.hideContextMenu = function() {
-        var context_menu_element = getElementById('gmaps_context_menu');
+        var context_menu_element = getElementById(self.el.id + '_gmaps_context_menu');
         if(context_menu_element)
           context_menu_element.style.display = 'none';
       };
@@ -288,7 +289,7 @@ if(window.google && window.google.maps){
           options.rightclick.apply(this, [e]);
         }
 
-        if(window.context_menu['map'] != undefined) {
+        if(window.context_menu[self.el.id]['map'] != undefined) {
           buildContextMenu('map', e);
         }
       });
@@ -495,7 +496,7 @@ if(window.google && window.google.maps){
               options.rightclick.apply(this, [e]);
             }
 
-            if (window.context_menu['marker'] != undefined) {
+            if (window.context_menu[self.el.id]['marker'] != undefined) {
               buildContextMenu('marker', e);
             }
           });
