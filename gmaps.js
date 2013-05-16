@@ -1353,6 +1353,8 @@ GMaps.prototype.travelRoute = function(options) {
 };
 
 GMaps.prototype.drawSteppedRoute = function(options) {
+  var self = this;
+  
   if (options.origin && options.destination) {
     this.getRoutes({
       origin: options.origin,
