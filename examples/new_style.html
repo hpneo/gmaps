@@ -17,29 +17,8 @@
       map = new GMaps({
         div: '#map',
         lat: -12.043333,
-        lng: -77.028333
-      });
-      map.addMarker({
-        lat: -12.043333,
-        lng: -77.03,
-        title: 'Lima',
-        details: {
-          database_id: 42,
-          author: 'HPNeo'
-        },
-        click: function(e){
-          if(console.log)
-            console.log(e);
-          alert('You clicked in this marker');
-        }
-      });
-      map.addMarker({
-        lat: -12.042,
         lng: -77.028333,
-        title: 'Marker with InfoWindow',
-        infoWindow: {
-          content: '<p>HTML Content</p>'
-        }
+        enableNewStyle: true
       });
     });
   </script>
@@ -52,7 +31,7 @@
     <h2>Google Maps API with less pain and more fun</h2>
   </div>
   <div id="body">
-    <h3>Markers</h3>
+    <h3>New Google Maps style</h3>
     <div class="row">
       <div class="span11">
         <div class="popin">
@@ -60,20 +39,14 @@
         </div>
       </div>
       <div class="span6">
-        <p>With GMaps.js you can add markers this way:</p>
-        <pre class="prettyprint">map.addMarker({
+        <p>Using GMaps.js is as easy as:</p>
+        <pre class="prettyprint">new GMaps({
+  div: '#map',
   lat: -12.043333,
   lng: -77.028333,
-  title: 'Lima',
-  click: function(e) {
-    alert('You clicked in this marker');
-  }
+  enableNewStyle: true
 });</pre>
-        <p><strong>latitude</strong> and <strong>longitude</strong> are required. You can also attach additional information with <code>details</code>, which will be passed to Event object (<code>e</code>) in the events previously defined.</p>
-        <p><span class="label notice">Note</span>If you want to show an Info Window, you must add:</p>
-        <pre class="prettyprint">infoWindow: {
-  content: '&lt;p&gt;HTML Content&lt;/p&gt;'
-}</pre>
+        <p>Enable the new Google Maps style with <code>enableNewStyle: true</code></p>
       </div>
     </div>
   </div>
