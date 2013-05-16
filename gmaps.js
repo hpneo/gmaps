@@ -1,12 +1,12 @@
 /*!
- * GMaps.js v0.4.0
+ * GMaps.js v0.4.1
  * http://hpneo.github.com/gmaps/
  *
  * Copyright 2012, Gustavo Leon
  * Released under the MIT License.
  */
 
-if (window.google == undefined && window.google.maps == undefined) {
+ if (window.google == undefined && window.google.maps == undefined) {
   throw 'Google Maps API is required. Please register the following JavaScript library http://maps.google.com/maps/api/js?sensor=true.'
 }
 
@@ -400,6 +400,17 @@ var GMaps = (function(global) {
       }
 
       this.fitLatLngBounds(latLngs);
+    };
+
+    this.fitLatLngBounds = function(latLngs) {
+      var total = latLngs.length;
+      var bounds = new google.maps.LatLngBounds();
+
+      for(var i=0; i < total; i++) {
+        bounds.extend(latLngs[i]);
+      }
+
+      this.map.fitBounds(bounds);
     };
 
     this.setCenter = function(lat, lng, callback) {
