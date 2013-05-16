@@ -1,5 +1,5 @@
 /*!
- * GMaps.js v0.4.1
+ * GMaps.js v0.4.2
  * http://hpneo.github.com/gmaps/
  *
  * Copyright 2012, Gustavo Leon
@@ -1353,6 +1353,8 @@ GMaps.prototype.travelRoute = function(options) {
 };
 
 GMaps.prototype.drawSteppedRoute = function(options) {
+  var self = this;
+  
   if (options.origin && options.destination) {
     this.getRoutes({
       origin: options.origin,
