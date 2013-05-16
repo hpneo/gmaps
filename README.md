@@ -8,6 +8,10 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.4.0
+-----------------------
+* Split gmaps.js in modules
+
 0.3.5
 -----------------------
 * Enable new Google Maps style
