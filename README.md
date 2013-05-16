@@ -8,6 +8,10 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.4.2
+-----------------------
+* Fix drawSteppedRoute
+
 0.4.1
 -----------------------
 * Fix fitZoom
