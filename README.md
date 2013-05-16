@@ -8,6 +8,10 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.4.1
+-----------------------
+* Fix fitZoom
+
 0.4.0
 -----------------------
 * Split gmaps.js in modules
