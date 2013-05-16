@@ -1,5 +1,5 @@
 /*!
- * GMaps.js v0.3.4
+ * GMaps.js v0.3.5
  * http://hpneo.github.com/gmaps/
  *
  * Copyright 2012, Gustavo Leon
@@ -59,6 +59,8 @@ if(window.google && window.google.maps){
 
       var markerClusterer = options.markerClusterer;
 
+      google.maps.visualRefresh = options.enableNewStyle;
+
       //'Hybrid', 'Roadmap', 'Satellite' or 'Terrain'
       var mapType;
 
@@ -78,6 +80,7 @@ if(window.google && window.google.maps){
       delete options.width;
       delete options.height;
       delete options.markerClusterer;
+      delete options.enableNewStyle;
 
       var zoomControlOpt = options.zoomControlOpt || {
         style: 'DEFAULT',
