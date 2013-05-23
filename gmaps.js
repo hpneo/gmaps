@@ -1,12 +1,12 @@
 /*!
- * GMaps.js v0.4.2
+ * GMaps.js v0.4.3
  * http://hpneo.github.com/gmaps/
  *
  * Copyright 2012, Gustavo Leon
  * Released under the MIT License.
- */
+*/
 
- if (window.google == undefined && window.google.maps == undefined) {
+if (window.google == undefined && window.google.maps == undefined) {
   throw 'Google Maps API is required. Please register the following JavaScript library http://maps.google.com/maps/api/js?sensor=true.'
 }
 
@@ -895,11 +895,11 @@ GMaps.prototype.removePolyline = function(polyline) {
 };
 
 GMaps.prototype.removePolylines = function() {
-  for (var i = 0, item; item = self.polylines[i]; i++) {
+  for (var i = 0, item; item = this.polylines[i]; i++) {
     item.setMap(null);
   }
 
-  self.polylines = [];
+  this.polylines = [];
 };
 
 GMaps.prototype.drawCircle = function(options) {
@@ -1016,11 +1016,11 @@ GMaps.prototype.removePolygon = function(polygon) {
 };
 
 GMaps.prototype.removePolygons = function() {
-  for (var i = 0, item; item = self.polygons[i]; i++) {
+  for (var i = 0, item; item = this.polygons[i]; i++) {
     item.setMap(null);
   }
 
-  self.polygons = [];
+  this.polygons = [];
 };
 GMaps.prototype.getFromFusionTables = function(options) {
   var events = options.events;
