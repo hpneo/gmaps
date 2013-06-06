@@ -1,5 +1,5 @@
 /*!
- * GMaps.js v0.4.3
+ * GMaps.js v0.4.4
  * http://hpneo.github.com/gmaps/
  *
  * Copyright 2012, Gustavo Leon
@@ -280,7 +280,7 @@ var GMaps = (function(global) {
       context_menu_element.style.display = 'block';
     };
 
-    var buildContextMenu = function(control, e) {
+    this.buildContextMenu = function(control, e) {
       if (control === 'marker') {
         e.pixel = {};
 
@@ -382,7 +382,7 @@ var GMaps = (function(global) {
       }
 
       if(window.context_menu[self.el.id]['map'] != undefined) {
-        buildContextMenu('map', e);
+        self.buildContextMenu('map', e);
       }
     });
 
@@ -597,7 +597,7 @@ GMaps.prototype.createMarker = function(options) {
     }
 
     if (window.context_menu[self.el.id]['marker'] != undefined) {
-      buildContextMenu('marker', e);
+      self.buildContextMenu('marker', e);
     }
   });
 

@@ -8,6 +8,10 @@ Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Changelog
 ---------
 
+0.4.4
+-----------------------
+* Fix buildContextMenu reference in addMarker
+
 0.4.3
 -----------------------
 * Fix removePolylines and removePolygons
