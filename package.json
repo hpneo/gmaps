@@ -1,0 +1,24 @@
+{
+  "name": "gmaps",
+  "version": "0.4.4",
+  "description": "the easiest way to use Google Maps",
+  "main": "gmaps.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HPNeo/gmaps"
+  },
+  "author": "Gustavo Leon",
+  "homepage": "http://hpneo.github.com/gmaps/",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/HPNeo/gmaps/issues"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-jasmine": "~0.5.1"
+  }
+}
