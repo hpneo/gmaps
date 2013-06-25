@@ -6,15 +6,17 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+
     meta : {
       banner : '/*!\n' +
-       '* GMaps.js v<%= pkg.version %>\n' +
-       '* <%= pkg.homepage %>\n' +
-       '*\n' +
-       '* Copyright <%= grunt.template.today("yyyy") %>, <%= pkg.author %>\n' +
-       '* Released under the <%= pkg.license %> License.\n' +
-      '*/\n\n'
+      ' * GMaps.js v<%= pkg.version %>\n' +
+      ' * <%= pkg.homepage %>\n' +
+      ' *\n' +
+      ' * Copyright <%= grunt.template.today("yyyy") %>, <%= pkg.author %>\n' +
+      ' * Released under the <%= pkg.license %> License.\n' +
+      ' */\n\n'
     },
+
     concat: {
       options: {
         banner: '<%= meta.banner %>'
@@ -40,6 +42,7 @@ module.exports = function(grunt) {
         dest: 'gmaps.js'
       }
     },
+
     jasmine: {
       options: {
         template: 'test/template/jasmine-gmaps.html',
@@ -48,12 +51,24 @@ module.exports = function(grunt) {
         styles: 'test/style.css'
       },
       src : '<%= concat.dist.src %>'
+    },
+
+    watch : {
+      files : '<%= concat.dist.src %>',
+      tasks : 'default'
+    },
+
+    jshint : {
+      all : ['Gruntfile.js']
     }
+
   });
 
+  grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-jasmine');
 
-  grunt.registerTask('test', ['jasmine']);
+  grunt.registerTask('test', ['jshint', 'jasmine']);
   grunt.registerTask('default', ['test', 'concat']);
 };
