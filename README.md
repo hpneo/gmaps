@@ -20,6 +20,11 @@ grunt
 Changelog
 ---------
 
+0.4.5
+-----------------------
+* Fix IE8 bug using array_map
+* Add Grunt and Bower support
+
 0.4.4
 -----------------------
 * Fix buildContextMenu reference in addMarker
