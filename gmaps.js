@@ -1,12 +1,12 @@
 /*!
- * GMaps.js v0.4.4
+ * GMaps.js v0.4.5
  * http://hpneo.github.com/gmaps/
  *
  * Copyright 2013, Gustavo Leon
  * Released under the MIT License.
  */
 
-if (window.google == undefined && window.google.maps == undefined) {
+if (!(typeof window.google === 'object' && window.google.maps)) {
   throw 'Google Maps API is required. Please register the following JavaScript library http://maps.google.com/maps/api/js?sensor=true.'
 }
 
@@ -57,7 +57,7 @@ var array_map = function(array, callback) {
   else {
     for (i = 0; i < array_length; i++) {
       callback_params = original_callback_params;
-      callback_params = callback_params.splice(0, 0, array[i]);
+      callback_params.splice(0, 0, array[i]);
       array_return.push(callback.apply(this, callback_params));
     }
   }
