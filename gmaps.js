@@ -1,12 +1,12 @@
 /*!
- * GMaps.js v0.4.5
+ * GMaps.js v0.4.4
  * http://hpneo.github.com/gmaps/
  *
  * Copyright 2013, Gustavo Leon
  * Released under the MIT License.
  */
 
-if (!(typeof window.google === 'object' && window.google.maps)) {
+if (window.google == undefined && window.google.maps == undefined) {
   throw 'Google Maps API is required. Please register the following JavaScript library http://maps.google.com/maps/api/js?sensor=true.'
 }
 
@@ -57,7 +57,7 @@ var array_map = function(array, callback) {
   else {
     for (i = 0; i < array_length; i++) {
       callback_params = original_callback_params;
-      callback_params.splice(0, 0, array[i]);
+      callback_params = callback_params.splice(0, 0, array[i]);
       array_return.push(callback.apply(this, callback_params));
     }
   }
@@ -510,16 +510,12 @@ GMaps.prototype.addControl = function(options) {
   return control;
 };
 
-GMaps.prototype.createMarker = function(options) {
+var initializeOptions = function(options) {
   if (options.lat == undefined && options.lng == undefined && options.position == undefined) {
     throw 'No latitude or longitude defined.';
   }
 
-  var self = this,
-      details = options.details,
-      fences = options.fences,
-      outside = options.outside,
-      base_options = {
+  var base_options = {
         position: new google.maps.LatLng(options.lat, options.lng),
         map: null
       };
@@ -529,8 +525,18 @@ GMaps.prototype.createMarker = function(options) {
   delete options.fences;
   delete options.outside;
 
-  var marker_options = extend_object(base_options, options),
-      marker = new google.maps.Marker(marker_options);
+  return extend_object(base_options, options);
+}
+
+var initializeMarker = function(marker, options) {
+  if (marker === null) {
+    marker = new google.maps.Marker(options);
+  }
+
+  var self = this,
+      details = options.details,
+      fences = options.fences,
+      outside = options.outside;
 
   marker.fences = fences;
 
@@ -542,6 +548,7 @@ GMaps.prototype.createMarker = function(options) {
     for (var ev = 0; ev < info_window_events.length; ev++) {
       (function(object, name) {
         if (options.infoWindow[name]) {
+          google.maps.event.clearListeners(object, name);
           google.maps.event.addListener(object, name, function(e){
             options.infoWindow[name].apply(this, [e]);
           });
@@ -557,6 +564,7 @@ GMaps.prototype.createMarker = function(options) {
   for (var ev = 0; ev < marker_events.length; ev++) {
     (function(object, name) {
       if (options[name]) {
+        google.maps.event.clearListeners(object, name);
         google.maps.event.addListener(object, name, function(){
           options[name].apply(this, [this]);
         });
@@ -567,6 +575,7 @@ GMaps.prototype.createMarker = function(options) {
   for (var ev = 0; ev < marker_events_with_mouse.length; ev++) {
     (function(map, object, name) {
       if (options[name]) {
+        google.maps.event.clearListeners(object, name);
         google.maps.event.addListener(object, name, function(me){
           if(!me.pixel){
             me.pixel = map.getProjection().fromLatLngToPoint(me.latLng)
@@ -578,6 +587,7 @@ GMaps.prototype.createMarker = function(options) {
     })(this.map, marker, marker_events_with_mouse[ev]);
   }
 
+  google.maps.event.clearListeners(marker, 'click');
   google.maps.event.addListener(marker, 'click', function() {
     this.details = details;
 
@@ -591,6 +601,7 @@ GMaps.prototype.createMarker = function(options) {
     }
   });
 
+  google.maps.event.clearListeners(marker, 'rightclick');
   google.maps.event.addListener(marker, 'rightclick', function(e) {
     e.marker = this;
 
@@ -604,6 +615,7 @@ GMaps.prototype.createMarker = function(options) {
   });
 
   if (marker.fences) {
+    google.maps.event.clearListeners(marker, 'dragend');
     google.maps.event.addListener(marker, 'dragend', function() {
       self.checkMarkerGeofence(marker, function(m, f) {
         outside(m, f);
@@ -612,6 +624,11 @@ GMaps.prototype.createMarker = function(options) {
   }
 
   return marker;
+}
+
+GMaps.prototype.createMarker = function(options) {
+  var marker_options = initializeOptions(options);
+  return initializeMarker(null, marker_options);
 };
 
 GMaps.prototype.addMarker = function(options) {
@@ -657,6 +674,22 @@ GMaps.prototype.hideInfoWindows = function() {
     }
   }
 };
+
+GMaps.prototype.changeMarker = function(marker, options) {
+  var marker_options = initializeOptions(options);
+  initializeMarker(marker, marker_options);
+
+  for (var i = 0; i < this.markers.length; i++) {
+    if (this.markers[i] === marker) {
+      marker.setMap(null);
+      marker.setOptions(marker_options);
+      marker.setMap(this.map);
+      break;
+    }
+  }
+
+  return marker;
+}
 
 GMaps.prototype.removeMarker = function(marker) {
   for (var i = 0; i < this.markers.length; i++) {
