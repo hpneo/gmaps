@@ -20,6 +20,13 @@ grunt
 Changelog
 ---------
 
+0.4.6
+-----------------------
+* Allow initialising GMaps without new
+* Added styled map support for static maps
+* Fixed name display for styled maps
+* Allow no zoom for static map request
+
 0.4.5
 -----------------------
 * Fix IE8 bug using array_map
