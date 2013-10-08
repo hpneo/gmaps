@@ -20,6 +20,10 @@ grunt
 Changelog
 ---------
 
+0.4.7
+-----------------------
+* Add callback for failure in getRoutes
+
 0.4.6
 -----------------------
 * Allow initialising GMaps without new
