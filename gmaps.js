@@ -1,5 +1,5 @@
 /*!
- * GMaps.js v0.4.5
+ * GMaps.js v0.4.6
  * http://hpneo.github.com/gmaps/
  *
  * Copyright 2013, Gustavo Leon
@@ -136,6 +136,8 @@ var GMaps = (function(global) {
   var doc = document;
 
   var GMaps = function(options) {
+    if (!this) return new GMaps(options);
+
     options.zoom = options.zoom || 15;
     options.mapType = options.mapType || 'roadmap';
 
@@ -1546,6 +1548,10 @@ GMaps.staticMapURL = function(options){
     delete options.marker;
   }
 
+  var styles = options.styles;
+
+  delete options.styles;
+
   var polyline = options.polyline;
   delete options.polyline;
 
@@ -1580,7 +1586,7 @@ GMaps.staticMapURL = function(options){
   }
   parameters.push('size=' + size);
 
-  if (!options.zoom) {
+  if (!options.zoom && options.zoom !== false) {
     options.zoom = 15;
   }
 
@@ -1603,20 +1609,33 @@ GMaps.staticMapURL = function(options){
 
       if (data.size && data.size !== 'normal') {
         marker.push('size:' + data.size);
+        delete data.size;
       }
       else if (data.icon) {
         marker.push('icon:' + encodeURI(data.icon));
+        delete data.icon;
       }
 
       if (data.color) {
         marker.push('color:' + data.color.replace('#', '0x'));
+        delete data.color;
       }
 
       if (data.label) {
         marker.push('label:' + data.label[0].toUpperCase());
+        delete data.label;
       }
 
       loc = (data.address ? data.address : data.lat + ',' + data.lng);
+      delete data.address;
+      delete data.lat;
+      delete data.lng;
+
+      for(var param in data){
+        if (data.hasOwnProperty(param)) {
+          marker.push(param + ':' + data[param]);
+        }
+      }
 
       if (marker.length || i === 0) {
         marker.push(loc);
@@ -1627,6 +1646,35 @@ GMaps.staticMapURL = function(options){
       else {
         marker = parameters.pop() + encodeURI('|' + loc);
         parameters.push(marker);
+      }
+    }
+  }
+
+  /** Map Styles **/
+  if (styles) {
+    for (var i = 0; i < styles.length; i++) {
+      var styleRule = [];
+      if (styles[i].featureType && styles[i].featureType != 'all' ) {
+        styleRule.push('feature:' + styles[i].featureType);
+      }
+
+      if (styles[i].elementType && styles[i].elementType != 'all') {
+        styleRule.push('element:' + styles[i].elementType);
+      }
+
+      for (var j = 0; j < styles[i].stylers.length; j++) {
+        for (var p in styles[i].stylers[j]) {
+          var ruleArg = styles[i].stylers[j][p];
+          if (p == 'hue' || p == 'color') {
+            ruleArg = '0x' + ruleArg.substring(1);
+          }
+          styleRule.push(p + ':' + ruleArg);
+        }
+      }
+
+      var rule = styleRule.join('|');
+      if (rule != '') {
+        parameters.push('style=' + rule);
       }
     }
   }
@@ -1720,7 +1768,7 @@ GMaps.prototype.removeOverlayMapType = function(overlayMapTypeIndex) {
 };
 
 GMaps.prototype.addStyle = function(options) {
-  var styledMapType = new google.maps.StyledMapType(options.styles, options.styledMapName);
+  var styledMapType = new google.maps.StyledMapType(options.styles, { name: options.styledMapName });
 
   this.map.mapTypes.set(options.mapTypeId, styledMapType);
 };
