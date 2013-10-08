@@ -23,6 +23,7 @@ Changelog
 0.4.7
 -----------------------
 * Add callback for failure in getRoutes
+* Update marker clusterer after remove marker
 
 0.4.6
 -----------------------
