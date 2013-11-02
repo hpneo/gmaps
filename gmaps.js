@@ -1,12 +1,12 @@
 /*!
- * GMaps.js v0.4.4
+ * GMaps.js v0.4.7
  * http://hpneo.github.com/gmaps/
  *
- * Copyright 2012, Gustavo Leon
+ * Copyright 2013, Gustavo Leon
  * Released under the MIT License.
-*/
+ */
 
-if (window.google == undefined && window.google.maps == undefined) {
+if (!(typeof window.google === 'object' && window.google.maps)) {
   throw 'Google Maps API is required. Please register the following JavaScript library http://maps.google.com/maps/api/js?sensor=true.'
 }
 
@@ -57,7 +57,7 @@ var array_map = function(array, callback) {
   else {
     for (i = 0; i < array_length; i++) {
       callback_params = original_callback_params;
-      callback_params = callback_params.splice(0, 0, array[i]);
+      callback_params.splice(0, 0, array[i]);
       array_return.push(callback.apply(this, callback_params));
     }
   }
@@ -92,7 +92,7 @@ var arrayToLatLng = function(coords, useGeoJSON) {
   var i;
 
   for (i = 0; i < coords.length; i++) {
-    if (coords[i].length > 0 && typeof(coords[i][0]) != "number") {
+    if (coords[i].length > 0 && typeof(coords[i][0]) == "object") {
       coords[i] = arrayToLatLng(coords[i], useGeoJSON);
     }
     else {
@@ -136,6 +136,8 @@ var GMaps = (function(global) {
   var doc = document;
 
   var GMaps = function(options) {
+    if (!this) return new GMaps(options);
+
     options.zoom = options.zoom || 15;
     options.mapType = options.mapType || 'roadmap';
 
@@ -459,6 +461,7 @@ var GMaps = (function(global) {
 
   return GMaps;
 })(this);
+
 GMaps.prototype.createControl = function(options) {
   var control = document.createElement('div');
 
@@ -508,6 +511,7 @@ GMaps.prototype.addControl = function(options) {
 
   return control;
 };
+
 GMaps.prototype.createMarker = function(options) {
   if (options.lat == undefined && options.lng == undefined && options.position == undefined) {
     throw 'No latitude or longitude defined.';
@@ -662,6 +666,10 @@ GMaps.prototype.removeMarker = function(marker) {
       this.markers[i].setMap(null);
       this.markers.splice(i, 1);
 
+      if(this.markerClusterer) {
+        this.markerClusterer.removeMarker(marker);
+      }
+
       GMaps.fire('marker_removed', marker, this);
 
       break;
@@ -690,6 +698,7 @@ GMaps.prototype.removeMarkers = function(collection) {
 
   this.markers = new_markers;
 };
+
 GMaps.prototype.drawOverlay = function(options) {
   var overlay = new google.maps.OverlayView(),
       auto_show = true;
@@ -817,6 +826,7 @@ GMaps.prototype.removeOverlays = function() {
 
   this.overlays = [];
 };
+
 GMaps.prototype.drawPolyline = function(options) {
   var path = [],
       points = options.path;
@@ -1022,6 +1032,7 @@ GMaps.prototype.removePolygons = function() {
 
   this.polygons = [];
 };
+
 GMaps.prototype.getFromFusionTables = function(options) {
   var events = options.events;
 
@@ -1176,6 +1187,7 @@ GMaps.prototype.removeLayer = function(layer) {
     }
   }
 };
+
 var travelMode, unitSystem;
 
 GMaps.prototype.getRoutes = function(options) {
@@ -1226,10 +1238,15 @@ GMaps.prototype.getRoutes = function(options) {
           self.routes.push(result.routes[r]);
         }
       }
-    }
 
-    if (options.callback) {
-      options.callback(self.routes);
+      if (options.callback) {
+        options.callback(self.routes);
+      }
+    }
+    else {
+      if (options.error) {
+        options.error(result, status);
+      }
     }
   });
 };
@@ -1292,6 +1309,7 @@ GMaps.prototype.drawRoute = function(options) {
     travelMode: options.travelMode,
     waypoints: options.waypoints,
     unitSystem: options.unitSystem,
+    error: options.error,
     callback: function(e) {
       if (e.length > 0) {
         self.drawPolyline({
@@ -1316,6 +1334,7 @@ GMaps.prototype.travelRoute = function(options) {
       destination: options.destination,
       travelMode: options.travelMode,
       waypoints : options.waypoints,
+      error: options.error,
       callback: function(e) {
         //start callback
         if (e.length > 0 && options.start) {
@@ -1361,6 +1380,7 @@ GMaps.prototype.drawSteppedRoute = function(options) {
       destination: options.destination,
       travelMode: options.travelMode,
       waypoints : options.waypoints,
+      error: options.error,
       callback: function(e) {
         //start callback
         if (e.length > 0 && options.start) {
@@ -1436,6 +1456,7 @@ GMaps.Route.prototype.getRoute = function(options) {
     destination : this.destination,
     travelMode : options.travelMode,
     waypoints : this.waypoints || [],
+    error: options.error,
     callback : function() {
       self.route = e[0];
 
@@ -1471,6 +1492,7 @@ GMaps.Route.prototype.forward = function() {
     this.step_count++;
   }
 };
+
 GMaps.prototype.checkGeofence = function(lat, lng, fence) {
   return fence.containsLatLng(new google.maps.LatLng(lat, lng));
 };
@@ -1485,6 +1507,7 @@ GMaps.prototype.checkMarkerGeofence = function(marker, outside_callback) {
     }
   }
 };
+
 GMaps.prototype.toImage = function(options) {
   var options = options || {},
       static_map_options = {};
@@ -1538,6 +1561,10 @@ GMaps.staticMapURL = function(options){
     delete options.marker;
   }
 
+  var styles = options.styles;
+
+  delete options.styles;
+
   var polyline = options.polyline;
   delete options.polyline;
 
@@ -1572,7 +1599,7 @@ GMaps.staticMapURL = function(options){
   }
   parameters.push('size=' + size);
 
-  if (!options.zoom) {
+  if (!options.zoom && options.zoom !== false) {
     options.zoom = 15;
   }
 
@@ -1595,20 +1622,33 @@ GMaps.staticMapURL = function(options){
 
       if (data.size && data.size !== 'normal') {
         marker.push('size:' + data.size);
+        delete data.size;
       }
       else if (data.icon) {
         marker.push('icon:' + encodeURI(data.icon));
+        delete data.icon;
       }
 
       if (data.color) {
         marker.push('color:' + data.color.replace('#', '0x'));
+        delete data.color;
       }
 
       if (data.label) {
         marker.push('label:' + data.label[0].toUpperCase());
+        delete data.label;
       }
 
       loc = (data.address ? data.address : data.lat + ',' + data.lng);
+      delete data.address;
+      delete data.lat;
+      delete data.lng;
+
+      for(var param in data){
+        if (data.hasOwnProperty(param)) {
+          marker.push(param + ':' + data[param]);
+        }
+      }
 
       if (marker.length || i === 0) {
         marker.push(loc);
@@ -1619,6 +1659,35 @@ GMaps.staticMapURL = function(options){
       else {
         marker = parameters.pop() + encodeURI('|' + loc);
         parameters.push(marker);
+      }
+    }
+  }
+
+  /** Map Styles **/
+  if (styles) {
+    for (var i = 0; i < styles.length; i++) {
+      var styleRule = [];
+      if (styles[i].featureType && styles[i].featureType != 'all' ) {
+        styleRule.push('feature:' + styles[i].featureType);
+      }
+
+      if (styles[i].elementType && styles[i].elementType != 'all') {
+        styleRule.push('element:' + styles[i].elementType);
+      }
+
+      for (var j = 0; j < styles[i].stylers.length; j++) {
+        for (var p in styles[i].stylers[j]) {
+          var ruleArg = styles[i].stylers[j][p];
+          if (p == 'hue' || p == 'color') {
+            ruleArg = '0x' + ruleArg.substring(1);
+          }
+          styleRule.push(p + ':' + ruleArg);
+        }
+      }
+
+      var rule = styleRule.join('|');
+      if (rule != '') {
+        parameters.push('style=' + rule);
       }
     }
   }
@@ -1680,6 +1749,7 @@ GMaps.staticMapURL = function(options){
   parameters = parameters.join('&');
   return static_root + parameters;
 };
+
 GMaps.prototype.addMapType = function(mapTypeId, options) {
   if (options.hasOwnProperty("getTileUrl") && typeof(options["getTileUrl"]) == "function") {
     options.tileSize = options.tileSize || new google.maps.Size(256, 256);
@@ -1709,8 +1779,9 @@ GMaps.prototype.addOverlayMapType = function(options) {
 GMaps.prototype.removeOverlayMapType = function(overlayMapTypeIndex) {
   this.map.overlayMapTypes.removeAt(overlayMapTypeIndex);
 };
+
 GMaps.prototype.addStyle = function(options) {
-  var styledMapType = new google.maps.StyledMapType(options.styles, options.styledMapName);
+  var styledMapType = new google.maps.StyledMapType(options.styles, { name: options.styledMapName });
 
   this.map.mapTypes.set(options.mapTypeId, styledMapType);
 };
@@ -1718,6 +1789,7 @@ GMaps.prototype.addStyle = function(options) {
 GMaps.prototype.setStyle = function(mapTypeId) {
   this.map.setMapTypeId(mapTypeId);
 };
+
 GMaps.prototype.createPanorama = function(streetview_options) {
   if (!streetview_options.hasOwnProperty('lat') || !streetview_options.hasOwnProperty('lng')) {
     streetview_options.lat = this.getCenter().lat();
@@ -1762,6 +1834,7 @@ GMaps.createPanorama = function(options) {
 
   return panorama;
 };
+
 GMaps.prototype.on = function(event_name, handler) {
   return GMaps.on(event_name, this, handler);
 };
@@ -1814,6 +1887,7 @@ GMaps.fire = function(event_name, object, scope) {
     }
   }
 };
+
 GMaps.geolocate = function(options) {
   var complete_callback = options.always || options.complete;
 
@@ -1856,6 +1930,7 @@ GMaps.geocode = function(options) {
     callback(results, status);
   });
 };
+
 //==========================
 // Polygon containsLatLng
 // https://github.com/tparkin/Google-Maps-Point-in-Polygon
