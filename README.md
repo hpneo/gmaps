@@ -24,6 +24,7 @@ Changelog
 -----------------------
 * Add callback for failure in getRoutes
 * Update marker clusterer after remove marker
+* Add support for string arrays to arrayToLatLng
 
 0.4.6
 -----------------------
