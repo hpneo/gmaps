@@ -64,10 +64,11 @@ module.exports = function(grunt) {
 
     umd : {
       all : {
-        src : 'grunt.js',
+        src : 'gmaps.js',
         objectToExport : 'GMaps',
         amdModuleId : 'GMaps',
-        globalAlias : 'GMaps'
+        globalAlias : 'GMaps',
+        template : 'umd.hbs'
       }
     }
 

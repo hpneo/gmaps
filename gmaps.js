@@ -5,9 +5,9 @@
     else if(typeof define === 'function' && define.amd) {
         define('GMaps', [], factory);
     }
-    else {
-        root.GMaps = factory();
-    }
+
+    root.GMaps = factory();
+
 }(this, function() {
 /*!
  * GMaps.js v0.4.7
