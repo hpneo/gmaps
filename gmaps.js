@@ -1,5 +1,5 @@
 /*!
- * GMaps.js v0.4.7
+ * GMaps.js v0.4.7.1
  * http://hpneo.github.com/gmaps/
  *
  * Copyright 2013, Gustavo Leon
@@ -1227,6 +1227,7 @@ GMaps.prototype.getRoutes = function(options) {
   request_options.unitSystem = unitSystem;
 
   delete request_options.callback;
+  delete request_options.error;
 
   var self = this,
       service = new google.maps.DirectionsService();
