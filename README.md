@@ -20,6 +20,10 @@ grunt
 Changelog
 ---------
 
+0.4.7.1
+-----------------------
+* Fix getRoutes
+
 0.4.7
 -----------------------
 * Add callback for failure in getRoutes
