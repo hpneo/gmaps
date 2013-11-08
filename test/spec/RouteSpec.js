@@ -31,7 +31,7 @@ describe("Drawing a route", function() {
 
     waitsFor(function() {
       return route_flag;
-    }, "The drawn route should create a line in the current map", 500);
+    }, "The drawn route should create a line in the current map", 3500);
 
     runs(function() {
       expect(map_with_routes.polylines.length).toEqual(1);
@@ -53,14 +53,14 @@ describe("Getting routes", function() {
   });
 
   it("should return an array of routes", function() {
-    var routes_flag;
+    var routes, routes_flag;
 
     runs(function() {
       routes_flag = false;
 
       map_with_routes.getRoutes({
-        origin : [-12.0440, -77.0247],
-        destination : [-12.0908, -77.0227],
+        origin : "grand central station, new york, ny",
+        destination : "350 5th Ave, New York, NY, 10118",
         callback : function(r) {
           routes = r;
 
@@ -71,7 +71,7 @@ describe("Getting routes", function() {
 
     waitsFor(function() {
       return routes_flag;
-    }, "#getRoutes should return the found routes as an argument", 500);
+    }, "#getRoutes should return the found routes as an argument", 3500);
 
     runs(function() {
       expect(routes).toBeDefined();
