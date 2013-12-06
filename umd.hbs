@@ -1,0 +1,14 @@
+(function(root, factory) {
+    if(typeof exports === 'object') {
+        module.exports = factory({{{cjsDependencies}}});
+    }
+    else if(typeof define === 'function' && define.amd) {
+        define({{#if amdModuleId}}'{{amdModuleId}}', {{/if}}[{{{amdDependencies}}}], factory);
+    }
+
+    root.{{globalAlias}} = factory({{{globalDependencies}}});
+
+}(this, function({{dependencies}}) {
+{{{code}}}
+    return {{objectToExport}};
+}));
