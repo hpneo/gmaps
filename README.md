@@ -4,6 +4,7 @@ GMaps.js - A Javascript library that simplifies your life
 GMaps.js allows you to use the potential of Google Maps in a simple way. No more extensive documentation or large amount of code.
 
 Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
+Go to the API Documentation [hpneo.github.io/gmaps/documentation.html](http://hpneo.github.io/gmaps/documentation.html)
 
 Build
 ------
