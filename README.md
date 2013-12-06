@@ -23,6 +23,8 @@ Changelog
 
 0.4.9
 -----------------------
+* Add UMD support (AMD, CommonJS, browser globals)
+* Add retina support
 * FitZoom only use visible markers
 
 0.4.8

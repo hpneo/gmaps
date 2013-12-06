@@ -1,14 +1,15 @@
 (function(root, factory) {
-    if(typeof exports === 'object') {
-        module.exports = factory();
-    }
-    else if(typeof define === 'function' && define.amd) {
-        define('GMaps', [], factory);
-    }
+  if(typeof exports === 'object') {
+    module.exports = factory();
+  }
+  else if(typeof define === 'function' && define.amd) {
+    define('GMaps', [], factory);
+  }
 
-    root.GMaps = factory();
+  root.GMaps = factory();
 
 }(this, function() {
+
 /*!
  * GMaps.js v0.4.9
  * http://hpneo.github.com/gmaps/
@@ -2059,5 +2060,6 @@ if (!Array.prototype.indexOf) {
       return -1;
   }
 }
-    return GMaps;
+  
+return GMaps;
 }));
