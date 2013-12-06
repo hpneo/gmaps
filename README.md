@@ -21,6 +21,10 @@ grunt
 Changelog
 ---------
 
+0.4.9
+-----------------------
+* FitZoom only use visible markers
+
 0.4.8
 -----------------------
 * Fix getRoutes
