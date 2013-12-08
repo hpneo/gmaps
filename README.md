@@ -24,6 +24,7 @@ Changelog
 0.4.10
 -----------------------
 * Fix and optimize removeMarkers
+* Fix bug in addMarker (issue #270)
 
 0.4.9
 -----------------------
