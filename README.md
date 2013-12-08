@@ -21,6 +21,10 @@ grunt
 Changelog
 ---------
 
+0.4.10
+-----------------------
+* Fix and optimize removeMarkers
+
 0.4.9
 -----------------------
 * Add UMD support (AMD, CommonJS, browser globals)
