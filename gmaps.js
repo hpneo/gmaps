@@ -535,6 +535,7 @@ GMaps.prototype.createMarker = function(options) {
       details = options.details,
       fences = options.fences,
       outside = options.outside,
+      inside = options.inside,
       base_options = {
         position: new google.maps.LatLng(options.lat, options.lng),
         map: null
@@ -544,6 +545,7 @@ GMaps.prototype.createMarker = function(options) {
   delete options.lng;
   delete options.fences;
   delete options.outside;
+  delete options.inside;
 
   var marker_options = extend_object(base_options, options),
       marker = new google.maps.Marker(marker_options);
@@ -622,7 +624,11 @@ GMaps.prototype.createMarker = function(options) {
   if (marker.fences) {
     google.maps.event.addListener(marker, 'dragend', function() {
       self.checkMarkerGeofence(marker, function(m, f) {
-        outside(m, f);
+        if( typeof outside != "undefined")
+          outside(m, f);
+      }, function(m, f) {
+        if( typeof inside != "undefined")
+          inside(m, f);
       });
     });
   }
@@ -1512,12 +1518,14 @@ GMaps.prototype.checkGeofence = function(lat, lng, fence) {
   return fence.containsLatLng(new google.maps.LatLng(lat, lng));
 };
 
-GMaps.prototype.checkMarkerGeofence = function(marker, outside_callback) {
+GMaps.prototype.checkMarkerGeofence = function(marker, outside_callback, inside_callback) {
   if (marker.fences) {
     for (var i = 0, fence; fence = marker.fences[i]; i++) {
       var pos = marker.getPosition();
       if (!this.checkGeofence(pos.lat(), pos.lng(), fence)) {
         outside_callback(marker, fence);
+      } else {
+        inside_callback(marker, fence);
       }
     }
   }
