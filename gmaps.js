@@ -14,7 +14,7 @@
  * GMaps.js v0.4.9
  * http://hpneo.github.com/gmaps/
  *
- * Copyright 2013, Gustavo Leon
+ * Copyright 2014, Gustavo Leon
  * Released under the MIT License.
  */
 
@@ -480,9 +480,12 @@ GMaps.prototype.createControl = function(options) {
   var control = document.createElement('div');
 
   control.style.cursor = 'pointer';
-  control.style.fontFamily = 'Arial, sans-serif';
-  control.style.fontSize = '13px';
-  control.style.boxShadow = 'rgba(0, 0, 0, 0.398438) 0px 2px 4px';
+  
+  if (options.disableDefaultStyles !== true) {
+    control.style.fontFamily = 'Roboto, Arial, sans-serif';
+    control.style.fontSize = '11px';
+    control.style.boxShadow = 'rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px';
+  }
 
   for (var option in options.style) {
     control.style[option] = options.style[option];
@@ -693,24 +696,27 @@ GMaps.prototype.removeMarker = function(marker) {
   return marker;
 };
 
-GMaps.prototype.removeMarkers = function(collection) {
-  var collection = (collection || this.markers);
-
-  for (var i = 0;i < this.markers.length; i++) {
-    if(this.markers[i] === collection[i]) {
+GMaps.prototype.removeMarkers = function (collection) {
+  if(typeof collection == 'undefined') {
+    for(var i = 0; i < this.markers.length; i++) {
       this.markers[i].setMap(null);
     }
-  }
-
-  var new_markers = [];
-
-  for (var i = 0;i < this.markers.length; i++) {
-    if(this.markers[i].getMap() != null) {
-      new_markers.push(this.markers[i]);
+    var new_markers = [];
+    this.markers = new_markers;
+  } else {
+    for(var i = 0; i < this.markers.length; i++) {
+      if(this.markers[i] === collection[i]) {
+        this.markers[i].setMap(null);
+      }
     }
+    var new_markers = [];
+    for(var i = 0; i < this.markers.length; i++) {
+      if(this.markers[i].getMap() != null) {
+        new_markers.push(this.markers[i]);
+      }
+    }
+    this.markers = new_markers;
   }
-
-  this.markers = new_markers;
 };
 
 GMaps.prototype.drawOverlay = function(options) {
