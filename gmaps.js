@@ -1137,8 +1137,8 @@ GMaps.prototype.addLayer = function(layerName, options) {
       case 'places':
         this.singleLayers.places = layer = new google.maps.places.PlacesService(this.map);
 
-        //search and  nearbySearch callback, Both are the same
-        if (options.search || options.nearbySearch) {
+        //search, nearbySearch, radarSearch callback, Both are the same
+        if (options.search || options.nearbySearch || options.radarSearch) {
           var placeSearchRequest  = {
             bounds : options.bounds || null,
             keyword : options.keyword || null,
@@ -1148,6 +1148,10 @@ GMaps.prototype.addLayer = function(layerName, options) {
             rankBy : options.rankBy || null,
             types : options.types || null
           };
+
+          if (options.radarSearch) {
+            layer.radarSearch(placeSearchRequest, options.radarSearch);
+          }
 
           if (options.search) {
             layer.search(placeSearchRequest, options.search);
