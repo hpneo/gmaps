@@ -14,7 +14,7 @@
  * GMaps.js v0.4.10
  * http://hpneo.github.com/gmaps/
  *
- * Copyright 2013, Gustavo Leon
+ * Copyright 2014, Gustavo Leon
  * Released under the MIT License.
  */
 
@@ -480,9 +480,12 @@ GMaps.prototype.createControl = function(options) {
   var control = document.createElement('div');
 
   control.style.cursor = 'pointer';
-  control.style.fontFamily = 'Arial, sans-serif';
-  control.style.fontSize = '13px';
-  control.style.boxShadow = 'rgba(0, 0, 0, 0.398438) 0px 2px 4px';
+  
+  if (options.disableDefaultStyles !== true) {
+    control.style.fontFamily = 'Roboto, Arial, sans-serif';
+    control.style.fontSize = '11px';
+    control.style.boxShadow = 'rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px';
+  }
 
   for (var option in options.style) {
     control.style[option] = options.style[option];
@@ -1144,8 +1147,8 @@ GMaps.prototype.addLayer = function(layerName, options) {
       case 'places':
         this.singleLayers.places = layer = new google.maps.places.PlacesService(this.map);
 
-        //search and  nearbySearch callback, Both are the same
-        if (options.search || options.nearbySearch) {
+        //search, nearbySearch, radarSearch callback, Both are the same
+        if (options.search || options.nearbySearch || options.radarSearch) {
           var placeSearchRequest  = {
             bounds : options.bounds || null,
             keyword : options.keyword || null,
@@ -1155,6 +1158,10 @@ GMaps.prototype.addLayer = function(layerName, options) {
             rankBy : options.rankBy || null,
             types : options.types || null
           };
+
+          if (options.radarSearch) {
+            layer.radarSearch(placeSearchRequest, options.radarSearch);
+          }
 
           if (options.search) {
             layer.search(placeSearchRequest, options.search);

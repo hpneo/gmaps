@@ -384,7 +384,7 @@ Changelog
 
 License
 ---------
-MIT License. Copyright 2012 Gustavo Leon. http://github.com/hpneo
+MIT License. Copyright 2014 Gustavo Leon. http://github.com/hpneo
 
 Permission is hereby granted, free of charge, to any
 person obtaining a copy of this software and associated
