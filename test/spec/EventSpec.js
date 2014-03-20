@@ -102,6 +102,34 @@ describe("Creating event listeners", function() {
         expect(polygon['__e3_']['click'][click_event['id']]).toEqual(click_event);
       });
     });
+
+    describe('registering non custom events', function() {
+      
+      it('custom registered_events should not exist', function() {
+        map_events.on('bounds_changed', function handler(){ });
+        expect(map_events.registered_events['bounds_changed']).not.toBeDefined();
+      });
+
+      it('delegates the handler to google.map', function() {
+        var called = false;
+        map_events.on('bounds_changed', function handler() { called = true });
+
+        google.maps.event.trigger(map_events.map, 'bounds_changed');
+        expect(called).toBe(true);
+      });
+    });
+    
+    describe('removing non custom events', function() {
+    
+      it('removes handler from google.map', function() {
+        var neverCalled = true;
+        map_events.on('bounds_changed', function() { neverCalled = false });
+        map_events.off('bounds_changed');
+
+        google.maps.event.trigger(map_events.map, 'bounds_changed');
+        expect(neverCalled).toBe(true);
+      });
+    });
   });
 
   describe("for GMaps events", function() {
