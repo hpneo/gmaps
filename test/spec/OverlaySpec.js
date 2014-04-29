@@ -27,4 +27,42 @@ describe("Drawing HTML overlays", function() {
   it("should add the overlay in the current map", function() {
     expect(overlay.getMap()).toEqual(map_with_overlays.map);
   });
+
+  describe("With events", function() {
+    var callbacks, overlayWithClick;
+
+    beforeEach(function() {
+      callbacks = {
+        onclick: function() {
+          console.log('Clicked the overlay');
+        }
+      };
+
+      spyOn(callbacks, 'onclick').andCallThrough();
+
+      overlayWithClick = map_with_overlays.drawOverlay({
+        lat: map_with_overlays.getCenter().lat(),
+        lng: map_with_overlays.getCenter().lng(),
+        content: '<p>Clickable overlay</p>',
+        click: callbacks.onclick
+      });
+    });
+
+    it("should respond to click event", function() {
+      var domIsReady = false;
+
+      google.maps.event.addListenerOnce(overlayWithClick, "ready", function () {
+        domIsReady = true;
+      });
+
+      waitsFor(function () {
+        return domIsReady;
+      }, "the overlay's DOM element to be ready", 10000);
+
+      runs(function () {
+        google.maps.event.trigger(overlayWithClick.el, "click");
+        expect(callbacks.onclick).toHaveBeenCalled();
+      });
+    });
+  });
 });
