@@ -21,6 +21,10 @@ grunt
 Changelog
 ---------
 
+0.4.12
+-----------------------
+* Adds ability to listen for clicks on overlays
+
 0.4.11
 -----------------------
 * Add RadarSearch to the places layer
