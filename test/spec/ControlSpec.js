@@ -16,6 +16,7 @@ describe('Creating custom map controls', function () {
       content: 'Geolocate'
     });
 
+    expect(map.controls[0].position).toEqual(google.maps.ControlPosition.TOP_RIGHT);
     expect(map.controls[0].style.fontFamily).not.toEqual('');
   });
 
@@ -26,7 +27,15 @@ describe('Creating custom map controls', function () {
       content: '<i class="icon"></i>'
     });
 
+    expect(map.controls[1].position).toEqual(google.maps.ControlPosition.TOP_RIGHT);
     expect(map.controls[1].style.fontFamily).toEqual('');
   });
 
+  it('should remove control', function () {
+    var control = map.controls[0];
+    map.removeControl(control);
+
+    expect(map.controls.length).toEqual(1);
+    expect(map.controls[0]).not.toEqual(control);
+  });
 });

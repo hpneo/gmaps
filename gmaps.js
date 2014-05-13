@@ -503,6 +503,10 @@ GMaps.prototype.createControl = function(options) {
     control.innerHTML = options.content;
   }
 
+  if (options.position) {
+    control.position = google.maps.ControlPosition[options.position.toUpperCase()];
+  }
+
   for (var ev in options.events) {
     (function(object, name) {
       google.maps.event.addDomListener(object, name, function(){
@@ -517,14 +521,31 @@ GMaps.prototype.createControl = function(options) {
 };
 
 GMaps.prototype.addControl = function(options) {
-  var position = google.maps.ControlPosition[options.position.toUpperCase()];
-
-  delete options.position;
-
   var control = this.createControl(options);
   this.controls.push(control);
-  
-  this.map.controls[position].push(control);
+  this.map.controls[control.position].push(control);
+
+  return control;
+};
+
+GMaps.prototype.removeControl = function(control) {
+  var position = null;
+
+  for (var i = 0; i < this.controls.length; i++) {
+    if (this.controls[i] == control) {
+      position = this.controls[i].position;
+      this.controls.splice(i, 1);
+    }
+  }
+
+  if (position) {
+    for (i = 0; i < this.map.controls.length; i++) {
+      if (this.map.controls[control.position][i] == control) {
+        this.map.controls.removeAt(i);
+        break;
+      }
+    }
+  }
 
   return control;
 };
