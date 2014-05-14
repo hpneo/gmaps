@@ -295,6 +295,14 @@ var GMaps = (function(global) {
     };
 
     this.buildContextMenu = function(control, e) {
+      // Handle potential lack of pixel but presense of latLng
+      if (typeof e.pixel !== "object" && e.hasOwnProperty('latLng')) {
+        e.pixel = {};
+        var overlay = new google.maps.OverlayView();
+        overlay.setMap(self.map);
+        overlay.draw = function() {}
+        e.pixel = overlay.getProjection().fromLatLngToContainerPixel(e.latLng);
+      }
       if (control === 'marker') {
         e.pixel = {};
 
@@ -698,6 +706,11 @@ GMaps.prototype.addGroundOverlay = function(options) {
   }
 
   grndoverlay.setMap(this.map);
+  
+  // Pass the rightclick event through to the main map
+  google.maps.event.addListener(grndoverlay, 'rightclick', function(e) {
+    google.maps.event.trigger(this.map, 'rightclick', e);
+  });
 
   GMaps.fire('grndoverlay_added', grndoverlay, this);
 
