@@ -669,6 +669,41 @@ GMaps.prototype.addMarkers = function(array) {
   return this.markers;
 };
 
+GMaps.prototype.createGroundOverlay = function(options) {
+  var latLngBounds = new google.maps.LatLngBounds(
+    new google.maps.LatLng(options.bounds[0][0], options.bounds[0][1]),
+    new google.maps.LatLng(options.bounds[1][0], options.bounds[1][1])
+  );
+
+  options.bounds = latLngBounds;
+  return new google.maps.GroundOverlay(
+    options.url,
+    options.bounds
+  );
+};
+
+GMaps.prototype.addGroundOverlay = function(options) {
+  var grndoverlay;
+  if(options.hasOwnProperty('gm_accessors_')) {
+    // Native google.maps.GroundOverlay object
+    grndoverlay = options;
+  }
+  else {
+    if (options.bounds && options.url) {
+      grndoverlay = this.createGroundOverlay(options);
+    }
+    else {
+      throw 'No boundaries.';
+    }
+  }
+
+  grndoverlay.setMap(this.map);
+
+  GMaps.fire('grndoverlay_added', grndoverlay, this);
+
+  return grndoverlay;
+};
+
 GMaps.prototype.hideInfoWindows = function() {
   for (var i = 0, marker; marker = this.markers[i]; i++){
     if (marker.infoWindow) {
