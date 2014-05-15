@@ -28,6 +28,7 @@ describe('Creating custom map controls', function () {
     });
 
     expect(map.controls[1].position).toEqual(google.maps.ControlPosition.TOP_RIGHT);
+    expect(map.map.controls[google.maps.ControlPosition.TOP_RIGHT].length).toEqual(2);
     expect(map.controls[1].style.fontFamily).toEqual('');
   });
 
@@ -36,6 +37,7 @@ describe('Creating custom map controls', function () {
     map.removeControl(control);
 
     expect(map.controls.length).toEqual(1);
+    expect(map.map.controls[google.maps.ControlPosition.TOP_RIGHT].length).toEqual(1);
     expect(map.controls[0]).not.toEqual(control);
   });
 });
