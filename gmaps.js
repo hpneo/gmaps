@@ -1369,6 +1369,7 @@ GMaps.prototype.travelRoute = function(options) {
       destination: options.destination,
       travelMode: options.travelMode,
       waypoints : options.waypoints,
+      unitSystem: options.unitSystem,
       error: options.error,
       callback: function(e) {
         //start callback
