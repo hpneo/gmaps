@@ -21,6 +21,10 @@ grunt
 Changelog
 ---------
 
+0.4.13
+-----------------------
+* Allow unitSystem setting in travelRoute
+
 0.4.12
 -----------------------
 * Adds ability to listen for clicks on overlays
