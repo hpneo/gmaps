@@ -26,6 +26,7 @@ Changelog
 * Allow unitSystem setting in travelRoute
 * Add functionality to remove controls
 * Delegates non custom events to google.map
+* Convert featureType and elementType toLowerCase in static maps
 
 0.4.12
 -----------------------

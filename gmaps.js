@@ -11,7 +11,7 @@
 }(this, function() {
 
 /*!
- * GMaps.js v0.4.12
+ * GMaps.js v0.4.13
  * http://hpneo.github.com/gmaps/
  *
  * Copyright 2014, Gustavo Leon
@@ -1725,12 +1725,12 @@ GMaps.staticMapURL = function(options){
   if (styles) {
     for (var i = 0; i < styles.length; i++) {
       var styleRule = [];
-      if (styles[i].featureType && styles[i].featureType != 'all' ) {
-        styleRule.push('feature:' + styles[i].featureType);
+      if (styles[i].featureType){
+        styleRule.push('feature:' + styles[i].featureType.toLowerCase());
       }
 
-      if (styles[i].elementType && styles[i].elementType != 'all') {
-        styleRule.push('element:' + styles[i].elementType);
+      if (styles[i].elementType) {
+        styleRule.push('element:' + styles[i].elementType.toLowerCase());
       }
 
       for (var j = 0; j < styles[i].stylers.length; j++) {
@@ -1909,6 +1909,7 @@ GMaps.custom_events = ['marker_added', 'marker_removed', 'polyline_added', 'poly
 
 GMaps.on = function(event_name, object, handler) {
   if (GMaps.custom_events.indexOf(event_name) == -1) {
+    if(object instanceof GMaps) object = object.map; 
     return google.maps.event.addListener(object, event_name, handler);
   }
   else {
@@ -1926,6 +1927,7 @@ GMaps.on = function(event_name, object, handler) {
 
 GMaps.off = function(event_name, object) {
   if (GMaps.custom_events.indexOf(event_name) == -1) {
+    if(object instanceof GMaps) object = object.map; 
     google.maps.event.clearListeners(object, event_name);
   }
   else {
