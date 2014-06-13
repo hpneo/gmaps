@@ -24,6 +24,8 @@ Changelog
 0.4.13
 -----------------------
 * Allow unitSystem setting in travelRoute
+* Add functionality to remove controls
+* Delegates non custom events to google.map
 
 0.4.12
 -----------------------
