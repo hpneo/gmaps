@@ -171,6 +171,7 @@ var GMaps = (function(global) {
         zoomControlPosition = zoomControlOpt.position || 'TOP_LEFT',
         panControl = options.panControl || true,
         mapTypeControl = options.mapTypeControl || true,
+        scrollWheel = options.scrollWheel || false,
         scaleControl = options.scaleControl || true,
         streetViewControl = options.streetViewControl || true,
         overviewMapControl = overviewMapControl || true,
@@ -217,6 +218,7 @@ var GMaps = (function(global) {
     this.infoWindow = null;
     this.overlay_el = null;
     this.zoom = options.zoom;
+    this.scrollWheel = options.scrollWheel;
     this.registered_events = {};
 
     this.el.style.width = options.width || this.el.scrollWidth || this.el.offsetWidth;
@@ -1601,7 +1603,7 @@ GMaps.prototype.toImage = function(options) {
 GMaps.staticMapURL = function(options){
   var parameters = [],
       data,
-      static_root = 'http://maps.googleapis.com/maps/api/staticmap';
+      static_root = '//maps.googleapis.com/maps/api/staticmap';
 
   if (options.url) {
     static_root = options.url;
@@ -1659,6 +1661,10 @@ GMaps.staticMapURL = function(options){
 
   if (!options.zoom && options.zoom !== false) {
     options.zoom = 15;
+  }
+  
+  if (!options.scrollWheel && options.scrollWheel !== false) {
+    options.scrollWheel = false;
   }
 
   var sensor = options.hasOwnProperty('sensor') ? !!options.sensor : true;
