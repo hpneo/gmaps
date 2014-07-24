@@ -21,6 +21,11 @@ grunt
 Changelog
 ---------
 
+0.4.14
+-----------------------
+* Fix bug in drawPolygon
+* Hide context menu before the zoom is changed
+
 0.4.13
 -----------------------
 * Allow unitSystem setting in travelRoute
