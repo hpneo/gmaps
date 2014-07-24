@@ -15,17 +15,15 @@
 
     function loadResults (data) {
       var items, markers_data = [];
-      if (data.groups.length > 0) {
-        items = data.groups[0].items;
+      if (data.venues.length > 0) {
+        items = data.venues;
 
         for (var i = 0; i < items.length; i++) {
           var item = items[i];
 
           if (item.location.lat != undefined && item.location.lng != undefined) {
             var icon = 'https://foursquare.com/img/categories/food/default.png';
-            if (item.categories.length > 0) {
-              icon = item.categories[0].icon;
-            }
+            
             markers_data.push({
               lat : item.location.lat,
               lng : item.location.lng,
@@ -114,17 +112,15 @@
 
     function loadResults (data) {
       var items, markers_data = [];
-      if (data.groups.length > 0) {
-        items = data.groups[0].items;
+      if (data.venues.length > 0) {
+        items = data.venues;
 
         for (var i = 0; i < items.length; i++) {
           var item = items[i];
 
           if (item.location.lat != undefined && item.location.lng != undefined) {
             var icon = 'https://foursquare.com/img/categories/food/default.png';
-            if (item.categories.length > 0) {
-              icon = item.categories[0].icon;
-            }
+            
             markers_data.push({
               lat : item.location.lat,
               lng : item.location.lng,
