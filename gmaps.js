@@ -345,7 +345,7 @@ var GMaps = (function(global) {
 
       doc.body.appendChild(ul);
 
-      var context_menu_element = getElementById('gmaps_context_menu')
+      var context_menu_element = getElementById('gmaps_context_menu');
 
       google.maps.event.addDomListener(context_menu_element, 'mouseout', function(ev) {
         if (!ev.relatedTarget || !this.contains(ev.relatedTarget)) {
@@ -545,7 +545,7 @@ GMaps.prototype.removeControl = function(control) {
 
   if (position) {
     for (i = 0; i < this.map.controls.length; i++) {
-      var controlsForPosition = this.map.controls[control.position]
+      var controlsForPosition = this.map.controls[control.position];
       if (controlsForPosition.getAt(i) == control) {
         controlsForPosition.removeAt(i);
         break;
@@ -1595,9 +1595,9 @@ GMaps.prototype.toImage = function(options) {
     
     static_map_options['polyline'] = {};
     static_map_options['polyline']['path'] = google.maps.geometry.encoding.encodePath(polyline.getPath());
-    static_map_options['polyline']['strokeColor'] = polyline.strokeColor
-    static_map_options['polyline']['strokeOpacity'] = polyline.strokeOpacity
-    static_map_options['polyline']['strokeWeight'] = polyline.strokeWeight
+    static_map_options['polyline']['strokeColor'] = polyline.strokeColor;
+    static_map_options['polyline']['strokeOpacity'] = polyline.strokeOpacity;
+    static_map_options['polyline']['strokeWeight'] = polyline.strokeWeight;
   }
 
   return GMaps.staticMapURL(static_map_options);
