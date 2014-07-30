@@ -796,7 +796,6 @@ GMaps.prototype.drawOverlay = function(options) {
     }
 
     if (options.click) {
-      panes.overlayMouseTarget.appendChild(overlay.el);
       google.maps.event.addDomListener(overlay.el, 'click', function() {
         options.click.apply(overlay, [overlay]);
       });
