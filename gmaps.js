@@ -11,7 +11,7 @@
 }(this, function() {
 
 /*!
- * GMaps.js v0.4.14
+ * GMaps.js v0.4.15
  * http://hpneo.github.com/gmaps/
  *
  * Copyright 2014, Gustavo Leon
@@ -505,7 +505,12 @@ GMaps.prototype.createControl = function(options) {
   }
 
   if (options.content) {
-    control.innerHTML = options.content;
+    if (typeof options.content === 'string') {
+      control.innerHTML = options.content;
+    }
+    else if (options.content instanceof HTMLElement) {
+      control.appendChild(options.content);
+    }
   }
 
   if (options.position) {
@@ -796,6 +801,7 @@ GMaps.prototype.drawOverlay = function(options) {
     }
 
     if (options.click) {
+      panes.overlayMouseTarget.appendChild(overlay.el);
       google.maps.event.addDomListener(overlay.el, 'click', function() {
         options.click.apply(overlay, [overlay]);
       });
@@ -2056,6 +2062,17 @@ if (!google.maps.Polygon.prototype.containsLatLng) {
     }
 
     return inPoly;
+  };
+}
+
+if (!google.maps.Circle.prototype.containsLatLng) {
+  google.maps.Circle.prototype.containsLatLng = function(latLng) {
+    if (google.maps.geometry) {
+      return google.maps.geometry.spherical.computeDistanceBetween(this.getCenter(), latLng) <= this.getRadius();
+    }
+    else {
+      return true;
+    }
   };
 }
 
