@@ -24,6 +24,7 @@ Changelog
 0.4.15
 -----------------------
 * addControl/createControl now accepts HTML elements or HTML strings
+* Add containsLatLng to google.maps.Circle
 
 0.4.14
 -----------------------
