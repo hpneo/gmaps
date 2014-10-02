@@ -23,6 +23,7 @@ Changelog
 
 0.4.15
 -----------------------
+* Add overlay to mouseTarget when click event is set
 * addControl/createControl now accepts HTML elements or HTML strings
 * Add containsLatLng to google.maps.Circle
 
