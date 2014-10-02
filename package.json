@@ -1,6 +1,6 @@
 {
   "name": "gmaps",
-  "version": "0.4.14",
+  "version": "0.4.15",
   "description": "the easiest way to use Google Maps",
   "main": "gmaps.js",
   "scripts": {

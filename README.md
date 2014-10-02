@@ -21,6 +21,10 @@ grunt
 Changelog
 ---------
 
+0.4.15
+-----------------------
+* addControl/createControl now accepts HTML elements or HTML strings
+
 0.4.14
 -----------------------
 * Fix bug in drawPolygon
