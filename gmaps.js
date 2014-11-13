@@ -11,7 +11,7 @@
 }(this, function() {
 
 /*!
- * GMaps.js v0.4.15
+ * GMaps.js v0.4.16
  * http://hpneo.github.com/gmaps/
  *
  * Copyright 2014, Gustavo Leon
@@ -733,21 +733,38 @@ GMaps.prototype.removeMarkers = function (collection) {
 
   if (typeof collection == 'undefined') {
     for (var i = 0; i < this.markers.length; i++) {
-      this.markers[i].setMap(null);
+      var marker = this.markers[i];
+      marker.setMap(null);
+
+      if(this.markerClusterer) {
+        this.markerClusterer.removeMarker(marker);
+      }
+
+      GMaps.fire('marker_removed', marker, this);
     }
     
     this.markers = new_markers;
   }
   else {
     for (var i = 0; i < collection.length; i++) {
-      if (this.markers.indexOf(collection[i]) > -1) {
-        this.markers[i].setMap(null);
+      var index = this.markers.indexOf(collection[i]);
+
+      if (index > -1) {
+        var marker = this.markers[index];
+        marker.setMap(null);
+
+        if(this.markerClusterer) {
+          this.markerClusterer.removeMarker(marker);
+        }
+
+        GMaps.fire('marker_removed', marker, this);
       }
     }
 
     for (var i = 0; i < this.markers.length; i++) {
-      if (this.markers[i].getMap() != null) {
-        new_markers.push(this.markers[i]);
+      var marker = this.markers[i];
+      if (marker.getMap() != null) {
+        new_markers.push(marker);
       }
     }
 

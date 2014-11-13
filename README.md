@@ -21,6 +21,10 @@ grunt
 Changelog
 ---------
 
+0.4.16
+-----------------------
+* Fix removeMarkers
+
 0.4.15
 -----------------------
 * Add overlay to mouseTarget when click event is set
