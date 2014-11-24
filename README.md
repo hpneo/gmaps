@@ -6,6 +6,34 @@ GMaps.js allows you to use the potential of Google Maps in a simple way. No more
 Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Go to the API Documentation [hpneo.github.io/gmaps/documentation.html](http://hpneo.github.io/gmaps/documentation.html)
 
+Quick Start
+-----
+
+1. Add a reference to Google Maps API
+2. Add gmaps.js in your HTML
+3. Enjoy!
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+  <script src="gmaps.js"></script>
+</head>
+<body>
+  <div id="map"></div>
+  <script>
+    var map = new GMaps({
+      el: '#map',
+      lat: -12.043333,
+      lng: -77.028333
+    });
+  </script>
+</body>
+</html>
+```
+
 Build
 ------
 
