@@ -20,6 +20,12 @@ Quick Start
   <title></title>
   <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
   <script src="gmaps.js"></script>
+  <style type="text/css">
+    #map {
+      width: 400px;
+      height: 400px;
+    }
+  </style>
 </head>
 <body>
   <div id="map"></div>
