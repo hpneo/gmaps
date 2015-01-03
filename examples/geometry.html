@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.3.0/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="examples.css" />
   <script type="text/javascript">
-    var map;
+    var map, rectangle, polygon, circle;
     $(document).ready(function(){
       map = new GMaps({
         el: '#map',
@@ -35,8 +35,8 @@
         fillColor: '#25D359',
         fillOpacity: 0.6
       });
-      lat = -12.040504866577001;
-      lng = -77.02024422636042;
+      var lat = -12.040504866577001;
+      var lng = -77.02024422636042;
       circle = map.drawCircle({
         lat: lat,
         lng: lng,
@@ -47,15 +47,15 @@
         fillColor: '#432070',
         fillOpacity: 0.6
       });
-      for(i in paths){
+      for(var i in paths){
         bounds.push(paths[i]);
       }
-      b = [];
-      for(i in bounds){
+      var b = [];
+      for(var i in bounds){
         latlng = new google.maps.LatLng(bounds[i][0], bounds[i][1]);
         b.push(latlng);
       }
-      for(i in paths){
+      for(var i in paths){
         latlng = new google.maps.LatLng(paths[i][0], paths[i][1]);
         b.push(latlng);
       }

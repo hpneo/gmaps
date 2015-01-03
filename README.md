@@ -6,6 +6,40 @@ GMaps.js allows you to use the potential of Google Maps in a simple way. No more
 Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Go to the API Documentation [hpneo.github.io/gmaps/documentation.html](http://hpneo.github.io/gmaps/documentation.html)
 
+Quick Start
+-----
+
+1. Add a reference to Google Maps API
+2. Add gmaps.js in your HTML
+3. Enjoy!
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+  <script src="gmaps.js"></script>
+  <style type="text/css">
+    #map {
+      width: 400px;
+      height: 400px;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <script>
+    var map = new GMaps({
+      el: '#map',
+      lat: -12.043333,
+      lng: -77.028333
+    });
+  </script>
+</body>
+</html>
+```
+
 Build
 ------
 
@@ -20,6 +54,28 @@ grunt
 
 Changelog
 ---------
+
+0.4.16
+-----------------------
+* Fix removeMarkers
+
+0.4.15
+-----------------------
+* Add overlay to mouseTarget when click event is set
+* addControl/createControl now accepts HTML elements or HTML strings
+* Add containsLatLng to google.maps.Circle
+
+0.4.14
+-----------------------
+* Fix bug in drawPolygon
+* Hide context menu before the zoom is changed
+
+0.4.13
+-----------------------
+* Allow unitSystem setting in travelRoute
+* Add functionality to remove controls
+* Delegates non custom events to google.map
+* Convert featureType and elementType toLowerCase in static maps
 
 0.4.12
 -----------------------
