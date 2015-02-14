@@ -55,6 +55,12 @@ grunt
 Changelog
 ---------
 
+0.4.17
+-----------------------
+* Remove the http so the library (Google Maps call) will also work under SSL without warnings
+* Update route drawing methods to allow 'icons' option for drawPolyline
+* Remove dependency on 'grunt-cli' having to be installed globally
+
 0.4.16
 -----------------------
 * Fix removeMarkers
