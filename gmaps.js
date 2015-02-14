@@ -1629,7 +1629,7 @@ GMaps.prototype.toImage = function(options) {
 GMaps.staticMapURL = function(options){
   var parameters = [],
       data,
-      static_root = 'http://maps.googleapis.com/maps/api/staticmap';
+      static_root = '//maps.googleapis.com/maps/api/staticmap';
 
   if (options.url) {
     static_root = options.url;
