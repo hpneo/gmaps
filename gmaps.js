@@ -144,6 +144,10 @@ var findAbsolutePosition = function(obj)  {
   return [curleft, curtop];
 };
 
+var valueOrDefault = function (value, defaultValue) {
+  return value === undefined ? defaultValue : value;
+};
+
 var GMaps = (function(global) {
   "use strict";
 
@@ -168,18 +172,18 @@ var GMaps = (function(global) {
         markerClustererFunction = options.markerClusterer,
         mapType = google.maps.MapTypeId[options.mapType.toUpperCase()],
         map_center = new google.maps.LatLng(options.lat, options.lng),
-        zoomControl = options.zoomControl || true,
+        zoomControl = valueOrDefault(options.zoomControl, true),
         zoomControlOpt = options.zoomControlOpt || {
           style: 'DEFAULT',
           position: 'TOP_LEFT'
         },
         zoomControlStyle = zoomControlOpt.style || 'DEFAULT',
         zoomControlPosition = zoomControlOpt.position || 'TOP_LEFT',
-        panControl = options.panControl || true,
-        mapTypeControl = options.mapTypeControl || true,
-        scaleControl = options.scaleControl || true,
-        streetViewControl = options.streetViewControl || true,
-        overviewMapControl = overviewMapControl || true,
+        panControl = valueOrDefault(options.panControl, true),
+        mapTypeControl = valueOrDefault(options.mapTypeControl, true),
+        scaleControl = valueOrDefault(options.scaleControl, true),
+        streetViewControl = valueOrDefault(options.streetViewControl, true),
+        overviewMapControl = valueOrDefault(options.overviewMapControl, true),
         map_options = {},
         map_base_options = {
           zoom: this.zoom,
