@@ -144,10 +144,6 @@ var findAbsolutePosition = function(obj)  {
   return [curleft, curtop];
 };
 
-var valueOrDefault = function (value, defaultValue) {
-  return value === undefined ? defaultValue : value;
-};
-
 var GMaps = (function(global) {
   "use strict";
 
@@ -158,6 +154,10 @@ var GMaps = (function(global) {
 
     options.zoom = options.zoom || 15;
     options.mapType = options.mapType || 'roadmap';
+
+    var valueOrDefault = function(value, defaultValue) {
+      return value === undefined ? defaultValue : value;
+    };
 
     var self = this,
         i,
