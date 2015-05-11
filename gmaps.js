@@ -12,7 +12,7 @@
 }(this, function() {
 
 /*!
- * GMaps.js v0.4.17
+ * GMaps.js v0.4.18
  * http://hpneo.github.com/gmaps/
  *
  * Copyright 2015, Gustavo Leon
@@ -61,7 +61,7 @@ var array_map = function(array, callback) {
 
   if (Array.prototype.map && array.map === Array.prototype.map) {
     array_return = Array.prototype.map.call(array, function(item) {
-      callback_params = original_callback_params;
+      var callback_params = original_callback_params.slice(0);
       callback_params.splice(0, 0, item);
 
       return callback.apply(this, callback_params);

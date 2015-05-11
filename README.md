@@ -55,6 +55,10 @@ grunt
 Changelog
 ---------
 
+0.4.18
+-----------------------
+* Fix bug in `array_map`
+
 0.4.17
 -----------------------
 * Remove the http so the library (Google Maps call) will also work under SSL without warnings
