@@ -23,7 +23,7 @@
 
           if (item.location.lat != undefined && item.location.lng != undefined) {
             var icon = 'https://foursquare.com/img/categories/food/default.png';
-            
+
             markers_data.push({
               lat : item.location.lat,
               lng : item.location.lng,
@@ -77,7 +77,7 @@
         }
       });
 
-      var xhr = $.getJSON('http://coffeemaker.herokuapp.com/foursquare.json?q[near]=Lima,%20PE&q[query]=Ceviche');
+      var xhr = $.getJSON('https://coffeemaker.herokuapp.com/foursquare.json?q[near]=Lima,%20PE&q[query]=Ceviche');
 
       xhr.done(printResults);
       xhr.done(loadResults);
@@ -87,7 +87,7 @@
 <body>
   <div id="header">
     <h1>
-      <a href="http://hpneo.github.com/gmaps">gmaps.js</a>
+      <a href="../">gmaps.js</a>
     </h1>
     <h2>Google Maps API with less pain and more fun</h2>
   </div>
@@ -118,9 +118,9 @@
         for (var i = 0; i < items.length; i++) {
           var item = items[i];
 
-          if (item.location.lat != undefined && item.location.lng != undefined) {
+          if (item.location.lat != undefined &amp;&amp; item.location.lng != undefined) {
             var icon = 'https://foursquare.com/img/categories/food/default.png';
-            
+
             markers_data.push({
               lat : item.location.lat,
               lng : item.location.lng,
@@ -174,7 +174,7 @@
         }
       });
 
-      var xhr = $.getJSON('http://coffeemaker.herokuapp.com/foursquare.json?q[near]=Lima,%20PE&q[query]=Ceviche');
+      var xhr = $.getJSON('https://coffeemaker.herokuapp.com/foursquare.json?q[near]=Lima,%20PE&amp;q[query]=Ceviche');
 
       xhr.done(printResults);
       xhr.done(loadResults);
