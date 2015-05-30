@@ -1,3 +1,9 @@
+**Important**
+
+If you're developer, I'm moving gmaps.js to NPM, you can give your opinion and check the migration progress in [Issue #404](https://github.com/hpneo/gmaps/issues/404)
+
+---
+
 GMaps.js - A Javascript library that simplifies your life
 =========================================================
 
