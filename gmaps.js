@@ -14,7 +14,7 @@
 }(this, function() {
 
 /*!
- * GMaps.js v0.4.18
+ * GMaps.js v0.4.19
  * http://hpneo.github.com/gmaps/
  *
  * Copyright 2015, Gustavo Leon
@@ -173,6 +173,10 @@ var GMaps = (function(global) {
     options.zoom = options.zoom || 15;
     options.mapType = options.mapType || 'roadmap';
 
+    var valueOrDefault = function(value, defaultValue) {
+      return value === undefined ? defaultValue : value;
+    };
+
     var self = this,
         i,
         events_that_hide_context_menu = [
@@ -186,18 +190,18 @@ var GMaps = (function(global) {
         markerClustererFunction = options.markerClusterer,
         mapType = google.maps.MapTypeId[options.mapType.toUpperCase()],
         map_center = new google.maps.LatLng(options.lat, options.lng),
-        zoomControl = options.zoomControl || true,
+        zoomControl = valueOrDefault(options.zoomControl, true),
         zoomControlOpt = options.zoomControlOpt || {
           style: 'DEFAULT',
           position: 'TOP_LEFT'
         },
         zoomControlStyle = zoomControlOpt.style || 'DEFAULT',
         zoomControlPosition = zoomControlOpt.position || 'TOP_LEFT',
-        panControl = options.panControl || true,
-        mapTypeControl = options.mapTypeControl || true,
-        scaleControl = options.scaleControl || true,
-        streetViewControl = options.streetViewControl || true,
-        overviewMapControl = overviewMapControl || true,
+        panControl = valueOrDefault(options.panControl, true),
+        mapTypeControl = valueOrDefault(options.mapTypeControl, true),
+        scaleControl = valueOrDefault(options.scaleControl, true),
+        streetViewControl = valueOrDefault(options.streetViewControl, true),
+        overviewMapControl = valueOrDefault(overviewMapControl, true),
         map_options = {},
         map_base_options = {
           zoom: this.zoom,
@@ -535,6 +539,10 @@ GMaps.prototype.createControl = function(options) {
 
   if (options.id) {
     control.id = options.id;
+  }
+  
+  if (options.title) {
+    control.title = options.title;
   }
 
   if (options.classes) {
