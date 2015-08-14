@@ -55,6 +55,10 @@ grunt
 Changelog
 ---------
 
+0.4.19
+-----------------------
+* Fix bug at hiding markers' context menu when the map is zooming
+
 0.4.18
 -----------------------
 * Fix bug in `array_map`
