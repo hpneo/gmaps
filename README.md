@@ -4,10 +4,10 @@ If you're developer, I'm moving gmaps.js to NPM, you can give your opinion and c
 
 ---
 
-GMaps.js - A Javascript library that simplifies your life
+gmaps.js - A Javascript library that simplifies your life
 =========================================================
 
-GMaps.js allows you to use the potential of Google Maps in a simple way. No more extensive documentation or large amount of code.
+gmaps.js allows you to use the potential of Google Maps in a simple way. No more extensive documentation or large amount of code.
 
 Visit the examples in [hpneo.github.com/gmaps](http://hpneo.github.com/gmaps/)
 Go to the API Documentation [hpneo.github.io/gmaps/documentation.html](http://hpneo.github.io/gmaps/documentation.html)
@@ -45,6 +45,33 @@ Quick Start
 </body>
 </html>
 ```
+
+Use with AMD
+-----
+
+With require.js, you need to load Google Maps JavaScript API first. For example, assuming you have a `googlemapsapi.js` file:
+
+```javascript
+define(['async!http://maps.google.com/maps/api/js?v=3&sensor=false'], function() {});
+```
+
+Next you have to define the dependency for gmaps.js:
+
+```javascript
+require.config({
+  paths: {
+    "googlemapsapi": "googlemapsapi",
+  },
+  shim: {
+    gmaps: {
+      deps: ["googlemapsapi"],
+      exports: "GMaps"
+    }
+  }
+});
+```
+
+Also, you can use the [googlemaps-amd](https://github.com/aerisweather/googlemaps-amd) plugin.
 
 Build
 ------
