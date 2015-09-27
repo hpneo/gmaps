@@ -88,6 +88,10 @@ grunt
 Changelog
 ---------
 
+0.4.20
+-----------------------
+* Show an error in the console, instead throwing an error
+
 0.4.19
 -----------------------
 * Fix bug at hiding markers' context menu when the map is zooming
