@@ -88,6 +88,10 @@ grunt
 Changelog
 ---------
 
+0.4.21
+-----------------------
+* Better check for `console.error`
+
 0.4.20
 -----------------------
 * Show an error in the console, instead throwing an error

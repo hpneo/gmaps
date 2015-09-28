@@ -14,7 +14,7 @@
 }(this, function() {
 
 /*!
- * GMaps.js v0.4.20
+ * GMaps.js v0.4.21
  * http://hpneo.github.com/gmaps/
  *
  * Copyright 2015, Gustavo Leon
@@ -161,7 +161,7 @@ var GMaps = (function(global) {
   "use strict";
 
   if (!(typeof window.google === 'object' && window.google.maps)) {
-    if (console.error) {
+    if (typeof window.console === 'object' && window.console.error) {
       console.error('Google Maps API is required. Please register the following JavaScript library https://maps.googleapis.com/maps/api/js.');
     }
 
