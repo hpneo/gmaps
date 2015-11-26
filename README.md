@@ -24,7 +24,7 @@ Quick Start
 <html>
 <head>
   <title></title>
-  <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+  <script src="http://maps.google.com/maps/api/js"></script>
   <script src="gmaps.js"></script>
   <style type="text/css">
     #map {
