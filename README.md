@@ -88,6 +88,11 @@ grunt
 Changelog
 ---------
 
+0.4.22
+-----------------------
+* Render directions
+* Added missing function for registering addListenerOnce
+
 0.4.21
 -----------------------
 * Better check for `console.error`

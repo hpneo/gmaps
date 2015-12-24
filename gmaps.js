@@ -29,7 +29,9 @@ var extend_object = function(obj, new_obj) {
   }
 
   for (name in new_obj) {
-    obj[name] = new_obj[name];
+    if (new_obj[name] !== undefined) {
+      obj[name] = new_obj[name];
+    }
   }
 
   return obj;
@@ -117,7 +119,6 @@ var arrayToLatLng = function(coords, useGeoJSON) {
 };
 
 var getElementsByClassName = function (class_name, context) {
-
     var element,
         _class = class_name.replace('.', '');
 
@@ -225,13 +226,11 @@ var GMaps = (function(global) {
         };
 
       if (typeof(options.el) === 'string' || typeof(options.div) === 'string') {
-
-          if (identifier.indexOf("#") > -1) {
-              this.el = getElementById(identifier, options.context);
-          } else {
-              this.el = getElementsByClassName.apply(this, [identifier, options.context]);
-          }
-
+        if (identifier.indexOf("#") > -1) {
+            this.el = getElementById(identifier, options.context);
+        } else {
+            this.el = getElementsByClassName.apply(this, [identifier, options.context]);
+        }
       } else {
           this.el = identifier;
       }
@@ -1377,7 +1376,7 @@ GMaps.prototype.getRoutes = function(options) {
       }
 
       if (options.callback) {
-        options.callback(self.routes);
+        options.callback(self.routes, result, status);
       }
     }
     else {
@@ -1389,7 +1388,7 @@ GMaps.prototype.getRoutes = function(options) {
 };
 
 GMaps.prototype.removeRoutes = function() {
-  this.routes = [];
+  this.routes.length = 0;
 };
 
 GMaps.prototype.getElevations = function(options) {
@@ -1437,6 +1436,35 @@ GMaps.prototype.getElevations = function(options) {
 
 GMaps.prototype.cleanRoute = GMaps.prototype.removePolylines;
 
+GMaps.prototype.renderRoute = function(options, renderOptions) {
+  var self = this,
+      panel = ((typeof renderOptions.panel === 'string') ? document.getElementById(renderOptions.panel.replace('#', '')) : renderOptions.panel),
+      display;
+
+  renderOptions.panel = panel;
+  renderOptions = extend_object({
+    map: this.map
+  }, renderOptions);
+  display = new google.maps.DirectionsRenderer(renderOptions);
+
+  this.getRoutes({
+    origin: options.origin,
+    destination: options.destination,
+    travelMode: options.travelMode,
+    waypoints: options.waypoints,
+    unitSystem: options.unitSystem,
+    error: options.error,
+    avoidHighways: options.avoidHighways,
+    avoidTolls: options.avoidTolls,
+    optimizeWaypoints: options.optimizeWaypoints,
+    callback: function(routes, response, status) {
+      if (status === google.maps.DirectionsStatus.OK) {
+        display.setDirections(response);
+      }
+    }
+  });
+};
+
 GMaps.prototype.drawRoute = function(options) {
   var self = this;
 
@@ -1447,10 +1475,13 @@ GMaps.prototype.drawRoute = function(options) {
     waypoints: options.waypoints,
     unitSystem: options.unitSystem,
     error: options.error,
-    callback: function(e) {
-      if (e.length > 0) {
+    avoidHighways: options.avoidHighways,
+    avoidTolls: options.avoidTolls,
+    optimizeWaypoints: options.optimizeWaypoints,
+    callback: function(routes) {
+      if (routes.length > 0) {
         var polyline_options = {
-          path: e[e.length - 1].overview_path,
+          path: routes[routes.length - 1].overview_path,
           strokeColor: options.strokeColor,
           strokeOpacity: options.strokeOpacity,
           strokeWeight: options.strokeWeight
@@ -1461,9 +1492,9 @@ GMaps.prototype.drawRoute = function(options) {
         }
 
         self.drawPolyline(polyline_options);
-        
+
         if (options.callback) {
-          options.callback(e[e.length - 1]);
+          options.callback(routes[routes.length - 1]);
         }
       }
     }
@@ -1517,7 +1548,7 @@ GMaps.prototype.travelRoute = function(options) {
 
 GMaps.prototype.drawSteppedRoute = function(options) {
   var self = this;
-  
+
   if (options.origin && options.destination) {
     this.getRoutes({
       origin: options.origin,
