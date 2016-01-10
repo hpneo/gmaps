@@ -17,7 +17,7 @@
  * GMaps.js v0.4.22
  * http://hpneo.github.com/gmaps/
  *
- * Copyright 2015, Gustavo Leon
+ * Copyright 2016, Gustavo Leon
  * Released under the MIT License.
  */
 
@@ -161,17 +161,18 @@ var findAbsolutePosition = function(obj)  {
 var GMaps = (function(global) {
   "use strict";
 
-  if (!(typeof window.google === 'object' && window.google.maps)) {
-    if (typeof window.console === 'object' && window.console.error) {
-      console.error('Google Maps API is required. Please register the following JavaScript library https://maps.googleapis.com/maps/api/js.');
-    }
-
-    return function() {};
-  }
-
   var doc = document;
 
   var GMaps = function(options) {
+
+    if (!(typeof window.google === 'object' && window.google.maps)) {
+      if (typeof window.console === 'object' && window.console.error) {
+        console.error('Google Maps API is required. Please register the following JavaScript library https://maps.googleapis.com/maps/api/js.');
+      }
+
+      return function() {};
+    }
+
     if (!this) return new GMaps(options);
 
     options.zoom = options.zoom || 15;
