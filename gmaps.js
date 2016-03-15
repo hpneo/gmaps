@@ -674,7 +674,7 @@ GMaps.prototype.createMarker = function(options) {
           if(!me.pixel){
             me.pixel = map.getProjection().fromLatLngToPoint(me.latLng)
           }
-          
+
           options[name].apply(this, [me]);
         });
       }
@@ -788,13 +788,13 @@ GMaps.prototype.removeMarkers = function (collection) {
       var marker = this.markers[i];
       marker.setMap(null);
 
-      if(this.markerClusterer) {
-        this.markerClusterer.removeMarker(marker);
-      }
-
       GMaps.fire('marker_removed', marker, this);
     }
-    
+
+    if(this.markerClusterer && this.markerClusterer.clearMarkers) {
+      this.markerClusterer.clearMarkers();
+    }
+
     this.markers = new_markers;
   }
   else {
@@ -2212,6 +2212,10 @@ if (typeof window.google === 'object' && window.google.maps) {
       }
     };
   }
+
+  google.maps.Rectangle.prototype.containsLatLng = function(latLng) {
+    return this.getBounds().contains(latLng);
+  };
 
   google.maps.LatLngBounds.prototype.containsLatLng = function(latLng) {
     return this.contains(latLng);
