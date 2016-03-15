@@ -14,7 +14,7 @@
 }(this, function() {
 
 /*!
- * GMaps.js v0.4.22
+ * GMaps.js v0.4.23
  * http://hpneo.github.com/gmaps/
  *
  * Copyright 2016, Gustavo Leon
