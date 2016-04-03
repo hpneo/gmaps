@@ -88,6 +88,10 @@ grunt
 Changelog
 ---------
 
+0.4.24
+-----------------------
+* Fix bug in getRoutes (see #373)
+
 0.4.23
 -----------------------
 * Fix bug at trying to remove a large amount of markers inside a marker cluster (see #473)

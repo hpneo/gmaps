@@ -75,7 +75,6 @@ describe("Getting routes", function() {
 
     runs(function() {
       expect(routes).toBeDefined();
-      expect(map_with_routes.routes).toEqual(routes);
 
       if (routes.length > 0) {
         expect(routes[0].legs[0].distance).toBeDefined();
