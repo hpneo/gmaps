@@ -1,4 +1,44 @@
-var extend_object = function(obj, new_obj) {
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>gmaps.core.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="GMaps.html">GMaps</a><ul class='methods'><li data-type='method'><a href="GMaps.html#addControl">addControl</a></li><li data-type='method'><a href="GMaps.html#fitLatLngBounds">fitLatLngBounds</a></li><li data-type='method'><a href="GMaps.html#fitZoom">fitZoom</a></li><li data-type='method'><a href="GMaps.html#getElement">getElement</a></li><li data-type='method'><a href="GMaps.html#hideContextMenu">hideContextMenu</a></li><li data-type='method'><a href="GMaps.html#refresh">refresh</a></li><li data-type='method'><a href="GMaps.html#removeControl">removeControl</a></li><li data-type='method'><a href="GMaps.html#setCenter">setCenter</a></li><li data-type='method'><a href="GMaps.html#setContextMenu">setContextMenu</a></li><li data-type='method'><a href="GMaps.html#zoomIn">zoomIn</a></li><li data-type='method'><a href="GMaps.html#zoomOut">zoomOut</a></li></ul></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">gmaps.core.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>var extend_object = function(obj, new_obj) {
   var name;
 
   if (obj === new_obj) {
@@ -36,7 +76,7 @@ var array_map = function(array, callback) {
       array_length = array.length,
       i;
 
-  if (Array.prototype.map && array.map === Array.prototype.map) {
+  if (Array.prototype.map &amp;&amp; array.map === Array.prototype.map) {
     array_return = Array.prototype.map.call(array, function(item) {
       var callback_params = original_callback_params.slice(0);
       callback_params.splice(0, 0, item);
@@ -45,7 +85,7 @@ var array_map = function(array, callback) {
     });
   }
   else {
-    for (i = 0; i < array_length; i++) {
+    for (i = 0; i &lt; array_length; i++) {
       callback_params = original_callback_params;
       callback_params.splice(0, 0, array[i]);
       array_return.push(callback.apply(this, callback_params));
@@ -59,7 +99,7 @@ var array_flat = function(array) {
   var new_array = [],
       i;
 
-  for (i = 0; i < array.length; i++) {
+  for (i = 0; i &lt; array.length; i++) {
     new_array = new_array.concat(array[i]);
   }
 
@@ -81,9 +121,9 @@ var coordsToLatLngs = function(coords, useGeoJSON) {
 var arrayToLatLng = function(coords, useGeoJSON) {
   var i;
 
-  for (i = 0; i < coords.length; i++) {
+  for (i = 0; i &lt; coords.length; i++) {
     if (!(coords[i] instanceof google.maps.LatLng)) {
-      if (coords[i].length > 0 && typeof(coords[i][0]) === "object") {
+      if (coords[i].length > 0 &amp;&amp; typeof(coords[i][0]) === "object") {
         coords[i] = arrayToLatLng(coords[i], useGeoJSON);
       }
       else {
@@ -99,7 +139,7 @@ var getElementsByClassName = function (class_name, context) {
     var element,
         _class = class_name.replace('.', '');
 
-    if ('jQuery' in this && context) {
+    if ('jQuery' in this &amp;&amp; context) {
         element = $("." + _class, context)[0];
     } else {
         element = document.getElementsByClassName(_class)[0];
@@ -112,7 +152,7 @@ var getElementById = function(id, context) {
   var element,
   id = id.replace('#', '');
 
-  if ('jQuery' in window && context) {
+  if ('jQuery' in window &amp;&amp; context) {
     element = $('#' + id, context)[0];
   } else {
     element = document.getElementById(id);
@@ -151,8 +191,8 @@ var GMaps = (function(global) {
    */
   var GMaps = function(options) {
 
-    if (!(typeof window.google === 'object' && window.google.maps)) {
-      if (typeof window.console === 'object' && window.console.error) {
+    if (!(typeof window.google === 'object' &amp;&amp; window.google.maps)) {
+      if (typeof window.console === 'object' &amp;&amp; window.console.error) {
         console.error('Google Maps API is required. Please register the following JavaScript library https://maps.googleapis.com/maps/api/js.');
       }
 
@@ -297,7 +337,7 @@ var GMaps = (function(global) {
 
     google.maps.visualRefresh = options.enableNewStyle;
 
-    for (i = 0; i < options_to_be_deleted.length; i++) {
+    for (i = 0; i &lt; options_to_be_deleted.length; i++) {
       delete options[options_to_be_deleted[i]];
     }
 
@@ -307,11 +347,11 @@ var GMaps = (function(global) {
 
     map_options = extend_object(map_base_options, options);
 
-    for (i = 0; i < events_that_hide_context_menu.length; i++) {
+    for (i = 0; i &lt; events_that_hide_context_menu.length; i++) {
       delete map_options[events_that_hide_context_menu[i]];
     }
 
-    for (i = 0; i < events_that_doesnt_hide_context_menu.length; i++) {
+    for (i = 0; i &lt; events_that_doesnt_hide_context_menu.length; i++) {
       delete map_options[events_that_doesnt_hide_context_menu[i]];
     }
 
@@ -339,7 +379,7 @@ var GMaps = (function(global) {
         if (options.hasOwnProperty(i)) {
           var option = options[i];
 
-          html += '<li><a id="' + control + '_' + i + '" href="#">' + option.title + '</a></li>';
+          html += '&lt;li>&lt;a id="' + control + '_' + i + '" href="#">' + option.title + '&lt;/a>&lt;/li>';
         }
       }
 
@@ -353,7 +393,7 @@ var GMaps = (function(global) {
           context_menu_items_count = context_menu_items.length,
           i;
 
-      for (i = 0; i < context_menu_items_count; i++) {
+      for (i = 0; i &lt; context_menu_items_count; i++) {
         var context_menu_item = context_menu_items[i];
 
         var assign_menu_item_action = function(ev){
@@ -481,7 +521,7 @@ var GMaps = (function(global) {
     //google.maps.event.addListener(this.map, 'idle', this.hideContextMenu);
     google.maps.event.addListener(this.map, 'zoom_changed', this.hideContextMenu);
 
-    for (var ev = 0; ev < events_that_hide_context_menu.length; ev++) {
+    for (var ev = 0; ev &lt; events_that_hide_context_menu.length; ev++) {
       var name = events_that_hide_context_menu[ev];
 
       if (name in options) {
@@ -489,7 +529,7 @@ var GMaps = (function(global) {
       }
     }
 
-    for (var ev = 0; ev < events_that_doesnt_hide_context_menu.length; ev++) {
+    for (var ev = 0; ev &lt; events_that_doesnt_hide_context_menu.length; ev++) {
       var name = events_that_doesnt_hide_context_menu[ev];
 
       if (name in options) {
@@ -522,8 +562,8 @@ var GMaps = (function(global) {
           markers_length = this.markers.length,
           i;
 
-      for (i = 0; i < markers_length; i++) {
-        if(typeof(this.markers[i].visible) === 'boolean' && this.markers[i].visible) {
+      for (i = 0; i &lt; markers_length; i++) {
+        if(typeof(this.markers[i].visible) === 'boolean' &amp;&amp; this.markers[i].visible) {
           latLngs.push(this.markers[i].getPosition());
         }
       }
@@ -541,7 +581,7 @@ var GMaps = (function(global) {
           bounds = new google.maps.LatLngBounds(),
           i;
 
-      for(i = 0; i < total; i++) {
+      for(i = 0; i &lt; total; i++) {
         bounds.extend(latLngs[i]);
       }
 
@@ -600,12 +640,12 @@ var GMaps = (function(global) {
         method;
 
     for (method in this.map) {
-      if (typeof(this.map[method]) == 'function' && !this[method]) {
+      if (typeof(this.map[method]) == 'function' &amp;&amp; !this[method]) {
         native_methods.push(method);
       }
     }
 
-    for (i = 0; i < native_methods.length; i++) {
+    for (i = 0; i &lt; native_methods.length; i++) {
       (function(gmaps, scope, method_name) {
         gmaps[method_name] = function(){
           return scope[method_name].apply(scope, arguments);
@@ -616,3 +656,22 @@ var GMaps = (function(global) {
 
   return GMaps;
 })(this);
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Sun Apr 03 2016 18:36:23 GMT-0400 (EDT) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>
