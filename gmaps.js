@@ -1844,6 +1844,7 @@ GMaps.prototype.toImage = function(options) {
   static_map_options['size'] = options['size'] || [this.el.clientWidth, this.el.clientHeight];
   static_map_options['lat'] = this.getCenter().lat();
   static_map_options['lng'] = this.getCenter().lng();
+  static_map_options['zoom'] = options['zoom'] || this.getZoom();
 
   if (this.markers.length > 0) {
     static_map_options['markers'] = [];
@@ -1928,7 +1929,7 @@ GMaps.staticMapURL = function(options){
   }
   parameters.push('size=' + size);
 
-  if (!options.zoom && options.zoom !== false) {
+  if (!options.zoom || options.zoom === false) {
     options.zoom = 15;
   }
 

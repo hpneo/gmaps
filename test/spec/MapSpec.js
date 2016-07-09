@@ -1,5 +1,5 @@
 describe("Creating a map", function() {
-  var basic_map, advanced_map, map_with_events, map_with_custom_controls;
+  var basic_map, advanced_map, map_with_events, map_with_custom_controls, map_as_image, zoom_map;
 
   it("should throw an error if element is not defined", function() {
     expect(function() { new GMaps({}); }).toThrow(new Error('No element defined.'));
@@ -175,4 +175,62 @@ describe("Creating a map", function() {
       expect(map_with_custom_controls.markers.length).toEqual(1);
     });
   });
+
+  describe("With basic options and an image created from this", function() {
+    var defaultZoomLevel = 15;
+
+    beforeEach(function() {
+      map_as_image = map_as_image || new GMaps({
+        el : '#basic-map',
+        lat: -12.0433,
+        lng: -77.0283,
+        zoomControl : true
+      });
+    });
+
+    it("should create a StaticMapsAPI URL", function() {
+      expect(map_as_image.toImage()).toBeDefined();
+    });
+
+    it("should use default zoom", function() {
+      expect(map_as_image.toImage()).toMatch("zoom=" + defaultZoomLevel);
+    });
+    
+    describe("with the zoom set", function() {
+      beforeEach(function() {
+
+        zoom_map = zoom_map || new GMaps({
+          el : '#basic-map',
+          lat: -12.0433,
+          lng: -77.0283,
+          zoomControl : true
+        });
+      });
+
+      it("should use correct zoom level if it is set via setZoom()", function() {
+        var zoomLevel = 4;
+        zoom_map.map.setZoom(zoomLevel);
+        expect(zoom_map.toImage()).toMatch("zoom=" + zoomLevel);
+      });
+
+      it("should use correct zoom level if it is set via toImage(options)", function() {
+        var zoomLevel = 5;
+        var options = {};
+        options.zoom = zoomLevel;
+        expect(zoom_map.toImage(options)).toMatch("zoom=" + zoomLevel);
+      });
+
+      it("should use default zoom if it is set via toImage(options) to false", function() {
+        var zoomLevel = false;
+        var options = {};
+        options.zoom = zoomLevel;
+        expect(zoom_map.toImage(options)).toMatch("zoom=" + defaultZoomLevel);
+      });
+
+    });
+    
+    
+  });
+
+
 });
