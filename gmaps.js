@@ -1837,6 +1837,8 @@ GMaps.prototype.checkMarkerGeofence = function(marker, outside_callback) {
   }
 };
 
+/** takes some of the options of this and generated a staticMapURL 
+     from it. */
 GMaps.prototype.toImage = function(options) {
   var options = options || {},
       static_map_options = {};
@@ -1844,7 +1846,12 @@ GMaps.prototype.toImage = function(options) {
   static_map_options['size'] = options['size'] || [this.el.clientWidth, this.el.clientHeight];
   static_map_options['lat'] = this.getCenter().lat();
   static_map_options['lng'] = this.getCenter().lng();
-  static_map_options['zoom'] = options['zoom'] || this.getZoom();
+  
+  if (typeof options['zoom'] === 'undefined') {
+    static_map_options['zoom'] = this.getZoom();
+  } else {
+    static_map_options['zoom'] = options['zoom'];
+  }
 
   if (this.markers.length > 0) {
     static_map_options['markers'] = [];
@@ -1870,6 +1877,10 @@ GMaps.prototype.toImage = function(options) {
   return GMaps.staticMapURL(static_map_options);
 };
 
+/** generates a staticMapsURL
+ * 
+ * @options.zoom: if options.zoom is set to false the default zoom-Level is used
+ */
 GMaps.staticMapURL = function(options){
   var parameters = [],
       data,
