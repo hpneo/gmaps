@@ -184,8 +184,10 @@ var GMaps = (function(global) {
 
     if (!this) return new GMaps(options);
 
-    options.zoom = options.zoom || 15;
-    options.mapType = options.mapType || 'roadmap';
+    options = extend_object({
+      zoom: 15,
+      mapType: 'roadmap'
+    }, options);
 
     var valueOrDefault = function(value, defaultValue) {
       return value === undefined ? defaultValue : value;
