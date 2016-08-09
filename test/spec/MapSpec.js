@@ -5,13 +5,23 @@ describe("Creating a map", function() {
     expect(function() { new GMaps({}); }).toThrow(new Error('No element defined.'));
   });
 
+  it("should not cause side effect", function() {
+    var options = {
+      el : '#basic-map',
+      lat: -12.0433,
+      lng: -77.0283
+    };
+    var map = new GMaps(options);
+    expect(options.lat).toEqual(-12.0433);
+    expect(options.lng).toEqual(-77.0283);
+  });
+
   describe("With basic options", function() {
     beforeEach(function() {
       basic_map = basic_map || new GMaps({
         el : '#basic-map',
         lat: -12.0433,
-        lng: -77.0283,
-        zoom: 12
+        lng: -77.0283
       });
     });
 
@@ -28,7 +38,7 @@ describe("Creating a map", function() {
     });
 
     it("should have the correct zoom", function() {
-      expect(basic_map.getZoom()).toEqual(12);
+      expect(basic_map.getZoom()).toEqual(15);
     });
   });
 
