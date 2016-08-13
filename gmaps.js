@@ -204,6 +204,7 @@ var GMaps = (function(global) {
         markerClustererFunction = options.markerClusterer,
         mapType = google.maps.MapTypeId[options.mapType.toUpperCase()],
         map_center = new google.maps.LatLng(options.lat, options.lng),
+        scrollwheel = valueOrDefault(options.scrollwheel, true),
         zoomControl = valueOrDefault(options.zoomControl, true),
         zoomControlOpt = options.zoomControlOpt || {
           style: 'DEFAULT',
@@ -223,6 +224,7 @@ var GMaps = (function(global) {
           mapTypeId: mapType
         },
         map_controls_options = {
+          scrollwheel: scrollwheel,
           panControl: panControl,
           zoomControl: zoomControl,
           zoomControlOptions: {
