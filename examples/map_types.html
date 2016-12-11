@@ -47,7 +47,16 @@
     </div>
     <div class="span6">
       <p>You can define many map types from external map services, like OpenStreetMap:</p>
-      <pre>map.addMapType("osm", {
+      <pre>
+      map = new GMaps({
+        el: '#map',
+        lat: -12.043333,
+        lng: -77.028333,
+        mapTypeControlOptions: {
+          mapTypeIds : ["hybrid", "roadmap", "satellite", "terrain", "osm", "cloudmade"]
+        }
+      });
+      map.addMapType("osm", {
   getTileUrl: function(coord, zoom) {
     return "http://tile.openstreetmap.org/" + zoom + "/" + coord.x + "/" + coord.y + ".png";
   },
