@@ -102,20 +102,17 @@ var coordsToLatLngs = function(coords, useGeoJSON) {
 };
 
 var arrayToLatLng = function(coords, useGeoJSON) {
-  var i;
-
-  for (i = 0; i < coords.length; i++) {
-    if (!(coords[i] instanceof google.maps.LatLng)) {
-      if (coords[i].length > 0 && typeof(coords[i][0]) === "object") {
-        coords[i] = arrayToLatLng(coords[i], useGeoJSON);
-      }
-      else {
-        coords[i] = coordsToLatLngs(coords[i], useGeoJSON);
-      }
+  return array_map(coords, function(coord) {
+    if (coord instanceof google.maps.LatLng) {
+      return coord;
     }
-  }
-
-  return coords;
+    if (coord.length > 0 && typeof(coord[0]) === 'object') {
+      return arrayToLatLng(coord, useGeoJSON);
+    }
+    else {
+      return coordsToLatLngs(coord, useGeoJSON);
+    }
+  });
 };
 
 var getElementsByClassName = function (class_name, context) {
