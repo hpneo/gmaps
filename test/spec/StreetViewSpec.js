@@ -56,7 +56,7 @@ describe("Create a Street View Panorama", function() {
         }
       };
 
-      spyOn(callbacks, 'onpovchanged').andCallThrough();
+      spyOn(callbacks, 'onpovchanged').and.callThrough();
 
       panorama_with_events = panorama_with_events || GMaps.createPanorama({
         el : '#streetview-with-events',

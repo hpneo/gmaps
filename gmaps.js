@@ -17,7 +17,7 @@
  * GMaps.js v0.4.24
  * http://hpneo.github.com/gmaps/
  *
- * Copyright 2016, Gustavo Leon
+ * Copyright 2017, Gustavo Leon
  * Released under the MIT License.
  */
 
@@ -147,6 +147,14 @@ var getElementById = function(id, context) {
 var findAbsolutePosition = function(obj)  {
   var curleft = 0,
       curtop = 0;
+
+  if (obj.getBoundingClientRect) {
+      var rect = obj.getBoundingClientRect();
+      var sx = -(window.scrollX ? window.scrollX : window.pageXOffset);
+      var sy = -(window.scrollY ? window.scrollY : window.pageYOffset);
+
+      return [(rect.left - sx), (rect.top - sy)];
+  }
 
   if (obj.offsetParent) {
     do {

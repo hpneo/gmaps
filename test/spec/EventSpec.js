@@ -7,7 +7,7 @@ describe("Creating event listeners", function() {
 
   beforeEach(function() {
     map_events = map_events || new GMaps({
-      el : '#events',
+      el : '#map-with-events',
       lat : -12.0433,
       lng : -77.0283,
       zoom : 12
@@ -61,10 +61,10 @@ describe("Creating event listeners", function() {
         }
       };
 
-      spyOn(callbacks_native.map, 'onclick').andCallThrough();
-      spyOn(callbacks_native.marker, 'onclick').andCallThrough();
-      spyOn(callbacks_native.line, 'onclick').andCallThrough();
-      spyOn(callbacks_native.polygon, 'onclick').andCallThrough();
+      spyOn(callbacks_native.map, 'onclick').and.callThrough();
+      spyOn(callbacks_native.marker, 'onclick').and.callThrough();
+      spyOn(callbacks_native.line, 'onclick').and.callThrough();
+      spyOn(callbacks_native.polygon, 'onclick').and.callThrough();
     });
 
     describe("To a map", function() {
@@ -104,7 +104,7 @@ describe("Creating event listeners", function() {
     });
 
     describe('registering non custom events', function() {
-      
+
       it('custom registered_events should not exist', function() {
         map_events.on('bounds_changed', function handler(){ });
         expect(map_events.registered_events['bounds_changed']).not.toBeDefined();
@@ -118,9 +118,9 @@ describe("Creating event listeners", function() {
         expect(called).toBe(true);
       });
     });
-    
+
     describe('removing non custom events', function() {
-    
+
       it('removes handler from google.map', function() {
         var neverCalled = true;
         map_events.on('bounds_changed', function() { neverCalled = false });
@@ -155,12 +155,12 @@ describe("Creating event listeners", function() {
         }
       };
 
-      spyOn(callbacks_gmaps, 'marker_added').andCallThrough();
-      spyOn(callbacks_gmaps, 'marker_removed').andCallThrough();
-      spyOn(callbacks_gmaps, 'polyline_added').andCallThrough();
-      spyOn(callbacks_gmaps, 'polyline_removed').andCallThrough();
-      spyOn(callbacks_gmaps, 'polygon_added').andCallThrough();
-      spyOn(callbacks_gmaps, 'polygon_removed').andCallThrough();
+      spyOn(callbacks_gmaps, 'marker_added').and.callThrough();
+      spyOn(callbacks_gmaps, 'marker_removed').and.callThrough();
+      spyOn(callbacks_gmaps, 'polyline_added').and.callThrough();
+      spyOn(callbacks_gmaps, 'polyline_removed').and.callThrough();
+      spyOn(callbacks_gmaps, 'polygon_added').and.callThrough();
+      spyOn(callbacks_gmaps, 'polygon_removed').and.callThrough();
     });
 
     describe("#marker_added", function() {

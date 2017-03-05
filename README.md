@@ -88,6 +88,10 @@ grunt
 Changelog
 ---------
 
+0.4.25
+-----------------------
+* Change findAbsolutePosition (see #494)
+
 0.4.24
 -----------------------
 * Fix bug in getRoutes (see #373)

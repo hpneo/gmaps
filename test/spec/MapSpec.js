@@ -2,7 +2,7 @@ describe("Creating a map", function() {
   var basic_map, advanced_map, map_with_events, map_with_custom_controls;
 
   it("should throw an error if element is not defined", function() {
-    expect(function() { new GMaps({}); }).toThrow(new Error('No element defined.'));
+    expect(function() { new GMaps({}); }).toThrow('No element defined.');
   });
 
   describe("With basic options", function() {
@@ -80,9 +80,9 @@ describe("Creating a map", function() {
         }
       };
 
-      spyOn(callbacks, 'onclick').andCallThrough();
-      spyOn(callbacks, 'onzoomchanged').andCallThrough();
-      spyOn(callbacks, 'oncenterchanged').andCallThrough();
+      spyOn(callbacks, 'onclick').and.callThrough();
+      spyOn(callbacks, 'onzoomchanged').and.callThrough();
+      spyOn(callbacks, 'oncenterchanged').and.callThrough();
 
       map_with_events = map_with_events || new GMaps({
         el : '#map-with-events',
@@ -141,7 +141,7 @@ describe("Creating a map", function() {
         }
       }
 
-      spyOn(callbacks, 'onclick').andCallThrough();
+      spyOn(callbacks, 'onclick').and.callThrough();
 
       map_with_custom_controls = new GMaps({
         el : '#map-with-custom-controls',

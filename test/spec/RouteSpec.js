@@ -10,34 +10,23 @@ describe("Drawing a route", function() {
     });
   });
 
-  it("should add a line in the current map", function() {
+  it("should add a line in the current map", function(done) {
     var route_flag;
 
-    runs(function() {
-      route_flag = false;
-
-      map_with_routes.drawRoute({
-        origin : [-12.044012922866312, -77.02470665341184],
-        destination : [-12.090814532191756, -77.02271108990476],
-        travelMode : 'driving',
-        strokeColor : '#131540',
-        strokeOpacity : 0.6,
-        strokeWeight : 6,
-        callback : function() {
-          route_flag = true;
-        }
-      });
-    });
-
-    waitsFor(function() {
-      return route_flag;
-    }, "The drawn route should create a line in the current map", 3500);
-
-    runs(function() {
-      expect(map_with_routes.polylines.length).toEqual(1);
-      expect(map_with_routes.polylines[0].get('strokeColor')).toEqual('#131540');
-      expect(map_with_routes.polylines[0].get('strokeOpacity')).toEqual(0.6);
-      expect(map_with_routes.polylines[0].getMap()).toEqual(map_with_routes.map);
+    map_with_routes.drawRoute({
+      origin: [-12.044012922866312, -77.02470665341184],
+      destination: [-12.090814532191756, -77.02271108990476],
+      travelMode: 'driving',
+      strokeColor: '#131540',
+      strokeOpacity: 0.6,
+      strokeWeight: 6,
+      callback: function() {
+        expect(map_with_routes.polylines.length).toEqual(1);
+        expect(map_with_routes.polylines[0].get('strokeColor')).toEqual('#131540');
+        expect(map_with_routes.polylines[0].get('strokeOpacity')).toEqual(0.6);
+        expect(map_with_routes.polylines[0].getMap()).toEqual(map_with_routes.map);
+        done()
+      }
     });
   });
 });
@@ -52,33 +41,19 @@ describe("Getting routes", function() {
     });
   });
 
-  it("should return an array of routes", function() {
-    var routes, routes_flag;
+  it("should return an array of routes", function(done) {
+    map_with_routes.getRoutes({
+      origin: "grand central station, new york, ny",
+      destination: "350 5th Ave, New York, NY, 10118",
+      callback: function(routes) {
+        expect(routes).toBeDefined();
 
-    runs(function() {
-      routes_flag = false;
-
-      map_with_routes.getRoutes({
-        origin : "grand central station, new york, ny",
-        destination : "350 5th Ave, New York, NY, 10118",
-        callback : function(r) {
-          routes = r;
-
-          routes_flag = true;
+        if (routes.length > 0) {
+          expect(routes[0].legs[0].distance).toBeDefined();
+          expect(routes[0].legs[0].duration).toBeDefined();
         }
-      });
-    });
 
-    waitsFor(function() {
-      return routes_flag;
-    }, "#getRoutes should return the found routes as an argument", 3500);
-
-    runs(function() {
-      expect(routes).toBeDefined();
-
-      if (routes.length > 0) {
-        expect(routes[0].legs[0].distance).toBeDefined();
-        expect(routes[0].legs[0].duration).toBeDefined();
+        done();
       }
     });
   });
