@@ -409,6 +409,14 @@ var GMaps = (function(global) {
     };
 
     this.buildContextMenu = function(control, e) {
+      // Handle potential lack of pixel but presense of latLng
+      if (typeof e.pixel !== "object" && e.hasOwnProperty('latLng')) {
+        e.pixel = {};
+        var overlay = new google.maps.OverlayView();
+        overlay.setMap(self.map);
+        overlay.draw = function() {}
+        e.pixel = overlay.getProjection().fromLatLngToContainerPixel(e.latLng);
+      }
       if (control === 'marker') {
         e.pixel = {};
 
@@ -893,6 +901,46 @@ GMaps.prototype.addMarkers = function(array) {
   }
 
   return this.markers;
+};
+
+GMaps.prototype.createGroundOverlay = function(options) {
+  var latLngBounds = new google.maps.LatLngBounds(
+    new google.maps.LatLng(options.bounds[0][0], options.bounds[0][1]),
+    new google.maps.LatLng(options.bounds[1][0], options.bounds[1][1])
+  );
+
+  options.bounds = latLngBounds;
+  return new google.maps.GroundOverlay(
+    options.url,
+    options.bounds
+  );
+};
+
+GMaps.prototype.addGroundOverlay = function(options) {
+  var grndoverlay;
+  if(options.hasOwnProperty('gm_accessors_')) {
+    // Native google.maps.GroundOverlay object
+    grndoverlay = options;
+  }
+  else {
+    if (options.bounds && options.url) {
+      grndoverlay = this.createGroundOverlay(options);
+    }
+    else {
+      throw 'No boundaries.';
+    }
+  }
+
+  grndoverlay.setMap(this.map);
+  
+  // Pass the rightclick event through to the main map
+  google.maps.event.addListener(grndoverlay, 'rightclick', function(e) {
+    google.maps.event.trigger(this.map, 'rightclick', e);
+  });
+
+  GMaps.fire('grndoverlay_added', grndoverlay, this);
+
+  return grndoverlay;
 };
 
 GMaps.prototype.hideInfoWindows = function() {
