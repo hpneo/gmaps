@@ -3,6 +3,8 @@ describe('Creating a map', () => {
   let advancedMap;
   let mapWithEvents;
   let mapWithCustomControls;
+  let mapAsImage;
+  let mapWithZoom;
 
   it('should throw an error if element is not defined', () => {
     expect(() => { new GMaps({}); }).toThrow('No element defined. Pass an `element` option in GMaps.');
@@ -132,8 +134,7 @@ describe('Creating a map', () => {
   });
 
   describe('With custom controls', () => {
-    let callbacks; const
-      markers_in_map = 0;
+    let callbacks;
 
     beforeEach(() => {
       callbacks = {
@@ -175,6 +176,51 @@ describe('Creating a map', () => {
 
       expect(callbacks.onclick).toHaveBeenCalled();
       expect(mapWithCustomControls.markers.length).toEqual(1);
+    });
+  });
+
+  describe('With basic options and an image created from this', () => {
+    const defaultZoomLevel = 15;
+
+    beforeEach(() => {
+      mapAsImage = mapAsImage || new GMaps({
+        el: '#basic-map',
+        lat: -12.0433,
+        lng: -77.0283,
+        zoomControl: true,
+      });
+    });
+
+    it('should create a StaticMapsAPI URL', () => {
+      expect(mapAsImage.toImage()).toBeDefined();
+    });
+
+    it('should use default zoom', () => {
+      expect(mapAsImage.toImage()).toMatch(`zoom=${defaultZoomLevel}`);
+    });
+
+    describe('with the zoom set', () => {
+      beforeEach(() => {
+        mapWithZoom = mapWithZoom || new GMaps({
+          el: '#basic-map',
+          lat: -12.0433,
+          lng: -77.0283,
+          zoomControl: true,
+        });
+      });
+
+      it('should use correct zoom level if it is set via setZoom()', () => {
+        const zoomLevel = 4;
+        mapWithZoom.map.setZoom(zoomLevel);
+        expect(mapWithZoom.toImage()).toMatch(`zoom=${zoomLevel}`);
+      });
+
+      it('should use correct zoom level if it is set via toImage(options)', () => {
+        const zoomLevel = 5;
+        const options = {};
+        options.zoom = zoomLevel;
+        expect(mapWithZoom.toImage(options)).toMatch(`zoom=${zoomLevel}`);
+      });
     });
   });
 });
