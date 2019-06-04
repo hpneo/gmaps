@@ -17,11 +17,8 @@
           lng: -77.028333,
           zoom: 3
         });
-        
-        map.addLayer('weather', {
-          clickable: false
-        });
-        map.addLayer('clouds');
+
+        map.addLayer('traffic');
       });
     </script>
   </head>
@@ -38,15 +35,12 @@
   lat: -12.043333,
   lng: -77.028333
 });
-map.addLayer('weather', {
-  clickable: false
-});
-map.addLayer('clouds');
+
+map.addLayer('traffic');
 </pre>
-        <p><span class="label notice">Note: </span> You can choose <strong>different layers</strong>. Possible values are <strong>weather</strong>, <strong>clouds</strong>, <strong>traffic</strong>, <strong>transit</strong> and/or <strong>bicycling</strong></p>
-        <p><span class="label notice">Note: </span> Be aware that you have to add the library 'weather' in the url for the weather/clouds layer: <pre>http://maps.google.com/maps/api/js?sensor=true&libraries=weather</pre></p>
+        <p><span class="label notice">Note: </span> You can choose <strong>different layers</strong>. Possible values are <strong>traffic</strong>, <strong>transit</strong> and/or <strong>bicycling</strong></p>
         <p><span class="label notice">Note: </span> In the second param you can add your options for the layer as object.</p>
-        <p><span class="label notice">Note: </span> To remove a layer you can use <pre>map.removeLayer('clouds');</pre></p>
+        <p><span class="label notice">Note: </span> To remove a layer you can use <pre>map.removeLayer('traffic');</pre></p>
 
       </div>
     </div>

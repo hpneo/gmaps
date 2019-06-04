@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>core.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="GMaps.html">GMaps</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="GMaps.html#fitLatLngBounds">fitLatLngBounds</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="GMaps.html#fitZoom">fitZoom</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="GMaps.html#getElement">getElement</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="GMaps.html#hideContextMenu">hideContextMenu</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="GMaps.html#refresh">refresh</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="GMaps.html#setCenter">setCenter</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="GMaps.html#setContextMenu">setContextMenu</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="GMaps.html#zoomIn">zoomIn</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="GMaps.html#zoomOut">zoomOut</a></span></li><li class="nav-heading">Modules</li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-Controls.html">Controls</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Controls.html#~addControl">addControl</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Controls.html#~removeControl">removeControl</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-Events.html">Events</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Events.html#~fire">fire</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Events.html#~off">off</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Events.html#~on">on</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Events.html#~once">once</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-Geofences.html">Geofences</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Geofences.html#~checkGeofence">checkGeofence</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Geofences.html#~checkMarkerGeofence">checkMarkerGeofence</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-Geometry.html">Geometry</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Geometry.html#~drawCircle">drawCircle</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Geometry.html#~drawPolygon">drawPolygon</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Geometry.html#~drawPolyline">drawPolyline</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Geometry.html#~drawRectangle">drawRectangle</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Geometry.html#~removePolygon">removePolygon</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Geometry.html#~removePolygons">removePolygons</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Geometry.html#~removePolyline">removePolyline</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Geometry.html#~removePolylines">removePolylines</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-Layers.html">Layers</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Layers.html#~addLayer">addLayer</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Layers.html#~loadFromFusionTables">loadFromFusionTables</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Layers.html#~loadFromKML">loadFromKML</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Layers.html#~removeLayer">removeLayer</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-MapTypes.html">MapTypes</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-MapTypes.html#~addMapType">addMapType</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-MapTypes.html#~addOverlayMapType">addOverlayMapType</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-MapTypes.html#~removeOverlayMapType">removeOverlayMapType</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-Markers.html">Markers</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Markers.html#~addMarker">addMarker</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Markers.html#~addMarkers">addMarkers</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Markers.html#~hideInfoWindows">hideInfoWindows</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Markers.html#~removeMarker">removeMarker</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Markers.html#~removeMarkers">removeMarkers</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-Overlays.html">Overlays</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Overlays.html#~drawOverlay">drawOverlay</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Overlays.html#~removeOverlay">removeOverlay</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Overlays.html#~removeOverlays">removeOverlays</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-Routes.html">Routes</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Routes.html#~cleanRoute">cleanRoute</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Routes.html#~drawRoute">drawRoute</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Routes.html#~drawSteppedRoute">drawSteppedRoute</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Routes.html#~getElevations">getElevations</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Routes.html#~getRoutes">getRoutes</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Routes.html#~removeRoutes">removeRoutes</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Routes.html#~travelRoute">travelRoute</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-Static.html">Static</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Static.html#~toImage">toImage</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-StreetView.html">StreetView</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-StreetView.html#~createPanorama">createPanorama</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-Styles.html">Styles</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Styles.html#~addStyle">addStyle</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Styles.html#~setStyle">setStyle</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-Utils.html">Utils</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Utils.html#.geolocate">geolocate</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Utils.html#.geolocate">geolocate</a></span></li>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">core.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>export const latLngFromArguments = (...args) => {
+  if (typeof args[0][1] === 'number' &amp;&amp; typeof args[0][1] === 'number') {
+    return new google.maps.LatLng(args[0][0], args[0][1]);
+  }
+
+  return args[0];
+};
+
+export const flattenArray = array =>
+  array.reduce((collection, item) => collection.concat(item), []);
+
+export const coordsToLatLngs = (coordinates, useGeoJSON) => {
+  const firstCoordinate = useGeoJSON ? coordinates[1] : coordinates[0];
+  const secondCoordinate = useGeoJSON ? coordinates[0] : coordinates[1];
+
+  return new google.maps.LatLng(firstCoordinate, secondCoordinate);
+};
+
+export const arrayToLatLng = (coordinates, useGeoJSON) =>
+  coordinates.map((coordinate) => {
+    if (!(coordinate instanceof google.maps.LatLng)) {
+      if (coordinate.length &amp;&amp; typeof coordinate[0] === 'object') {
+        return arrayToLatLng(coordinate, useGeoJSON);
+      }
+
+      return coordsToLatLngs(coordinate, useGeoJSON);
+    }
+
+    return coordinate;
+  });
+
+const getElementsByClassName = (className, context) => {
+  const sanitizedClassName = className.replace(/^\./, '');
+
+  if (typeof global.$ === 'function') {
+    return $(`.${sanitizedClassName}`, context)[0];
+  }
+
+  return global.document.getElementsByClassName(sanitizedClassName)[0];
+};
+
+export const getElementById = (id, context) => {
+  const sanitizedId = id.replace(/^#/, '');
+
+  if (typeof global.$ === 'function') {
+    const elements = $(`#${sanitizedId}`, context) || [];
+
+    return elements[0];
+  }
+
+  return global.document.getElementById(sanitizedId);
+};
+
+const getElement = (selectorOrElement, context) => {
+  if (typeof selectorOrElement === 'string') {
+    return selectorOrElement.match(/^#/) ? getElementById(selectorOrElement, context) : getElementsByClassName(selectorOrElement, context);
+  }
+
+  return selectorOrElement;
+};
+
+export const findAbsolutePosition = (element) => {
+  let left = 0;
+  let top = 0;
+
+  if (element.getBoundingClientRect) {
+    const rectangle = element.getBoundingClientRect();
+    const x = -(window.scrollX ? window.scrollX : window.pageXOffset);
+    const y = -(window.scrollY ? window.scrollY : window.pageYOffset);
+
+    return [rectangle.left - x, rectangle.top - y];
+  }
+
+  if (element.offsetParent) {
+    let iterator = element;
+
+    do {
+      left += iterator.offsetLeft;
+      top += iterator.offsetTop;
+    } while ((iterator = iterator.offsetParent));
+  }
+
+  return [left, top];
+};
+
+export const setupEventListener = ({ object, eventName, instance, handler, }) => {
+  google.maps.event.addListener(object, eventName, (event = instance) => {
+    handler.call(instance, event);
+
+    if (instance.hideContextMenu) {
+      instance.hideContextMenu();
+    }
+  });
+};
+
+export const setupEvents = ({ events, object, instance, handlers, }) =>
+  events.forEach((eventName) => {
+    if (handlers[eventName]) {
+      setupEventListener({
+        object,
+        eventName,
+        instance,
+        handler: handlers[eventName],
+      });
+    }
+  });
+
+const MAP_EVENTS = [
+  'bounds_changed', 'center_changed', 'click', 'dblclick', 'drag',
+  'dragend', 'dragstart', 'idle', 'maptypeid_changed',
+  'mousemove', 'mouseout', 'mouseover', 'projection_changed',
+  'resize', 'tilesloaded', 'zoom_changed'
+];
+const GMAPS_MENU_ID = 'gmaps_context_menu';
+
+/**
+ * GMaps is a wrapper for Google Maps JavaScript API. Its goal is to simplify Google Maps usage by performing complex tasks with fewer lines of code.
+ */
+class GMaps {
+  /**
+   * Creates a new GMaps instance, including a Google Maps map.
+   * @param {object} options - `options` accepts all the [MapOptions](https://developers.google.com/maps/documentation/javascript/reference#MapOptions) and [events](https://developers.google.com/maps/documentation/javascript/reference#Map) listed in the Google Maps API. Also accepts:
+   * * `latitude` (number): Latitude of the map's center
+   * * `longitude` (number): Longitude of the map's center
+   * * `element` (string or HTMLElement): container where the map will be rendered
+   * * `markerClusterer` (function): A function to create a marker cluster. You can use MarkerClusterer or MarkerClustererPlus.
+   */
+  constructor(baseOptions = {}) {
+    if (!window.google || !window.google.maps) {
+      throw new Error('Google Maps JavaScript API is required. Check: https://developers.google.com/maps/documentation/javascript/tutorial');
+    }
+
+    const {
+      el,
+      div,
+      context,
+      element = getElement(el || div, context),
+      lat,
+      latitude = lat,
+      lng,
+      longitude = lng,
+      center = new google.maps.LatLng(latitude, longitude),
+      zoom = 15,
+      mapType = 'roadmap',
+      zoomControlOpt = {
+        style: 'DEFAULT',
+        position: 'TOP_LEFT',
+      },
+      panControl = true,
+      zoomControl = true,
+      mapTypeControl = true,
+      scaleControl = true,
+      streetViewControl = true,
+      overviewMapControl = true,
+      width,
+      height,
+      markerClusterer,
+      enableNewStyle,
+      ...options
+    } = baseOptions;
+
+    if (!element) {
+      throw new Error('No element defined. Pass an `element` option in GMaps.');
+    }
+
+    const mapTypeId = google.maps.MapTypeId[mapType.toUpperCase()];
+
+    const mapBaseOptions = {
+      zoom,
+      center,
+      mapTypeId,
+    };
+
+    const mapControlsOptions = {
+      panControl,
+      zoomControl,
+      zoomControlOptions: {
+        style: google.maps.ZoomControlStyle[zoomControlOpt.style],
+        position: google.maps.ControlPosition[zoomControlOpt.position],
+      },
+      mapTypeControl,
+      scaleControl,
+      streetViewControl,
+      overviewMapControl,
+    };
+
+    const filteredOptions = Object.keys(options).reduce((hash, key) => {
+      if (MAP_EVENTS.includes(key)) {
+        return hash;
+      }
+
+      return { ...hash, [key]: options[key], };
+    }, {});
+
+    this.id = Math.ceil(Math.random() * Date.now());
+
+    GMaps.contextMenus[this.id] = {};
+
+    google.maps.visualRefresh = enableNewStyle;
+
+    /**
+     * HTML element where the Google Maps map is rendered
+     *
+     * @type {HTMLElement}
+     */
+    this.element = element;
+    this.element.style.width = width || this.element.scrollWidth || this.element.offsetWidth;
+    this.element.style.height = height || this.element.scrollHeight || this.element.offsetHeight;
+
+    const mapOptions = {
+      ...filteredOptions,
+      ...mapBaseOptions,
+      ...mapControlsOptions,
+    };
+
+    this.map = new google.maps.Map(this.element, mapOptions);
+    /**
+     * Collection of custom controls in the map UI
+     *
+     * @type {array}
+     */
+    this.controls = [];
+    /**
+     * Collection of map's overlays
+     *
+     * @type {array}
+     */
+    this.overlays = [];
+    /**
+     * Collection of KML/GeoRSS and FusionTable layers
+     *
+     * @type {array}
+     */
+    this.layers = [];
+    /**
+     * Collection of data layers (See {@link GMaps#addLayer})
+     *
+     * @type {object}
+     */
+    this.singleLayers = {};
+    /**
+     * Collection of map's markers
+     *
+     * @type {array}
+     */
+    this.markers = [];
+    /**
+     * Collection of map's lines
+     *
+     * @type {array}
+     */
+    this.polylines = [];
+    /**
+     * Collection of map's routes requested by {@link GMaps#getRoutes}, {@link GMaps#renderRoute}, {@link GMaps#drawRoute}, {@link GMaps#travelRoute} or {@link GMaps#drawSteppedRoute}
+     *
+     * @type {array}
+     */
+    this.routes = [];
+    /**
+     * Collection of map's polygons
+     *
+     * @type {array}
+     */
+    this.polygons = [];
+    this.infoWindow = null;
+    this.overlayElement = null;
+    /**
+     * Current map's zoom
+     *
+     * @type {number}
+     */
+    this.zoom = zoom;
+
+    this.registeredEvents = {};
+
+    if (markerClusterer) {
+      /**
+       * Marker Clusterer instance
+       *
+       * @type {object}
+       */
+      this.markerClusterer = markerClusterer.apply(this, [this.map]);
+    }
+
+    google.maps.event.addListener(this.map, 'zoom_changed', this.hideContextMenu);
+
+    setupEvents({ events: MAP_EVENTS, object: this.map, instance: this, handlers: options, });
+
+    google.maps.event.addListener(this.map, 'rightclick', (event) => {
+      if (options.rightclick) {
+        options.rightclick.call(this, event);
+      }
+
+      if (GMaps.contextMenus[this.id].map) {
+        this.buildContextMenu('map', event);
+      }
+    });
+  }
+
+  buildContextMenuHTML(control, event) {
+    if (!getElementById(GMAPS_MENU_ID)) {
+      return;
+    }
+
+    const contextMenuElement = getElementById(GMAPS_MENU_ID);
+    const options = GMaps.contextMenus[this.id][control];
+
+    const html = Object.keys(options).map(key =>
+      `&lt;li>&lt;a id="${control}_${key}" href="#">${options[key].title}&lt;/a>&lt;/li>`
+    ).join('');
+
+    contextMenuElement.innerHTML = html;
+
+    const contextMenuItems = contextMenuElement.getElementsByTagName('a');
+
+    [...contextMenuItems].forEach((contextMenuItem) => {
+      const contextMenuItemListener = (contextMenuItemListenerEvent) => {
+        contextMenuItemListenerEvent.preventDefault();
+
+        options[contextMenuItemListenerEvent.target.id.replace(`${control}_`, '')].action.call(this, event);
+        this.hideContextMenu();
+      };
+
+      google.maps.event.clearListeners(contextMenuItem, 'click');
+      google.maps.event.addDomListenerOnce(contextMenuItem, 'click', contextMenuItemListener, false);
+    });
+
+    const position = findAbsolutePosition(this.element);
+    const left = position[0] + event.pixel.x - 15;
+    const top = position[1] + event.pixel.y - 15;
+
+    contextMenuElement.style.left = `${left}px`;
+    contextMenuElement.style.top = `${top}px`;
+  }
+
+  buildContextMenu(control, event) {
+    if (control === 'marker') {
+      // eslint-disable-next-line no-param-reassign
+      event.pixel = {};
+
+      const overlay = new google.maps.OverlayView();
+      overlay.setMap(this.map);
+
+      overlay.draw = () => {
+        const projection = overlay.getProjection();
+        const position = event.marker.getPosition();
+
+        // eslint-disable-next-line no-param-reassign
+        event.pixel = projection.fromLatLngToContainerPixel(position);
+
+        this.buildContextMenuHTML(control, event);
+      };
+    } else {
+      this.buildContextMenuHTML(control, event);
+    }
+
+    const contextMenuElement = getElementById(GMAPS_MENU_ID);
+
+    setTimeout(() => {
+      contextMenuElement.style.display = 'block';
+    }, 0);
+  }
+
+  /**
+   * Add a context menu for a map or a marker.
+   *
+   * @param {object} options - The `options` object should contain:
+   * * `control` (string): Kind of control the context menu will be attached. Can be "map" or "marker".
+   * * `options` (array): A collection of context menu items:
+   *   * `title` (string): Item's title shown in the context menu.
+   *   * `name` (string): Item's identifier.
+   *   * `action` (function): Function triggered after selecting the context menu item.
+   */
+  setContextMenu(options) {
+    GMaps.contextMenus[this.id][options.control] = {};
+
+    Object.keys(options.options).forEach((key) => {
+      const option = options.options[key];
+
+      GMaps.contextMenus[this.id][options.control][option.name] = {
+        title: option.title,
+        action: option.action,
+      };
+    });
+
+    let contextMenuElement = getElementById(GMAPS_MENU_ID);
+
+    if (!contextMenuElement) {
+      contextMenuElement = document.createElement('ul');
+
+      contextMenuElement.id = GMAPS_MENU_ID;
+      contextMenuElement.style.display = 'none';
+      contextMenuElement.style.position = 'absolute';
+      contextMenuElement.style.minWidth = '100px';
+      contextMenuElement.style.background = 'white';
+      contextMenuElement.style.listStyle = 'none';
+      contextMenuElement.style.padding = '8px';
+      contextMenuElement.style.boxShadow = '2px 2px 6px #ccc';
+
+      document.body.appendChild(contextMenuElement);
+    }
+
+    google.maps.event.addDomListener(contextMenuElement, 'mouseout', (event) => {
+      if (!event.relatedTarget || !event.target.contains(event.relatedTarget)) {
+        window.setTimeout(() => {
+          contextMenuElement.style.display = 'none';
+        }, 500);
+      }
+    }, false);
+  }
+
+  /**
+   * Hide the current context menu
+   */
+  hideContextMenu() {
+    const contextMenuElement = getElementById(GMAPS_MENU_ID);
+
+    if (contextMenuElement) {
+      contextMenuElement.style.display = 'none';
+    }
+  }
+
+  /**
+   * Trigger a `resize` event, useful if you need to repaint the current map (for changes in the viewport or display / hide actions).
+   */
+  refresh() {
+    google.maps.event.trigger(this.map, 'resize');
+  }
+
+  /**
+   * Adjust the map zoom to include all the coordinates in the `latLngs` array.
+   *
+   * @param {array} latLngs - Collection of `google.maps.LatLng` objects.
+   */
+  fitLatLngBounds(latLngs) {
+    const bounds = new google.maps.LatLngBounds();
+
+    latLngs.forEach(latLng => bounds.extend(latLng));
+
+    this.map.fitBounds(bounds);
+  }
+
+  /**
+   * Adjust the map zoom to include all the markers added in the map.
+   */
+  fitZoom() {
+    const latLngs = this.markers
+      .filter(marker => marker.visible)
+      .map(marker => marker.getPosition());
+
+    this.fitLatLngBounds(latLngs);
+  }
+
+  /**
+   * Center the map using the `lat` and `lng` coordinates.
+   *
+   * @param {number} lat - Latitude of the coordinate.
+   * @param {number} lng - Longitude of the coordinate.
+   * @param {function} [callback] - Callback that will be executed after the map is centered.
+   */
+  setCenter(...args) {
+    const latLng = latLngFromArguments(args);
+    const callback = args.pop();
+
+    this.map.panTo(latLng);
+
+    if (typeof callback === 'function') {
+      callback.call(this);
+    }
+  }
+
+  /**
+   * Return the HTML element container of the map.
+   *
+   * @returns {HTMLElement} the element container.
+   */
+  getElement() {
+    return this.element;
+  }
+
+  /**
+   * Increase the map's zoom.
+   *
+   * @param {number} [magnitude] - The number of times the map will be zoomed in.
+   */
+  zoomIn(magnitude = 1) {
+    this.zoom = this.map.getZoom() + magnitude;
+    this.map.setZoom(this.zoom);
+  }
+
+  /**
+   * Decrease the map's zoom.
+   *
+   * @param {number} [magnitude] - The number of times the map will be zoomed out.
+   */
+  zoomOut(magnitude = 1) {
+    this.zoom = this.map.getZoom() - magnitude;
+    this.map.setZoom(this.zoom);
+  }
+}
+
+GMaps.contextMenus = {};
+
+const googleMapsMapMethods = Object.keys(google.maps.Map.prototype)
+  .filter(key => (typeof google.maps.Map.prototype[key] === 'function' &amp;&amp; !GMaps.prototype[key]));
+
+googleMapsMapMethods.forEach((methodName) => {
+  // eslint-disable-next-line func-names
+  GMaps.prototype[methodName] = function (...args) {
+    return this.map[methodName].apply(this.map, args);
+  };
+});
+
+export default GMaps;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.2</a> on Mon Jun 03 2019 23:38:40 GMT-0500 (Central Daylight Time) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

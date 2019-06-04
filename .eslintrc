@@ -1,0 +1,26 @@
+{
+  "extends": "airbnb-base",
+  "globals": {
+    "window": "readonly",
+    "document": "readonly",
+    "google": "readonly",
+    "$": "readonly",
+    "GMaps": "readonly",
+    "beforeEach": "readonly",
+    "afterEach": "readonly",
+    "describe": "readonly",
+    "it": "readonly",
+    "expect": "readonly"
+  },
+  "rules": {
+    "class-methods-use-this": "off",
+    "comma-dangle": ["error", { "functions": "never", "objects": "always" }],
+    "function-paren-newline": "off",
+    "implicit-arrow-linebreak": "off",
+    "max-len": ["error", { "ignoreComments": true, "ignoreStrings": true }],
+    "no-console": ["error", { "allow": ["warn", "error"] }],
+    "no-cond-assign": ["error", "except-parens"],
+    "object-curly-newline": ["error", { "ObjectExpression": { "multiline": true }, "ObjectPattern": "never" }],
+    "prefer-spread": "off"
+  }
+}

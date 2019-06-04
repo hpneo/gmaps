@@ -50,7 +50,7 @@ module.exports = function(grunt) {
         vendor: ['https://maps.google.com/maps/api/js?sensor=true'],
         styles: 'test/style.css'
       },
-      src: 'gmaps.js'
+      src: 'gmaps.core.js'
     },
 
     watch : {

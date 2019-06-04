@@ -14,7 +14,7 @@
           el: "#map",
           lat: 41.895465,
           lng: 12.482324,
-          zoom: 5, 
+          zoom: 5,
           zoomControl : true,
           zoomControlOpt: {
             style : "SMALL",
@@ -25,7 +25,7 @@
           mapTypeControl: false,
           overviewMapControl: false
         });
-        
+
         var styles = [
             {
               stylers: [
@@ -47,13 +47,13 @@
               ]
             }
         ];
-        
+
         map.addStyle({
             styledMapName:"Styled Map",
             styles: styles,
-            mapTypeId: "map_style"  
+            mapTypeId: "map_style"
         });
-        
+
         map.setStyle("map_style");
       });
     </script>
@@ -82,7 +82,7 @@
 map.addStyle({
     styledMapName:"Styled Map",
     styles: styles,
-    mapTypeId: "map_style"  
+    mapTypeId: "map_style"
 });
 
 map.setStyle("map_style");</pre>

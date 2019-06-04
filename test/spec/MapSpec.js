@@ -1,178 +1,180 @@
-describe("Creating a map", function() {
-  var basic_map, advanced_map, map_with_events, map_with_custom_controls;
+describe('Creating a map', () => {
+  let basicMap;
+  let advancedMap;
+  let mapWithEvents;
+  let mapWithCustomControls;
 
-  it("should throw an error if element is not defined", function() {
-    expect(function() { new GMaps({}); }).toThrow('No element defined.');
+  it('should throw an error if element is not defined', () => {
+    expect(() => { new GMaps({}); }).toThrow('No element defined. Pass an `element` option in GMaps.');
   });
 
-  describe("With basic options", function() {
-    beforeEach(function() {
-      basic_map = basic_map || new GMaps({
-        el : '#basic-map',
+  describe('With basic options', () => {
+    beforeEach(() => {
+      basicMap = basicMap || new GMaps({
+        el: '#basic-map',
         lat: -12.0433,
         lng: -77.0283,
-        zoom: 12
+        zoom: 12,
       });
     });
 
-    it("should create a GMaps object", function() {
-      expect(basic_map).toBeDefined();
+    it('should create a GMaps object', () => {
+      expect(basicMap).toBeDefined();
     });
 
-    it("should have centered the map at the initial coordinates", function() {
-      var lat = basic_map.getCenter().lat();
-      var lng = basic_map.getCenter().lng();
+    it('should have centered the map at the initial coordinates', () => {
+      const lat = basicMap.getCenter().lat();
+      const lng = basicMap.getCenter().lng();
 
       expect(lat).toEqual(-12.0433);
       expect(lng).toEqual(-77.0283);
     });
 
-    it("should have the correct zoom", function() {
-      expect(basic_map.getZoom()).toEqual(12);
+    it('should have the correct zoom', () => {
+      expect(basicMap.getZoom()).toEqual(12);
     });
   });
 
-  describe("With advanced controls", function() {
-    beforeEach(function() {
-      advanced_map = advanced_map || new GMaps({
-        el : '#advanced-map',
+  describe('With advanced controls', () => {
+    beforeEach(() => {
+      advancedMap = advancedMap || new GMaps({
+        el: '#advanced-map',
         lat: -12.0433,
         lng: -77.0283,
-        zoomControl : true,
-        panControl : false,
-        streetViewControl : false,
+        zoomControl: true,
+        panControl: false,
+        streetViewControl: false,
         mapTypeControl: false,
-        overviewMapControl: false
+        overviewMapControl: false,
       });
     });
 
-    it("should show the defined controls", function() {
-      expect(advanced_map.map.zoomControl).toBeTruthy();
-      expect(advanced_map.map.panControl).toBeFalsy();
-      expect(advanced_map.map.streetViewControl).toBeFalsy();
-      expect(advanced_map.map.mapTypeControl).toBeFalsy();
-      expect(advanced_map.map.overviewMapControl).toBeFalsy();
+    it('should show the defined controls', () => {
+      expect(advancedMap.map.zoomControl).toBeTruthy();
+      expect(advancedMap.map.panControl).toBeFalsy();
+      expect(advancedMap.map.streetViewControl).toBeFalsy();
+      expect(advancedMap.map.mapTypeControl).toBeFalsy();
+      expect(advancedMap.map.overviewMapControl).toBeFalsy();
     });
   });
 
-  describe("With events", function() {
-    var callbacks, current_zoom = 0, current_center = null;
+  describe('With events', () => {
+    let callbacks;
+    let currentZoom = 0;
+    let currentCenter = null;
 
-    beforeEach(function() {
+    beforeEach(() => {
       callbacks = {
-        onclick : function(e) {
-          var lat = e.latLng.lat();
-          var lng = e.latLng.lng();
+        onclick(e) {
+          const lat = e.latLng.lat();
+          const lng = e.latLng.lng();
 
-          map_with_events.addMarker({
-            lat : lat,
-            lng : lng,
-            title : 'New Marker'
+          mapWithEvents.addMarker({
+            lat,
+            lng,
+            title: 'New Marker',
           });
         },
-        onzoomchanged : function() {
+        onzoomchanged() {
           console.log('onzoomchanged');
-          current_zoom = this.getZoom();
+          currentZoom = this.getZoom();
         },
-        oncenterchanged : function() {
+        oncenterchanged() {
           console.log('oncenterchanged');
-          current_center = this.getCenter();
-        }
+          currentCenter = this.getCenter();
+        },
       };
 
-      spyOn(callbacks, 'onclick').and.callThrough();
-      spyOn(callbacks, 'onzoomchanged').and.callThrough();
-      spyOn(callbacks, 'oncenterchanged').and.callThrough();
+      spyOn(callbacks, 'onclick').andCallThrough();
+      spyOn(callbacks, 'onzoomchanged').andCallThrough();
+      spyOn(callbacks, 'oncenterchanged').andCallThrough();
 
-      map_with_events = map_with_events || new GMaps({
-        el : '#map-with-events',
-        lat : -12.0433,
-        lng : -77.0283,
-        click : callbacks.onclick,
-        zoom_changed : callbacks.onzoomchanged,
-        center_changed : callbacks.oncenterchanged
+      mapWithEvents = mapWithEvents || new GMaps({
+        el: '#map-with-events',
+        lat: -12.0433,
+        lng: -77.0283,
+        click: callbacks.onclick,
+        zoom_changed: callbacks.onzoomchanged,
+        center_changed: callbacks.oncenterchanged,
       });
     });
 
-    it("should respond to zoom_changed event", function() {
-      map_with_events.map.setZoom(16);
+    it('should respond to zoom_changed event', () => {
+      mapWithEvents.map.setZoom(16);
 
       expect(callbacks.onzoomchanged).toHaveBeenCalled();
-      expect(current_zoom).toEqual(16);
+      expect(currentZoom).toEqual(16);
     });
 
-    it("should respond to center_changed event", function() {
-      map_with_events.map.setCenter(new google.maps.LatLng(-12.0907, -77.0227));
+    it('should respond to center_changed event', () => {
+      mapWithEvents.map.setCenter(new google.maps.LatLng(-12.0907, -77.0227));
 
       // Fix for floating-point bug
-      var lat = parseFloat(current_center.lat().toFixed(4));
-      var lng = parseFloat(current_center.lng().toFixed(4));
+      const lat = parseFloat(currentCenter.lat().toFixed(4));
+      const lng = parseFloat(currentCenter.lng().toFixed(4));
 
       expect(callbacks.oncenterchanged).toHaveBeenCalled();
       expect(lat).toEqual(-12.0907);
       expect(lng).toEqual(-77.0227);
     });
 
-    it("should respond to click event", function() {
-      google.maps.event.trigger(map_with_events.map, 'click', {
-        latLng : new google.maps.LatLng(-12.0433, -77.0283)
-      });
+    it('should respond to click event', () => {
+      google.maps.event.trigger(mapWithEvents.map, 'click', { latLng: new google.maps.LatLng(-12.0433, -77.0283), });
 
       expect(callbacks.onclick).toHaveBeenCalled();
-      expect(map_with_events.markers.length).toEqual(1);
+      expect(mapWithEvents.markers.length).toEqual(1);
     });
 
-    afterEach(function() {
+    afterEach(() => {
       document.getElementById('map-with-events').innerHTML = '';
-      map_with_events = null;
+      mapWithEvents = null;
     });
   });
 
-  describe("With custom controls", function() {
-    var callbacks, markers_in_map = 0;
+  describe('With custom controls', () => {
+    let callbacks; const
+      markers_in_map = 0;
 
-    beforeEach(function() {
+    beforeEach(() => {
       callbacks = {
-        onclick : function() {
-          map_with_custom_controls.addMarker({
-            lat : map_with_custom_controls.getCenter().lat(),
-            lng : map_with_custom_controls.getCenter().lng()
+        onclick() {
+          mapWithCustomControls.addMarker({
+            lat: mapWithCustomControls.getCenter().lat(),
+            lng: mapWithCustomControls.getCenter().lng(),
           });
-        }
-      }
+        },
+      };
 
-      spyOn(callbacks, 'onclick').and.callThrough();
+      spyOn(callbacks, 'onclick').andCallThrough();
 
-      map_with_custom_controls = new GMaps({
-        el : '#map-with-custom-controls',
-        lat : -12.0433,
-        lng : -77.0283
+      mapWithCustomControls = new GMaps({
+        el: '#map-with-custom-controls',
+        lat: -12.0433,
+        lng: -77.0283,
       });
 
-      map_with_custom_controls.addControl({
-        position : 'top_right',
-        content : 'Add marker at the center',
-        style : {
+      mapWithCustomControls.addControl({
+        position: 'top_right',
+        content: 'Add marker at the center',
+        style: {
           margin: '5px',
           padding: '1px 6px',
           border: 'solid 1px #717B87',
-          background: '#fff'
+          background: '#fff',
         },
-        events : {
-          click: callbacks.onclick
-        }
+        events: { click: callbacks.onclick, },
       });
     });
 
-    it("should add the control to the controls collection", function() {
-      expect(map_with_custom_controls.controls.length).toEqual(1);
+    it('should add the control to the controls collection', () => {
+      expect(mapWithCustomControls.controls.length).toEqual(1);
     });
 
-    it("should respond to click event attached to the custom control", function() {
-      google.maps.event.trigger(map_with_custom_controls.controls[0], 'click');
+    it('should respond to click event attached to the custom control', () => {
+      google.maps.event.trigger(mapWithCustomControls.controls[0], 'click');
 
       expect(callbacks.onclick).toHaveBeenCalled();
-      expect(map_with_custom_controls.markers.length).toEqual(1);
+      expect(mapWithCustomControls.markers.length).toEqual(1);
     });
   });
 });

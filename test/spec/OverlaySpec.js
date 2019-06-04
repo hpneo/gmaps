@@ -1,56 +1,58 @@
-describe("Drawing HTML overlays", function() {
-  var map_with_overlays, overlay;
+describe('Drawing HTML overlays', () => {
+  let mapWithOverlays;
+  let overlay;
 
-  beforeEach(function() {
-    map_with_overlays = map_with_overlays || new GMaps({
-      el : '#map-with-overlays',
-      lat : -12.0433,
-      lng : -77.0283,
-      zoom : 12
+  beforeEach(() => {
+    mapWithOverlays = mapWithOverlays || new GMaps({
+      el: '#map-with-overlays',
+      lat: -12.0433,
+      lng: -77.0283,
+      zoom: 12,
     });
 
-    overlay = overlay || map_with_overlays.drawOverlay({
-      lat: map_with_overlays.getCenter().lat(),
-      lng: map_with_overlays.getCenter().lng(),
+    overlay = overlay || mapWithOverlays.drawOverlay({
+      lat: mapWithOverlays.getCenter().lat(),
+      lng: mapWithOverlays.getCenter().lng(),
       layer: 'overlayLayer',
       content: '<div class="overlay">Lima</div>',
       verticalAlign: 'top',
-      horizontalAlign: 'center'
+      horizontalAlign: 'center',
     });
   });
 
-  it("should add the overlay to the overlays collection", function() {
-    expect(map_with_overlays.overlays.length).toEqual(1);
-    expect(map_with_overlays.overlays[0]).toEqual(overlay);
+  it('should add the overlay to the overlays collection', () => {
+    expect(mapWithOverlays.overlays.length).toEqual(1);
+    expect(mapWithOverlays.overlays[0]).toEqual(overlay);
   });
 
-  it("should add the overlay in the current map", function() {
-    expect(overlay.getMap()).toEqual(map_with_overlays.map);
+  it('should add the overlay in the current map', () => {
+    expect(overlay.getMap()).toEqual(mapWithOverlays.map);
   });
 
-  describe("With events", function() {
-    var callbacks, overlayWithClick;
+  describe('With events', () => {
+    let callbacks;
+    let overlayWithClick;
 
-    beforeEach(function() {
+    beforeEach(() => {
       callbacks = {
-        onclick: function() {
+        onclick() {
           console.log('Clicked the overlay');
-        }
+        },
       };
 
-      spyOn(callbacks, 'onclick').and.callThrough();
+      spyOn(callbacks, 'onclick').andCallThrough();
 
-      overlayWithClick = map_with_overlays.drawOverlay({
-        lat: map_with_overlays.getCenter().lat(),
-        lng: map_with_overlays.getCenter().lng(),
+      overlayWithClick = mapWithOverlays.drawOverlay({
+        lat: mapWithOverlays.getCenter().lat(),
+        lng: mapWithOverlays.getCenter().lng(),
         content: '<p>Clickable overlay</p>',
-        click: callbacks.onclick
+        click: callbacks.onclick,
       });
     });
 
-    it("should respond to click event", function(done) {
-      google.maps.event.addListenerOnce(overlayWithClick, "ready", function() {
-        google.maps.event.trigger(overlayWithClick.el, "click");
+    it('should respond to click event', (done) => {
+      google.maps.event.addListenerOnce(overlayWithClick, 'ready', () => {
+        google.maps.event.trigger(overlayWithClick.element, 'click');
         expect(callbacks.onclick).toHaveBeenCalled();
         done();
       });

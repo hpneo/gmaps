@@ -10,8 +10,13 @@
     "hardwrap": true
   },
   "opts": {
-    "template": "node_modules/docdash",
+    "template": "node_modules/minami",
     "recurse": true,
-    "destination": "./docs"
+    "destination": "./docs/docs",
+    "readme": "README.md",
+    "package": "package.json"
+  },
+  "templates": {
+    "sort": false
   }
 }

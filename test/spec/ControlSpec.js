@@ -1,30 +1,30 @@
-describe('Creating custom map controls', function () {
-  var map;
+describe('Creating custom map controls', () => {
+  let map;
 
-  beforeEach(function() {
+  beforeEach(() => {
     map = map || new GMaps({
-      el : '#basic-map',
+      el: '#basic-map',
       lat: -12.0433,
       lng: -77.0283,
-      zoom: 12
+      zoom: 12,
     });
   });
 
-  it('should add default styles for the control', function () {
+  it('should add default styles for the control', () => {
     map.addControl({
       position: 'top_right',
-      content: 'Geolocate'
+      content: 'Geolocate',
     });
 
     expect(map.controls[0].position).toEqual(google.maps.ControlPosition.TOP_RIGHT);
     expect(map.controls[0].style.fontFamily).not.toEqual('');
   });
 
-  it('should leave off default styles if requested', function () {
+  it('should leave off default styles if requested', () => {
     map.addControl({
       position: 'top_right',
       disableDefaultStyles: true,
-      content: '<i class="icon"></i>'
+      content: '<i class="icon"></i>',
     });
 
     expect(map.controls[1].position).toEqual(google.maps.ControlPosition.TOP_RIGHT);
@@ -32,8 +32,8 @@ describe('Creating custom map controls', function () {
     expect(map.controls[1].style.fontFamily).toEqual('');
   });
 
-  it('should remove control', function () {
-    var control = map.controls[0];
+  it('should remove control', () => {
+    const control = map.controls[0];
     map.removeControl(control);
 
     expect(map.controls.length).toEqual(1);

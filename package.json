@@ -1,14 +1,16 @@
 {
   "name": "gmaps",
-  "version": "0.4.25",
+  "version": "1.0.0",
   "description": "the easiest way to use Google Maps",
   "main": "gmaps.js",
   "scripts": {
-    "test": "./node_modules/.bin/grunt test --verbose"
+    "generate-docs": "./node_modules/.bin/jsdoc -c jsdoc.json",
+    "build": "./node_modules/.bin/webpack --config webpack.dev.js && ./node_modules/.bin/webpack --config webpack.prod.js",
+    "test": ""
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/HPNeo/gmaps"
+    "url": "https://github.com/hpneo/gmaps"
   },
   "author": "Gustavo Leon",
   "homepage": "http://hpneo.github.com/gmaps/",
@@ -17,15 +19,21 @@
     "url": "https://github.com/HPNeo/gmaps/issues"
   },
   "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "babel-loader": "^8.0.6",
     "docdash": "^0.1.0",
-    "grunt": "~0.4.1",
-    "grunt-cli": "^0.1.13",
-    "grunt-contrib-concat": "~0.3.0",
-    "grunt-contrib-jasmine": "1.0.0",
-    "grunt-contrib-jshint": "~0.6.0",
-    "grunt-contrib-uglify": "^0.9.1",
-    "grunt-contrib-watch": "~0.4.4",
-    "grunt-umd": "~1.3.0",
-    "minami": "^1.1.1"
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.17.3",
+    "jsdoc": "^3.6.2",
+    "minami": "^1.1.1",
+    "webpack": "^4.32.2",
+    "webpack-cli": "^3.3.2",
+    "webpack-merge": "^4.2.1"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.4.4"
   }
 }
