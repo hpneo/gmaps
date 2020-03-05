@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>static.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="GMaps.html">GMaps</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="GMaps.html#fitLatLngBounds">fitLatLngBounds</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="GMaps.html#fitZoom">fitZoom</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="GMaps.html#getElement">getElement</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="GMaps.html#hideContextMenu">hideContextMenu</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="GMaps.html#refresh">refresh</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="GMaps.html#setCenter">setCenter</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="GMaps.html#setContextMenu">setContextMenu</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="GMaps.html#zoomIn">zoomIn</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="GMaps.html#zoomOut">zoomOut</a></span></li><li class="nav-heading">Modules</li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-Controls.html">Controls</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Controls.html#~addControl">addControl</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Controls.html#~removeControl">removeControl</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-Events.html">Events</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Events.html#~fire">fire</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Events.html#~off">off</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Events.html#~on">on</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Events.html#~once">once</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-Geofences.html">Geofences</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Geofences.html#~checkGeofence">checkGeofence</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Geofences.html#~checkMarkerGeofence">checkMarkerGeofence</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-Geometry.html">Geometry</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Geometry.html#~drawCircle">drawCircle</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Geometry.html#~drawPolygon">drawPolygon</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Geometry.html#~drawPolyline">drawPolyline</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Geometry.html#~drawRectangle">drawRectangle</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Geometry.html#~removePolygon">removePolygon</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Geometry.html#~removePolygons">removePolygons</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Geometry.html#~removePolyline">removePolyline</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Geometry.html#~removePolylines">removePolylines</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-Layers.html">Layers</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Layers.html#~addLayer">addLayer</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Layers.html#~loadFromFusionTables">loadFromFusionTables</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Layers.html#~loadFromKML">loadFromKML</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Layers.html#~removeLayer">removeLayer</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-MapTypes.html">MapTypes</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-MapTypes.html#~addMapType">addMapType</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-MapTypes.html#~addOverlayMapType">addOverlayMapType</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-MapTypes.html#~removeOverlayMapType">removeOverlayMapType</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-Markers.html">Markers</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Markers.html#~addMarker">addMarker</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Markers.html#~addMarkers">addMarkers</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Markers.html#~hideInfoWindows">hideInfoWindows</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Markers.html#~removeMarker">removeMarker</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Markers.html#~removeMarkers">removeMarkers</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-Overlays.html">Overlays</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Overlays.html#~drawOverlay">drawOverlay</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Overlays.html#~removeOverlay">removeOverlay</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Overlays.html#~removeOverlays">removeOverlays</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-Routes.html">Routes</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Routes.html#~cleanRoute">cleanRoute</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Routes.html#~drawRoute">drawRoute</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Routes.html#~drawSteppedRoute">drawSteppedRoute</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Routes.html#~getElevations">getElevations</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Routes.html#~getRoutes">getRoutes</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Routes.html#~removeRoutes">removeRoutes</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Routes.html#~travelRoute">travelRoute</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-Static.html">Static</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Static.html#~toImage">toImage</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-StreetView.html">StreetView</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-StreetView.html#~createPanorama">createPanorama</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-Styles.html">Styles</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Styles.html#~addStyle">addStyle</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Styles.html#~setStyle">setStyle</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-Utils.html">Utils</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Utils.html#.geolocate">geolocate</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-Utils.html#.geolocate">geolocate</a></span></li>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">static.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import GMaps from './core';
+
+const parseColor = (color, opacity) => {
+  let parsedColor;
+
+  if (color[0] === '#') {
+    parsedColor = color.replace('#', '0x');
+
+    if (opacity) {
+      // eslint-disable-next-line no-param-reassign
+      opacity = Math.min(1, Math.max(parseFloat(opacity), 0));
+
+      if (opacity === 0) {
+        return '0x00000000';
+      }
+
+      // eslint-disable-next-line no-param-reassign
+      opacity = (opacity * 255).toString(16);
+
+      if (opacity.length === 1) {
+        // eslint-disable-next-line no-param-reassign
+        opacity += opacity;
+      }
+
+      parsedColor = parsedColor.slice(0, 8) + opacity;
+    }
+  }
+
+  return parsedColor;
+};
+
+/**
+ * Extends GMaps to generate static maps.
+ * @module Static
+ */
+
+/**
+ * Creates an URL for a static map from current GMaps map.
+ * @function toImage
+ *
+ * @param {object} options - The `options` object should contain:
+ * @param {array} options.size - Width and height of the image.
+ *
+ * @returns {string}
+ */
+ GMaps.prototype.toImage = function toImage(options = {}) {
+  const { size = [this.element.clientWidth, this.element.clientHeight], zoom = this.getZoom(), } = options;
+
+  const staticMapOptions = {
+    size,
+    zoom,
+    latitude: this.getCenter().lat(),
+    longitude: this.getCenter().lng(),
+    markers: this.markers.map(marker => ({
+      latitude: marker.getPosition().lat(),
+      longitude: marker.getPosition().lng(),
+    })),
+  };
+
+  if (this.polylines.length > 0) {
+    const polyline = this.polylines[0];
+
+    staticMapOptions.polyline = {
+      path: google.maps.geometry.encoding.encodePath(polyline.getPath()),
+      strokeColor: polyline.strokeColor,
+      strokeOpacity: polyline.strokeOpacity,
+      strokeWeight: polyline.strokeWeight,
+    };
+  }
+
+  return GMaps.staticMapURL(staticMapOptions);
+};
+
+const buildMarkerParameters = (marker) => {
+  const markerParameters = [];
+
+  const { address, lat, latitude = lat, lng, longitude = lng, size, icon, color, label, ...markerOptions } = marker;
+
+  const location = address || `${latitude},${longitude}`;
+
+  if (size) {
+    markerParameters.push(`size:${size}`);
+  }
+
+  if (icon) {
+    markerParameters.push(`icon:${encodeURI(icon)}`);
+  }
+
+  if (color) {
+    markerParameters.push(`color:${color.replace('#', '0x')}`);
+  }
+
+  if (label) {
+    markerParameters.push(`label:${label[0].toUpperCase()}`);
+  }
+
+  Object.keys(markerOptions).forEach(key => markerParameters.push(`${key}:${markerParameters[key]}`));
+
+  markerParameters.push(location);
+
+  return markerParameters;
+};
+
+const buildPathParameters = (polyline) => {
+  const { path, } = polyline;
+  const polylineParameters = [];
+
+  if (polyline.strokeWeight) {
+    polylineParameters.push(`weight:${parseInt(polyline.strokeWeight, 10)}`);
+  }
+
+  if (polyline.strokeColor) {
+    polylineParameters.push(`color:${parseColor(polyline.strokeColor, polyline.strokeOpacity)}`);
+  }
+
+  if (polyline.fillColor) {
+    polylineParameters.push(`fillcolor:${parseColor(polyline.fillColor, polyline.fillOpacity)}`);
+  }
+
+  if (path.join) {
+    path.forEach(coordinates => polylineParameters.push(coordinates.join(',')));
+  } else {
+    polylineParameters.push(`enc:${path}`);
+  }
+
+  return polylineParameters;
+};
+
+const buildStyleParameters = (style) => {
+  const styleParameters = [];
+
+  if (style.featureType) {
+    styleParameters.push(`feature:${style.featureType.toLowerCase()}`);
+  }
+
+  if (style.elementType) {
+    styleParameters.push(`element:${style.elementType.toLowerCase()}`);
+  }
+
+  if (style.stylers.length) {
+    style.stylers.forEach((styler) => {
+      Object.keys(styler).forEach((key) => {
+        const value = (key === 'hue' || key === 'color') ? styler[key].replace('#', '0x') : styler[key];
+
+        styleParameters.push(`${key}:${value}`);
+      });
+    });
+  }
+
+  return styleParameters;
+};
+
+GMaps.staticMapURL = function staticMapURL(baseOptions) {
+  const { url, lat, latitude = lat, lng, longitude = lng, center, address, zoom = 15, markers = [], styles, polyline, visible, size = [630, 300], ...options } = baseOptions;
+  const defaultRoot = `${global.location.protocol === 'file:' ? 'http:' : global.location.protocol}//maps.googleapis.com/maps/api/staticmap`;
+
+  let root = url || defaultRoot;
+  const parameters = [];
+
+  root += '?';
+
+  // Map options
+  if (center) {
+    parameters.push(`center=${center}`);
+  } else if (address) {
+    parameters.push(`center=${address}`);
+  } else if (latitude &amp;&amp; longitude) {
+    parameters.push(`center=${latitude},${longitude}`);
+  } else if (visible) {
+    parameters.push(`visible=${encodeURI(visible.join('|'))}`);
+  }
+
+  parameters.push(`size=${size.join('x')}`);
+  parameters.push(`zoom=${zoom}`);
+
+  Object.keys(options).forEach(key => parameters.push(`${key}=${options[key]}`));
+
+  // Map style
+  if (styles) {
+    styles.forEach((style) => {
+      const styleParameters = buildStyleParameters(style);
+
+      parameters.push(`style=${encodeURI(styleParameters.join('|'))}`);
+    });
+  }
+
+  // Markers
+  if (markers.length) {
+    markers.forEach((marker) => {
+      const markerParameters = buildMarkerParameters(marker);
+      parameters.push(`markers=${encodeURI(markerParameters.join('|'))}`);
+    });
+  }
+
+  // Polylines
+  if (polyline) {
+    const polylineParameters = buildPathParameters(polyline);
+
+    parameters.push(`path=${encodeURI(polylineParameters.join('|'))}`);
+  }
+
+  // Retina support
+  const dpi = window.devicePixelRatio || 1;
+  parameters.push(`scale=${dpi}`);
+
+  return root + parameters.join('&amp;');
+};
+
+export default GMaps;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.2</a> on Thu Mar 05 2020 08:58:51 GMT-0500 (GMT-05:00) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

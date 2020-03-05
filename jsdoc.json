@@ -13,8 +13,7 @@
     "template": "node_modules/minami",
     "recurse": true,
     "destination": "./docs/docs",
-    "readme": "README.md",
-    "package": "package.json"
+    "readme": "README.md"
   },
   "templates": {
     "sort": false

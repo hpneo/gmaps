@@ -4,9 +4,9 @@
   "description": "the easiest way to use Google Maps",
   "main": "gmaps.js",
   "scripts": {
-    "generate-docs": "./node_modules/.bin/jsdoc -c jsdoc.json",
     "build": "./node_modules/.bin/webpack --config webpack.dev.js && ./node_modules/.bin/webpack --config webpack.prod.js",
-    "test": ""
+    "build:site": "node serveSite.js",
+    "build:docs": "./node_modules/.bin/jsdoc -c jsdoc.json"
   },
   "repository": {
     "type": "git",
@@ -22,18 +22,27 @@
     "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
     "babel-loader": "^8.0.6",
+    "bulma": "^0.7.5",
+    "codemirror": "^5.47.0",
     "docdash": "^0.1.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.17.3",
+    "front-matter": "^3.0.2",
+    "highlight.js": "^9.15.8",
     "jsdoc": "^3.6.2",
+    "liquidjs": "^8.2.3",
+    "marked": "^0.6.2",
     "minami": "^1.1.1",
+    "node-static": "^0.7.11",
+    "prismjs": "^1.16.0",
     "webpack": "^4.32.2",
     "webpack-cli": "^3.3.2",
     "webpack-merge": "^4.2.1"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.4.4"
+    "@babel/polyfill": "^7.4.4",
+    "node-sass": "^4.12.0"
   }
 }

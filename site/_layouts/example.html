@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    {% if site.google_analytics %}
+      <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.google_analytics }}"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '{{ site.google_analytics }}');
+      </script>
+    {% endif %}
+    <meta charset="UTF-8">
+    {% seo %}
+    <title>gmaps.js - Google Maps API with less pain and more fun</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#74b9ff">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+    <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.build_revision }}">
+    <script src="https://maps.google.com/maps/api/js?sensor=true"></script>
+    <script src="{{ '/assets/js/gmaps.min.js?v=' | append: site.build_revision }}"></script>
+  </head>
+  <body>
+    <nav class="navbar site-navbar">
+      <div class="navbar-menu">
+        <div class="navbar-end">
+          <a class="navbar-item" href="/">Home</a>
+          <a class="navbar-item" href="/examples">Examples</a>
+          <a class="navbar-item" href="/docs" target="_blank">Documentation</a>
+          <a class="navbar-item" href="/playground">Playground</a>
+          <a class="navbar-item" href="https://github.com/hpneo/gmaps" target="_blank"><img src="https://img.icons8.com/ios/50/000000/github-filled.png"></a>
+        </div>
+      </div>
+    </nav>
+
+    <main id="content" class="main-content" role="main">
+      <section class="container with-margin">
+        <div class="columns">
+          <div class="column is-4">
+            <div class="content">
+              {{ content }}
+            </div>
+          </div>
+          <div class="column">
+            <article class="live-example is-large">
+              <aside class="live-example-editor">
+                {% highlight javascript snippet %}
+              </aside>
+              <aside class="live-example-preview" id="map"></aside>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="content has-text-centered">
+        <p>
+          <strong>gmaps.js</strong> by <a href="https://hpneo.dev">Gustavo Leon</a>. The source code is licensed
+          <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.
+        </p>
+      </div>
+    </footer>
+    <script>{{ snippet }}</script>
+  </body>
+</html>

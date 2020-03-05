@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    
+    <meta charset="UTF-8">
+    
+    <title>gmaps.js - Google Maps API with less pain and more fun</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#74b9ff">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+    <link rel="stylesheet" href="/assets/css/style.css?v=1583416514736">
+    <script src="https://maps.google.com/maps/api/js?sensor=true"></script>
+    <script src="/assets/js/gmaps.min.js?v=1583416514736"></script>
+  </head>
+  <body>
+    <nav class="navbar site-navbar">
+      <div class="navbar-menu">
+        <div class="navbar-end">
+          <a class="navbar-item" href="/">Home</a>
+          <a class="navbar-item" href="/examples">Examples</a>
+          <a class="navbar-item" href="/docs" target="_blank">Documentation</a>
+          <a class="navbar-item" href="/playground">Playground</a>
+          <a class="navbar-item" href="https://github.com/hpneo/gmaps" target="_blank"><img src="https://img.icons8.com/ios/50/000000/github-filled.png"></a>
+        </div>
+      </div>
+    </nav>
+
+    <main id="content" class="main-content" role="main">
+      <section class="hero is-medium">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns">
+        <div class="column">
+          <h1 class="title is-1">gmaps.js</h1>
+          <h2 class="subtitle">Google Maps API with less pain and more fun</h2>
+          <p>gmaps.js allows you to use the potential of Google Maps in a simple way.<br/>No more extensive documentation or large amount of code.</p>
+          <br />
+          <div class="buttons">
+            <a href="https://github.com/hpneo/gmaps" class="button is-primary has-text-weight-semibold">Install</a>
+            <a href="/docs" class="button is-text" target="_blank">View docs</a>
+          </div>
+        </div>
+        <div class="column">
+          <article class="live-example">
+            <aside class="live-example-editor">
+
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> map = <span class="hljs-keyword">new</span> GMaps({
+  <span class="hljs-attr">element</span>: <span class="hljs-string">'#map'</span>,
+  <span class="hljs-attr">latitude</span>: <span class="hljs-number">-12.043333</span>,
+  <span class="hljs-attr">longitude</span>: <span class="hljs-number">-77.028333</span>,
+});
+
+map.addMarker({
+  <span class="hljs-attr">position</span>: map.getCenter(),
+  <span class="hljs-attr">title</span>: <span class="hljs-string">'Center'</span>,
+});
+</code></pre>
+</aside>
+            <aside class="live-example-preview" id="map"></aside>
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="container with-margin">
+  <div class="columns is-centered">
+    <aside class="column">
+      <h4 class="title is-4">Simple but powerful</h4>
+      <p>Inspired in jQuery, gmaps.js allows you perform almost every operation available in Google Maps JavaScript API with less code.</p>
+    </aside>
+    <aside class="column">
+      <h4 class="title is-4">Modular</h4>
+      <p>Each group of features has its own module, so you can import only what you need and reduce your bundle size.</p>
+    </aside>
+    <aside class="column">
+      <h4 class="title is-4">Organized</h4>
+      <p>Each map's object is stored as a property in a GMaps instance. Iterate through your map's markers or polygons without missing anything.</p>
+    </aside>
+    <!-- <aside class="column">
+      <h4 class="title is-4">Modular</h4>
+      <p>Each group of features has its own module, so you can import only what you need and reduce your bundle size.</p>
+    </aside> -->
+  </div>
+</section>
+
+<section class="container  with-margin">
+  <div class="columns">
+    <div class="column">
+      <article class="content">
+        <h3 class="title is-3">Features</h3>
+        <ul>
+        <li>Create basic maps with 5 lines of code (or less).</li><li>1-1 parity with Google Maps JavaScript API.</li><li>Access all map's components from a GMaps instance.</li><li>Create markers, polylines and polygons with simple methods.</li><li>Load features from KML or GeoRSS feeds.</li><li>Add traffic, transit or bicycling layers to your map.</li><li>Search, draw or navigate through routes (requires Google Maps API key).</li><li>Draw overlays to create other components, such as Info Windows, custom controls, etc.</li><li>Apply style to your maps easily.</li><li>Embed StreetView easily.</li><li>Geocode and reverse-geocode locations (requires Google Maps API key).</li><li>Detect if a marker is inside our outside a geofence.</li><li>Access native <code>google.maps</code> objects to work directly with the low level Google Maps JavaScript API.</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<script>const map = new GMaps({
+  element: '#map',
+  latitude: -12.043333,
+  longitude: -77.028333,
+});
+
+map.addMarker({
+  position: map.getCenter(),
+  title: 'Center',
+});
+</script>
+    </main>
+
+    <footer class="footer">
+      <div class="content has-text-centered">
+        <p>
+          <strong>gmaps.js</strong> by <a href="https://hpneo.dev">Gustavo Leon</a>. The source code is licensed
+          <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

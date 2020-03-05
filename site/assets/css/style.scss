@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,900');
+@import './highlight';
+
+html, body {
+  font-family: 'Source Sans Pro';
+}
+
+pre, code {
+  font-family: Monaco, Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  background: #f8f8f8;
+  font-size: 0.85rem;
+}
+
+pre code{
+  font-size: 0.85rem;
+}
+
+.hero {
+  background: linear-gradient(120deg, rgba(#81ecec, 0.5), rgba(#0984e3, 0.5));
+}
+
+.button {
+  &.is-primary {
+    background: #0984e3;
+
+    &:hover {
+      background: lighten(#0984e3, 10%);
+    }
+  }
+
+  &.is-text {
+    &:hover {
+      background: none;
+    }
+  }
+}
+
+.container {
+  max-width: 1152px;
+}
+
+.live-example {
+  display: flex;
+  flex-direction: row;
+  max-width: 800px;
+  height: 300px;
+  border-radius: 4px;
+  margin: 0 auto;
+  overflow: hidden;
+  border: solid 0.5px rgba(#b2bec3, 0.5);
+
+  &.is-large {
+    max-width: 960px;
+    height: 540px;
+  }
+
+  > * {
+    width: 50%;
+    height: 100%;
+    background: #dfe6e9;
+
+    pre {
+      height: 100%;
+    }
+  }
+}
+
+.container.with-margin {
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.footer {
+  background: #2d3436;
+  color: whitesmoke;
+
+  * {
+    color: whitesmoke;
+  }
+
+  a {
+    color: lighten(#74b9ff, 10%);
+  }
+}
