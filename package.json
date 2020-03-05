@@ -2,24 +2,29 @@
   "name": "gmaps",
   "version": "1.0.0",
   "description": "the easiest way to use Google Maps",
+  "source": "lib/index.js",
   "main": "gmaps.js",
+  "unpkg": "gmaps.min.js",
+  "jsdelivr": "gmaps.min.js",
   "scripts": {
     "build": "./node_modules/.bin/webpack --config webpack.dev.js && ./node_modules/.bin/webpack --config webpack.prod.js",
-    "build:site": "node serveSite.js",
-    "build:docs": "./node_modules/.bin/jsdoc -c jsdoc.json"
+    "build:site": "node buildSite.js",
+    "build:docs": "./node_modules/.bin/jsdoc -c jsdoc.json",
+    "serve": "node serveSite.js"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/hpneo/gmaps"
   },
   "author": "Gustavo Leon",
-  "homepage": "http://hpneo.github.com/gmaps/",
+  "homepage": "https://hpneo.dev/gmaps/",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/HPNeo/gmaps/issues"
+    "url": "https://github.com/hpneo/gmaps/issues"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
+    "@babel/polyfill": "^7.4.4",
     "@babel/preset-env": "^7.4.5",
     "babel-loader": "^8.0.6",
     "bulma": "^0.7.5",
@@ -35,14 +40,12 @@
     "liquidjs": "^8.2.3",
     "marked": "^0.6.2",
     "minami": "^1.1.1",
+    "node-sass": "^4.12.0",
     "node-static": "^0.7.11",
     "prismjs": "^1.16.0",
     "webpack": "^4.32.2",
     "webpack-cli": "^3.3.2",
     "webpack-merge": "^4.2.1"
   },
-  "dependencies": {
-    "@babel/polyfill": "^7.4.4",
-    "node-sass": "^4.12.0"
-  }
+  "dependencies": {}
 }
