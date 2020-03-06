@@ -32,10 +32,10 @@
         <div class="columns">
           <div class="column is-4">
             <div class="content">
-              <h1 id="context-menu">Context menu</h1>
-<p>You can define a context menu, which will show on right click.</p>
+              <h1 id="geocoding">Geocoding</h1>
+<p>You can define either <code>address</code> or <code>latitude</code> and <code>longitude</code>. Also, you must define a <code>callback</code> function to use <code>results</code> of geocoding and its <code>status</code>.</p>
 <blockquote>
-<p><strong>Note:</strong> You can use <code>center</code> too, instead of <code>latitude</code> and <code>longitude</code>.</p>
+<p><strong>Note:</strong> <a href="https://github.com/hpneo/gmaps/issues/580">You need to define an API_KEY to use this feature</a>.</p>
 </blockquote>
 
             </div>
@@ -49,37 +49,22 @@
   <span class="hljs-attr">longitude</span>: <span class="hljs-number">-77.028333</span>
 });
 
-map.setContextMenu({
-  <span class="hljs-attr">control</span>: <span class="hljs-string">'map'</span>,
-  <span class="hljs-attr">options</span>: [{
-    <span class="hljs-attr">title</span>: <span class="hljs-string">'Add marker'</span>,
-    <span class="hljs-attr">name</span>: <span class="hljs-string">'add_marker'</span>,
-    <span class="hljs-attr">action</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">event</span>) </span>{
-      <span class="hljs-keyword">this</span>.addMarker({
-        <span class="hljs-attr">position</span>: event.latLng,
-        <span class="hljs-attr">title</span>: <span class="hljs-string">'New marker'</span>
+GMaps.geocode({
+  <span class="hljs-attr">address</span>: <span class="hljs-string">"Central Park"</span>,
+  <span class="hljs-attr">callback</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">results, status</span>) </span>{
+    <span class="hljs-keyword">if</span> (status === <span class="hljs-string">'OK'</span>) {
+      <span class="hljs-keyword">const</span> latLng = results[<span class="hljs-number">0</span>].geometry.location;
+
+      map.setCenter(latLng);
+
+      map.addMarker({
+        <span class="hljs-attr">position</span>: latLng
       });
-
-      <span class="hljs-keyword">this</span>.hideContextMenu();
     }
-  }, {
-    <span class="hljs-attr">title</span>: <span class="hljs-string">'Center here'</span>,
-    <span class="hljs-attr">name</span>: <span class="hljs-string">'center_here'</span>,
-    <span class="hljs-attr">action</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">event</span>) </span>{
-      <span class="hljs-keyword">this</span>.setCenter(event.latLng);
+    <span class="hljs-keyword">else</span> {
+      <span class="hljs-built_in">console</span>.error(status);
     }
-  }]
-});
-
-map.setContextMenu({
-  <span class="hljs-attr">control</span>: <span class="hljs-string">'marker'</span>,
-  <span class="hljs-attr">options</span>: [{
-    <span class="hljs-attr">title</span>: <span class="hljs-string">'Center here'</span>,
-    <span class="hljs-attr">name</span>: <span class="hljs-string">'center_here'</span>,
-    <span class="hljs-attr">action</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">event</span>) </span>{
-      <span class="hljs-keyword">this</span>.setCenter(event.latLng);
-    }
-  }]
+  }
 });
 </code></pre>
               </aside>
@@ -104,37 +89,22 @@ map.setContextMenu({
   longitude: -77.028333
 });
 
-map.setContextMenu({
-  control: 'map',
-  options: [{
-    title: 'Add marker',
-    name: 'add_marker',
-    action: function(event) {
-      this.addMarker({
-        position: event.latLng,
-        title: 'New marker'
+GMaps.geocode({
+  address: "Central Park",
+  callback: function(results, status) {
+    if (status === 'OK') {
+      const latLng = results[0].geometry.location;
+
+      map.setCenter(latLng);
+
+      map.addMarker({
+        position: latLng
       });
-
-      this.hideContextMenu();
     }
-  }, {
-    title: 'Center here',
-    name: 'center_here',
-    action: function(event) {
-      this.setCenter(event.latLng);
+    else {
+      console.error(status);
     }
-  }]
-});
-
-map.setContextMenu({
-  control: 'marker',
-  options: [{
-    title: 'Center here',
-    name: 'center_here',
-    action: function(event) {
-      this.setCenter(event.latLng);
-    }
-  }]
+  }
 });
 </script>
   </body>

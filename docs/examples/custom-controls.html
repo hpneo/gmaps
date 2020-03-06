@@ -32,11 +32,8 @@
         <div class="columns">
           <div class="column is-4">
             <div class="content">
-              <h1 id="context-menu">Context menu</h1>
-<p>You can define a context menu, which will show on right click.</p>
-<blockquote>
-<p><strong>Note:</strong> You can use <code>center</code> too, instead of <code>latitude</code> and <code>longitude</code>.</p>
-</blockquote>
+              <h1 id="custom-controls">Custom controls</h1>
+<p>Add a custom control to the map UI. See <a href="/docs/module-Controls.html#~addControl"><code>GMaps#addControl</code></a> for more options.</p>
 
             </div>
           </div>
@@ -49,37 +46,31 @@
   <span class="hljs-attr">longitude</span>: <span class="hljs-number">-77.028333</span>
 });
 
-map.setContextMenu({
-  <span class="hljs-attr">control</span>: <span class="hljs-string">'map'</span>,
-  <span class="hljs-attr">options</span>: [{
-    <span class="hljs-attr">title</span>: <span class="hljs-string">'Add marker'</span>,
-    <span class="hljs-attr">name</span>: <span class="hljs-string">'add_marker'</span>,
-    <span class="hljs-attr">action</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">event</span>) </span>{
-      <span class="hljs-keyword">this</span>.addMarker({
-        <span class="hljs-attr">position</span>: event.latLng,
-        <span class="hljs-attr">title</span>: <span class="hljs-string">'New marker'</span>
+map.addControl({
+  <span class="hljs-attr">position</span>: <span class="hljs-string">'top_right'</span>,
+  <span class="hljs-attr">content</span>: <span class="hljs-string">'Geolocate'</span>,
+  <span class="hljs-attr">style</span>: {
+    <span class="hljs-attr">margin</span>: <span class="hljs-string">'10px'</span>,
+    <span class="hljs-attr">padding</span>: <span class="hljs-string">'11px'</span>,
+    <span class="hljs-attr">fontFamily</span>: <span class="hljs-string">'inherit'</span>,
+    <span class="hljs-attr">fontSize</span>: <span class="hljs-string">'14px'</span>,
+    <span class="hljs-attr">background</span>: <span class="hljs-string">'#ffffff'</span>
+  },
+  <span class="hljs-attr">events</span>: {
+    <span class="hljs-attr">click</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+      GMaps.geolocate({
+        <span class="hljs-attr">success</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">position</span>)</span>{
+          map.setCenter(position.coords.latitude, position.coords.longitude);
+        },
+        <span class="hljs-attr">error</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error</span>)</span>{
+          alert(<span class="hljs-string">'Geolocation failed: '</span> + error.message);
+        },
+        <span class="hljs-attr">not_supported</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+          alert(<span class="hljs-string">"Your browser does not support geolocation"</span>);
+        }
       });
-
-      <span class="hljs-keyword">this</span>.hideContextMenu();
     }
-  }, {
-    <span class="hljs-attr">title</span>: <span class="hljs-string">'Center here'</span>,
-    <span class="hljs-attr">name</span>: <span class="hljs-string">'center_here'</span>,
-    <span class="hljs-attr">action</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">event</span>) </span>{
-      <span class="hljs-keyword">this</span>.setCenter(event.latLng);
-    }
-  }]
-});
-
-map.setContextMenu({
-  <span class="hljs-attr">control</span>: <span class="hljs-string">'marker'</span>,
-  <span class="hljs-attr">options</span>: [{
-    <span class="hljs-attr">title</span>: <span class="hljs-string">'Center here'</span>,
-    <span class="hljs-attr">name</span>: <span class="hljs-string">'center_here'</span>,
-    <span class="hljs-attr">action</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">event</span>) </span>{
-      <span class="hljs-keyword">this</span>.setCenter(event.latLng);
-    }
-  }]
+  }
 });
 </code></pre>
               </aside>
@@ -104,37 +95,31 @@ map.setContextMenu({
   longitude: -77.028333
 });
 
-map.setContextMenu({
-  control: 'map',
-  options: [{
-    title: 'Add marker',
-    name: 'add_marker',
-    action: function(event) {
-      this.addMarker({
-        position: event.latLng,
-        title: 'New marker'
+map.addControl({
+  position: 'top_right',
+  content: 'Geolocate',
+  style: {
+    margin: '10px',
+    padding: '11px',
+    fontFamily: 'inherit',
+    fontSize: '14px',
+    background: '#ffffff'
+  },
+  events: {
+    click: function(){
+      GMaps.geolocate({
+        success: function(position){
+          map.setCenter(position.coords.latitude, position.coords.longitude);
+        },
+        error: function(error){
+          alert('Geolocation failed: ' + error.message);
+        },
+        not_supported: function(){
+          alert("Your browser does not support geolocation");
+        }
       });
-
-      this.hideContextMenu();
     }
-  }, {
-    title: 'Center here',
-    name: 'center_here',
-    action: function(event) {
-      this.setCenter(event.latLng);
-    }
-  }]
-});
-
-map.setContextMenu({
-  control: 'marker',
-  options: [{
-    title: 'Center here',
-    name: 'center_here',
-    action: function(event) {
-      this.setCenter(event.latLng);
-    }
-  }]
+  }
 });
 </script>
   </body>

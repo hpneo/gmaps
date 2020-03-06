@@ -14,7 +14,7 @@ Find general use cases here:
 * [Geofences](/examples/geofences.html): Detect if a marker is inside or outside a polygon.
 * [Context menu](/examples/context-menu.html): Add a context menu to your map.
 * [Custom controls](/examples/custom-controls.html): Add custom buttons to your map and perform personalized actions.
-* [Elevation locations](/examples/elevation-locations.html): Get elevation for coordinates.
+* [Elevation locations](/examples/elevation-locations.html): Get elevation for coordinates (requires Google Maps API key).
 * [Geocoding](/examples/geocoding.html): Convert a coordinate to a human-readable address, or viceversa (requires Google Maps API key).
 * [Geolocation](/examples/geolocation.html): Locate your users using native browser's API.
 * [KML](/examples/kml.html): Display complex information using KML files.

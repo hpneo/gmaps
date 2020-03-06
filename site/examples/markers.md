@@ -23,8 +23,7 @@ snippet: |
     }
   });
   map.addMarker({
-    latitude: -12.042,
-    longitude: -77.028333,
+    position: new google.maps.LatLng(-12.042, -77.028333),
     title: 'Marker with InfoWindow',
     infoWindow: {
       content: '<p>HTML Content</p>'

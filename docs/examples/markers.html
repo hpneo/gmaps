@@ -10,9 +10,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
-    <link rel="stylesheet" href="/assets/css/style.css?v=1583455332559">
+    <link rel="stylesheet" href="/assets/css/style.css?v=1583457648219">
     <script src="https://maps.google.com/maps/api/js?sensor=true"></script>
-    <script src="/assets/js/gmaps.min.js?v=1583455332559"></script>
+    <script src="/assets/js/gmaps.min.js?v=1583457648219"></script>
   </head>
   <body>
     <nav class="navbar site-navbar">
@@ -70,8 +70,7 @@ map.addMarker({
   }
 });
 map.addMarker({
-  <span class="hljs-attr">latitude</span>: <span class="hljs-number">-12.042</span>,
-  <span class="hljs-attr">longitude</span>: <span class="hljs-number">-77.028333</span>,
+  <span class="hljs-attr">position</span>: <span class="hljs-keyword">new</span> google.maps.LatLng(<span class="hljs-number">-12.042</span>, <span class="hljs-number">-77.028333</span>),
   <span class="hljs-attr">title</span>: <span class="hljs-string">'Marker with InfoWindow'</span>,
   <span class="hljs-attr">infoWindow</span>: {
     <span class="hljs-attr">content</span>: <span class="hljs-string">'&lt;p&gt;HTML Content&lt;/p&gt;'</span>
@@ -116,8 +115,7 @@ map.addMarker({
   }
 });
 map.addMarker({
-  latitude: -12.042,
-  longitude: -77.028333,
+  position: new google.maps.LatLng(-12.042, -77.028333),
   title: 'Marker with InfoWindow',
   infoWindow: {
     content: '<p>HTML Content</p>'

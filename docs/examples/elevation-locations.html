@@ -32,10 +32,10 @@
         <div class="columns">
           <div class="column is-4">
             <div class="content">
-              <h1 id="context-menu">Context menu</h1>
-<p>You can define a context menu, which will show on right click.</p>
+              <h1 id="elevation-locations">Elevation locations</h1>
+<p>Get elevation information for locations or routes. See <a href="/docs/module-Routes.html#~getElevations"><code>GMaps#getElevations</code></a> for more options.</p>
 <blockquote>
-<p><strong>Note:</strong> You can use <code>center</code> too, instead of <code>latitude</code> and <code>longitude</code>.</p>
+<p><strong>Note:</strong> <a href="https://github.com/hpneo/gmaps/issues/580">You need to define an API_KEY to use this feature</a>.</p>
 </blockquote>
 
             </div>
@@ -49,37 +49,29 @@
   <span class="hljs-attr">longitude</span>: <span class="hljs-number">-77.028333</span>
 });
 
-map.setContextMenu({
-  <span class="hljs-attr">control</span>: <span class="hljs-string">'map'</span>,
-  <span class="hljs-attr">options</span>: [{
-    <span class="hljs-attr">title</span>: <span class="hljs-string">'Add marker'</span>,
-    <span class="hljs-attr">name</span>: <span class="hljs-string">'add_marker'</span>,
-    <span class="hljs-attr">action</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">event</span>) </span>{
-      <span class="hljs-keyword">this</span>.addMarker({
-        <span class="hljs-attr">position</span>: event.latLng,
-        <span class="hljs-attr">title</span>: <span class="hljs-string">'New marker'</span>
-      });
-
-      <span class="hljs-keyword">this</span>.hideContextMenu();
+map.getElevations({
+  <span class="hljs-attr">locations</span> : [
+    [<span class="hljs-number">-12.040397656836609</span>,<span class="hljs-number">-77.03373871559225</span>],
+    [<span class="hljs-number">-12.050047116528843</span>,<span class="hljs-number">-77.02448169303511</span>],
+    [<span class="hljs-number">-12.044804866577001</span>,<span class="hljs-number">-77.02154422636042</span>]
+  ],
+  <span class="hljs-attr">callback</span> : <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">result, status</span>) </span>{
+    <span class="hljs-keyword">if</span> (status === google.maps.ElevationStatus.OK) {
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i <span class="hljs-keyword">in</span> result) {
+        map.addMarker({
+          <span class="hljs-attr">lat</span>: result[i].location.lat(),
+          <span class="hljs-attr">lng</span>: result[i].location.lng(),
+          <span class="hljs-attr">title</span>: <span class="hljs-string">'Marker with InfoWindow'</span>,
+          <span class="hljs-attr">infoWindow</span>: {
+            <span class="hljs-attr">content</span>: <span class="hljs-string">'&lt;p&gt;The elevation is '</span>+result[i].elevation+<span class="hljs-string">' in meters&lt;/p&gt;'</span>
+          }
+        });
+      }
     }
-  }, {
-    <span class="hljs-attr">title</span>: <span class="hljs-string">'Center here'</span>,
-    <span class="hljs-attr">name</span>: <span class="hljs-string">'center_here'</span>,
-    <span class="hljs-attr">action</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">event</span>) </span>{
-      <span class="hljs-keyword">this</span>.setCenter(event.latLng);
+    <span class="hljs-keyword">else</span> {
+      <span class="hljs-built_in">console</span>.error(status);
     }
-  }]
-});
-
-map.setContextMenu({
-  <span class="hljs-attr">control</span>: <span class="hljs-string">'marker'</span>,
-  <span class="hljs-attr">options</span>: [{
-    <span class="hljs-attr">title</span>: <span class="hljs-string">'Center here'</span>,
-    <span class="hljs-attr">name</span>: <span class="hljs-string">'center_here'</span>,
-    <span class="hljs-attr">action</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">event</span>) </span>{
-      <span class="hljs-keyword">this</span>.setCenter(event.latLng);
-    }
-  }]
+  }
 });
 </code></pre>
               </aside>
@@ -104,37 +96,29 @@ map.setContextMenu({
   longitude: -77.028333
 });
 
-map.setContextMenu({
-  control: 'map',
-  options: [{
-    title: 'Add marker',
-    name: 'add_marker',
-    action: function(event) {
-      this.addMarker({
-        position: event.latLng,
-        title: 'New marker'
-      });
-
-      this.hideContextMenu();
+map.getElevations({
+  locations : [
+    [-12.040397656836609,-77.03373871559225],
+    [-12.050047116528843,-77.02448169303511],
+    [-12.044804866577001,-77.02154422636042]
+  ],
+  callback : function (result, status) {
+    if (status === google.maps.ElevationStatus.OK) {
+      for (var i in result) {
+        map.addMarker({
+          lat: result[i].location.lat(),
+          lng: result[i].location.lng(),
+          title: 'Marker with InfoWindow',
+          infoWindow: {
+            content: '<p>The elevation is '+result[i].elevation+' in meters</p>'
+          }
+        });
+      }
     }
-  }, {
-    title: 'Center here',
-    name: 'center_here',
-    action: function(event) {
-      this.setCenter(event.latLng);
+    else {
+      console.error(status);
     }
-  }]
-});
-
-map.setContextMenu({
-  control: 'marker',
-  options: [{
-    title: 'Center here',
-    name: 'center_here',
-    action: function(event) {
-      this.setCenter(event.latLng);
-    }
-  }]
+  }
 });
 </script>
   </body>
