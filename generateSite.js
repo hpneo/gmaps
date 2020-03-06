@@ -66,6 +66,7 @@ const copyAssets = () => {
 
   fs.mkdirSync(path.join(assetsOutputPath, 'css'), { recursive: true, });
   fs.mkdirSync(path.join(assetsOutputPath, 'js'), { recursive: true, });
+  fs.mkdirSync(path.join(assetsOutputPath, 'images'), { recursive: true, });
 
   if (fs.existsSync(stylePath)) {
     const styleOutput = sass.renderSync({ file: stylePath, outFile: styleOutputPath, }).css;
@@ -75,6 +76,10 @@ const copyAssets = () => {
 
   fs.readdirSync(path.join(assetsRoot, 'js')).forEach(fileName =>
     fs.copyFileSync(path.join(assetsRoot, 'js', fileName), path.join(assetsOutputPath, 'js', fileName))
+  );
+
+  fs.readdirSync(path.join(assetsRoot, 'images')).forEach(fileName =>
+    fs.copyFileSync(path.join(assetsRoot, 'images', fileName), path.join(assetsOutputPath, 'images', fileName))
   );
 };
 

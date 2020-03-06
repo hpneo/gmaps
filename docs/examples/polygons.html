@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    
+    <meta charset="UTF-8">
+    
+    <title>gmaps.js - Google Maps API with less pain and more fun</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#74b9ff">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+    <link rel="stylesheet" href="/assets/css/style.css?v=1583455332559">
+    <script src="https://maps.google.com/maps/api/js?sensor=true"></script>
+    <script src="/assets/js/gmaps.min.js?v=1583455332559"></script>
+  </head>
+  <body>
+    <nav class="navbar site-navbar">
+      <div class="navbar-menu">
+        <div class="navbar-end">
+          <a class="navbar-item" href="/">Home</a>
+          <a class="navbar-item" href="/examples">Examples</a>
+          <a class="navbar-item" href="/docs" target="_blank">Documentation</a>
+          <a class="navbar-item" href="/playground">Playground</a>
+          <a class="navbar-item" href="https://github.com/hpneo/gmaps" target="_blank"><img src="https://img.icons8.com/ios/50/000000/github-filled.png"></a>
+        </div>
+      </div>
+    </nav>
+
+    <main id="content" class="main-content" role="main">
+      <section class="container with-margin">
+        <div class="columns">
+          <div class="column is-4">
+            <div class="content">
+              <h1 id="polygons">Polygons</h1>
+<p><a href="/docs/module-Geometry.html#~drawPolygon"><code>GMaps#drawPolygon</code></a> accepts any property from the native <code>google.maps.Polygon</code> class.</p>
+<p>The path of a polygon can be defined as an array of:</p>
+<ul>
+<li><code>google.maps.LatLng</code> objects, or</li>
+<li>arrays of latitude and longitudes, as in the example</li>
+</ul>
+<p>It also supports <a href="https://developers.google.com/maps/documentation/javascript/reference#Polygon">events</a> as properties.</p>
+<blockquote>
+<p><strong>Note:</strong> You can also add a GeoJSON Polygon or MultiPolygon path adding <code>useGeoJSON: true</code>.</p>
+</blockquote>
+
+            </div>
+          </div>
+          <div class="column">
+            <article class="live-example is-large">
+              <aside class="live-example-editor">
+                <pre><code class="language-javascript"><span class="hljs-keyword">const</span> map = <span class="hljs-keyword">new</span> GMaps({
+  <span class="hljs-attr">element</span>: <span class="hljs-string">'#map'</span>,
+  <span class="hljs-attr">latitude</span>: <span class="hljs-number">-12.043333</span>,
+  <span class="hljs-attr">longitude</span>: <span class="hljs-number">-77.028333</span>
+});
+
+<span class="hljs-keyword">const</span> path = [
+  [<span class="hljs-number">-12.040397656836609</span>,<span class="hljs-number">-77.03373871559225</span>],
+  [<span class="hljs-number">-12.040248585302038</span>,<span class="hljs-number">-77.03993927003302</span>],
+  [<span class="hljs-number">-12.050047116528843</span>,<span class="hljs-number">-77.02448169303511</span>],
+  [<span class="hljs-number">-12.044804866577001</span>,<span class="hljs-number">-77.02154422636042</span>]
+];
+
+<span class="hljs-keyword">const</span> polygon = map.drawPolygon({
+  <span class="hljs-attr">paths</span>: path,
+  <span class="hljs-attr">strokeColor</span>: <span class="hljs-string">'#BBD8E9'</span>,
+  <span class="hljs-attr">strokeOpacity</span>: <span class="hljs-number">1</span>,
+  <span class="hljs-attr">strokeWeight</span>: <span class="hljs-number">3</span>,
+  <span class="hljs-attr">fillColor</span>: <span class="hljs-string">'#BBD8E9'</span>,
+  <span class="hljs-attr">fillOpacity</span>: <span class="hljs-number">0.6</span>
+});
+</code></pre>
+              </aside>
+              <aside class="live-example-preview" id="map"></aside>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="content has-text-centered">
+        <p>
+          <strong>gmaps.js</strong> by <a href="https://hpneo.dev">Gustavo Leon</a>. The source code is licensed
+          <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.
+        </p>
+      </div>
+    </footer>
+    <script>const map = new GMaps({
+  element: '#map',
+  latitude: -12.043333,
+  longitude: -77.028333
+});
+
+const path = [
+  [-12.040397656836609,-77.03373871559225],
+  [-12.040248585302038,-77.03993927003302],
+  [-12.050047116528843,-77.02448169303511],
+  [-12.044804866577001,-77.02154422636042]
+];
+
+const polygon = map.drawPolygon({
+  paths: path,
+  strokeColor: '#BBD8E9',
+  strokeOpacity: 1,
+  strokeWeight: 3,
+  fillColor: '#BBD8E9',
+  fillOpacity: 0.6
+});
+</script>
+  </body>
+</html>

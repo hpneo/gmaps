@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    
+    <meta charset="UTF-8">
+    
+    <title>gmaps.js - Google Maps API with less pain and more fun</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#74b9ff">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
+    <link rel="stylesheet" href="/assets/css/style.css?v=1583455332559">
+    <script src="https://maps.google.com/maps/api/js?sensor=true"></script>
+    <script src="/assets/js/gmaps.min.js?v=1583455332559"></script>
+  </head>
+  <body>
+    <nav class="navbar site-navbar">
+      <div class="navbar-menu">
+        <div class="navbar-end">
+          <a class="navbar-item" href="/">Home</a>
+          <a class="navbar-item" href="/examples">Examples</a>
+          <a class="navbar-item" href="/docs" target="_blank">Documentation</a>
+          <a class="navbar-item" href="/playground">Playground</a>
+          <a class="navbar-item" href="https://github.com/hpneo/gmaps" target="_blank"><img src="https://img.icons8.com/ios/50/000000/github-filled.png"></a>
+        </div>
+      </div>
+    </nav>
+
+    <main id="content" class="main-content" role="main">
+      <section class="container with-margin">
+        <div class="columns">
+          <div class="column is-4">
+            <div class="content">
+              <h1 id="marker-clusterer">Marker Clusterer</h1>
+<p>You can use <a href="https://github.com/googlemaps/v3-utility-library/tree/master/packages/markerclusterer">MarkerClusterer</a> or <a href="https://github.com/googlemaps/v3-utility-library/tree/master/packages/markerclustererplus">MarkerClustererPlus</a>. If you want to use a custom marker clustering library, it has to define a <code>addMarker</code> method.</p>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@google/markerclusterer@2.0.6/dist/markerclusterer.min.js"></script>
+            </div>
+          </div>
+          <div class="column">
+            <article class="live-example is-large">
+              <aside class="live-example-editor">
+                <pre><code class="language-javascript"><span class="hljs-keyword">const</span> map = <span class="hljs-keyword">new</span> GMaps({
+  <span class="hljs-attr">element</span>: <span class="hljs-string">'#map'</span>,
+  <span class="hljs-attr">latitude</span>: <span class="hljs-number">-12.043333</span>,
+  <span class="hljs-attr">longitude</span>: <span class="hljs-number">-77.028333</span>,
+  <span class="hljs-attr">markerClusterer</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">map</span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> MarkerClusterer(map, [], { <span class="hljs-attr">imagePath</span>: <span class="hljs-string">"/assets/images/m"</span> });
+  }
+});
+
+<span class="hljs-keyword">const</span> lat_span = <span class="hljs-number">-12.035988012939503</span> - <span class="hljs-number">-12.050677786181573</span>;
+<span class="hljs-keyword">const</span> lng_span = <span class="hljs-number">-77.01528673535154</span> - <span class="hljs-number">-77.04137926464841</span>;
+
+<span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">100</span>; i++) {
+  <span class="hljs-keyword">let</span> latitude = <span class="hljs-built_in">Math</span>.random()*(lat_span) + <span class="hljs-number">-12.050677786181573</span>;
+  <span class="hljs-keyword">let</span> longitude = <span class="hljs-built_in">Math</span>.random()*(lng_span) + <span class="hljs-number">-77.04137926464841</span>;
+
+  map.addMarker({
+    <span class="hljs-attr">lat</span>: latitude,
+    <span class="hljs-attr">lng</span>: longitude,
+    <span class="hljs-attr">title</span>: <span class="hljs-string">'Marker #'</span> + i
+  });
+}
+</code></pre>
+              </aside>
+              <aside class="live-example-preview" id="map"></aside>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="content has-text-centered">
+        <p>
+          <strong>gmaps.js</strong> by <a href="https://hpneo.dev">Gustavo Leon</a>. The source code is licensed
+          <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.
+        </p>
+      </div>
+    </footer>
+    <script>const map = new GMaps({
+  element: '#map',
+  latitude: -12.043333,
+  longitude: -77.028333,
+  markerClusterer: function(map) {
+    return new MarkerClusterer(map, [], { imagePath: "/assets/images/m" });
+  }
+});
+
+const lat_span = -12.035988012939503 - -12.050677786181573;
+const lng_span = -77.01528673535154 - -77.04137926464841;
+
+for(let i = 0; i < 100; i++) {
+  let latitude = Math.random()*(lat_span) + -12.050677786181573;
+  let longitude = Math.random()*(lng_span) + -77.04137926464841;
+
+  map.addMarker({
+    lat: latitude,
+    lng: longitude,
+    title: 'Marker #' + i
+  });
+}
+</script>
+  </body>
+</html>

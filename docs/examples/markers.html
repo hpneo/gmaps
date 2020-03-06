@@ -10,9 +10,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/atom-one-light.min.css">
-    <link rel="stylesheet" href="/assets/css/style.css?v=1583425868522">
+    <link rel="stylesheet" href="/assets/css/style.css?v=1583455332559">
     <script src="https://maps.google.com/maps/api/js?sensor=true"></script>
-    <script src="/assets/js/gmaps.min.js?v=1583425868522"></script>
+    <script src="/assets/js/gmaps.min.js?v=1583455332559"></script>
   </head>
   <body>
     <nav class="navbar site-navbar">
@@ -32,9 +32,10 @@
         <div class="columns">
           <div class="column is-4">
             <div class="content">
-              <h1 id="basic-map">Basic map</h1>
+              <h1 id="markers">Markers</h1>
 <p><a href="/docs/module-Markers.html#~addMarker"><code>GMaps#addMarker</code></a> accepts any property from the native <code>google.maps.Marker</code> class.</p>
-<p>It also <a href="https://developers.google.com/maps/documentation/javascript/reference#Marker">events</a> as properties.</p>
+<p><code>latitude</code> and <code>longitude</code> are required. You can also attach additional information with into the <code>details</code> property.</p>
+<p>It also supports <a href="https://developers.google.com/maps/documentation/javascript/reference#Marker">events</a> as properties.</p>
 <blockquote>
 <p><strong>Note:</strong> If you want to show an Info Window, you must add:</p>
 <pre><code class="language-javascript">infoWindow: {
@@ -54,10 +55,8 @@
 });
 
 map.addMarker({
-  <span class="hljs-attr">position</span>: {
-    <span class="hljs-attr">lat</span>: <span class="hljs-number">-12.043333</span>,
-    <span class="hljs-attr">lng</span>: <span class="hljs-number">-77.03</span>,
-  },
+  <span class="hljs-attr">latitude</span>: <span class="hljs-number">-12.043333</span>,
+  <span class="hljs-attr">longitude</span>: <span class="hljs-number">-77.03</span>,
   <span class="hljs-attr">title</span>: <span class="hljs-string">'Lima'</span>,
   <span class="hljs-attr">details</span>: {
     <span class="hljs-attr">someNumber</span>: <span class="hljs-number">42</span>,
@@ -71,10 +70,8 @@ map.addMarker({
   }
 });
 map.addMarker({
-  <span class="hljs-attr">position</span>: {
-    <span class="hljs-attr">lat</span>: <span class="hljs-number">-12.042</span>,
-    <span class="hljs-attr">lng</span>: <span class="hljs-number">-77.028333</span>,
-  },
+  <span class="hljs-attr">latitude</span>: <span class="hljs-number">-12.042</span>,
+  <span class="hljs-attr">longitude</span>: <span class="hljs-number">-77.028333</span>,
   <span class="hljs-attr">title</span>: <span class="hljs-string">'Marker with InfoWindow'</span>,
   <span class="hljs-attr">infoWindow</span>: {
     <span class="hljs-attr">content</span>: <span class="hljs-string">'&lt;p&gt;HTML Content&lt;/p&gt;'</span>
@@ -104,10 +101,8 @@ map.addMarker({
 });
 
 map.addMarker({
-  position: {
-    lat: -12.043333,
-    lng: -77.03,
-  },
+  latitude: -12.043333,
+  longitude: -77.03,
   title: 'Lima',
   details: {
     someNumber: 42,
@@ -121,10 +116,8 @@ map.addMarker({
   }
 });
 map.addMarker({
-  position: {
-    lat: -12.042,
-    lng: -77.028333,
-  },
+  latitude: -12.042,
+  longitude: -77.028333,
   title: 'Marker with InfoWindow',
   infoWindow: {
     content: '<p>HTML Content</p>'
