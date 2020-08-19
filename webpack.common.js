@@ -6,7 +6,7 @@ module.exports = {
     path: path.resolve(__dirname, './'),
     filename: 'gmaps.js',
     library: 'GMaps',
-    libraryTarget: 'window',
+    libraryTarget: 'umd',
     libraryExport: 'default',
   },
   externals: {

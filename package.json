@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "the easiest way to use Google Maps",
   "source": "lib/index.js",
+  "module": "lib/index.js",
   "main": "gmaps.js",
+  "umd:main": "gmaps.min.js",
   "unpkg": "gmaps.min.js",
   "jsdelivr": "gmaps.min.js",
   "scripts": {
