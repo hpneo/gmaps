@@ -2143,6 +2143,19 @@ GMaps.prototype.createPanorama = function(streetview_options) {
 
   return this.panorama;
 };
+/* Usage: map.getURLHash(); */
+GMaps.prototype.getURLHash = function() {
+  var str = location.hash;
+  if( str != '' ){
+    this.setCenter( str.substring((str.indexOf("/")+1), str.lastIndexOf("/")), str.substring((str.lastIndexOf("/")+1), str.length) );
+    this.setZoom( parseInt( str.substring( 1, str.indexOf( "/" ) ) ) );
+  }
+  
+  this.on('bounds_changed', function(){
+    var hash = '#'+this.getZoom()+'/'+this.getCenter().lat()+'/'+this.getCenter().lng();
+    location.replace(hash);
+  });
+};
 
 GMaps.createPanorama = function(options) {
   var el = getElementById(options.el, options.context);
