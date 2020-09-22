@@ -212,6 +212,8 @@ var GMaps = (function(global) {
         markerClustererFunction = options.markerClusterer,
         mapType = google.maps.MapTypeId[options.mapType.toUpperCase()],
         map_center = new google.maps.LatLng(options.lat, options.lng),
+        scrollwheel = valueOrDefault(options.scrollwheel, true),
+        fullScreenControl = valueOrDefault(options.fullScreenControl, true),
         zoomControl = valueOrDefault(options.zoomControl, true),
         zoomControlOpt = options.zoomControlOpt || {
           style: 'DEFAULT',
@@ -231,6 +233,7 @@ var GMaps = (function(global) {
           mapTypeId: mapType
         },
         map_controls_options = {
+          scrollwheel: scrollwheel,
           panControl: panControl,
           zoomControl: zoomControl,
           zoomControlOptions: {
@@ -240,7 +243,8 @@ var GMaps = (function(global) {
           mapTypeControl: mapTypeControl,
           scaleControl: scaleControl,
           streetViewControl: streetViewControl,
-          overviewMapControl: overviewMapControl
+          overviewMapControl: overviewMapControl,
+          fullscreenControl: fullScreenControl
         };
 
       if (typeof(options.el) === 'string' || typeof(options.div) === 'string') {
